@@ -7,6 +7,7 @@
   const all = selector => [...document.querySelectorAll(selector)];
   const fill = (selector, value) => all(selector).forEach(el => { el.textContent = value || ''; });
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const prefersStill = () => reducedMotion.matches || document.documentElement.classList.contains('motion-paused');
   const start = H.validDate(config.date.startAt), end = H.validDate(config.date.endAt);
   let dateLabel = config.date.pendingLabel;
   if (start) {
@@ -74,7 +75,7 @@
   $('#dialog-location').addEventListener('click', () => {
     lastTrigger = null;
     dialog.close();
-    $('#location').scrollIntoView({ behavior: reducedMotion.matches ? 'instant' : 'smooth' });
+    $('#location').scrollIntoView({ behavior: prefersStill() ? 'instant' : 'smooth' });
     const heading = $('#location-title'); heading.tabIndex = -1; heading.focus({ preventScroll: true });
   });
 
@@ -132,7 +133,7 @@
   $('#heart-button').addEventListener('click', () => {
     if (Date.now() - lastHeartAt < 400) return; lastHeartAt = Date.now();
     $('#heart-note').textContent = 'ขอบคุณสำหรับหัวใจดวงนี้ แล้วพบกันในวันของเรา';
-    if (reducedMotion.matches) return;
+    if (prefersStill()) return;
     const rect = $('#heart-button').getBoundingClientRect(); const layer = $('#heart-particles');
     const fragment = document.createDocumentFragment(); const particles = [];
     for (let i = 0; i < 12; i++) {

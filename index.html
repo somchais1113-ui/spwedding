@@ -9,9 +9,11 @@
   <link rel="preload" href="assets/fonts/prompt-regular.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="preload" href="assets/fonts/wedding-script.otf" as="font" type="font/otf" crossorigin>
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/motion.css">
   <script src="js/config.js" defer></script>
   <script src="js/helpers.js" defer></script>
   <script src="js/app.js" defer></script>
+  <script src="js/motion.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">ข้ามไปเนื้อหา</a>
@@ -21,11 +23,12 @@
       <a href="#our-day">วันของเรา</a>
       <a href="#location">สถานที่</a>
       <a class="nav-invite" href="#invitation">คำเชิญถึงคุณ</a>
+      <button class="motion-toggle" id="motion-toggle" type="button" aria-pressed="false" aria-label="พักภาพเคลื่อนไหว" hidden>พักภาพ</button>
     </nav>
   </header>
   <main id="main">
     <section class="hero" id="home" aria-labelledby="couple-title">
-      <div class="hero-art"><img data-art="hero" src="assets/images/hero-couple.png" width="1536" height="1024" alt="ภาพวาดสีน้ำคู่บ่าวสาวใต้ซุ้มดอกไม้สีขาว" fetchpriority="high"></div>
+      <div class="hero-art art-scene" data-scene="hero"><div class="art-scroll"><div class="art-tilt"><div class="art-drift"><div class="art-entrance"><img data-art="hero" src="assets/images/hero-couple.png" width="1536" height="1024" alt="ภาพวาดสีน้ำคู่บ่าวสาวใต้ซุ้มดอกไม้สีขาว" fetchpriority="high"></div></div></div></div></div>
       <div class="hero-copy">
         <p class="eyebrow">TOGETHER WITH OUR FAMILIES</p>
         <h1 id="couple-title"><span data-groom>Somchai</span><span class="ampersand">&amp;</span><span data-bride>Phantira</span></h1>
@@ -47,7 +50,7 @@
     </section>
 
     <section class="day-section section-shell" id="our-day" aria-labelledby="day-title">
-      <div class="chair-art"><img data-art="chair" src="assets/images/ceremony-chair.png" width="1024" height="1536" alt="" loading="lazy" decoding="async"></div>
+      <div class="chair-art art-scene" data-scene="chair"><div class="art-scroll"><div class="art-tilt"><div class="art-drift"><div class="art-entrance"><img data-art="chair" src="assets/images/ceremony-chair.png" width="1024" height="1536" alt="" loading="lazy" decoding="async"></div></div></div></div></div>
       <div class="day-content">
         <p class="eyebrow">A MORNING TO REMEMBER</p>
         <h2 class="script-title" id="day-title">Our wedding day</h2>
