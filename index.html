@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#667b4e">
+  <meta name="description" content="คำเชิญงานแต่งงานของ Somchai และ Phantira ดูกำหนดการและข้อมูลการเดินทางไปงานที่จังหวัดหนองคาย">
+  <title>Somchai &amp; Phantira — Wedding Invitation</title>
+  <link rel="preload" href="assets/fonts/prompt-regular.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="assets/fonts/wedding-script.otf" as="font" type="font/otf" crossorigin>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/config.js" defer></script>
+  <script src="js/helpers.js" defer></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">ข้ามไปเนื้อหา</a>
+  <header class="site-header">
+    <a class="monogram" href="#home" aria-label="กลับไปหน้าคำเชิญ" data-monogram>SP</a>
+    <nav aria-label="เมนูหลัก">
+      <a href="#our-day">วันของเรา</a>
+      <a href="#location">สถานที่</a>
+      <a class="nav-invite" href="#invitation">คำเชิญถึงคุณ</a>
+    </nav>
+  </header>
+  <main id="main">
+    <section class="hero" id="home" aria-labelledby="couple-title">
+      <div class="hero-art"><img data-art="hero" src="assets/images/hero-couple.png" width="1536" height="1024" alt="ภาพวาดสีน้ำคู่บ่าวสาวใต้ซุ้มดอกไม้สีขาว" fetchpriority="high"></div>
+      <div class="hero-copy">
+        <p class="eyebrow">TOGETHER WITH OUR FAMILIES</p>
+        <h1 id="couple-title"><span data-groom>Somchai</span><span class="ampersand">&amp;</span><span data-bride>Phantira</span></h1>
+        <p class="invitation-line">ขอเชิญร่วมเป็นส่วนหนึ่งในวันสำคัญของเรา</p>
+        <div class="hero-details"><p data-date-label>วันงานจะแจ้งให้ทราบอีกครั้ง</p><span class="detail-divider" aria-hidden="true"></span><p data-province>จังหวัดหนองคาย</p></div>
+        <p class="subtle" data-time-label>งานช่วงเช้า · เสร็จสิ้นไม่เกินเที่ยง</p>
+        <div class="actions hero-actions"><a class="button" href="#location">สถานที่จัดงาน <span aria-hidden="true">↗</span></a><button class="button button-outline" data-open-invite>เปิดคำเชิญ</button></div>
+        <a class="scroll-cue" href="#our-day">แล้วพบกันในวันของเรา <span aria-hidden="true">↓</span></a>
+      </div>
+    </section>
+
+    <section class="countdown-section" aria-labelledby="countdown-title" hidden id="countdown-section">
+      <p class="eyebrow" id="countdown-title">COUNTING THE DAYS TO YOU</p>
+      <p class="countdown-status" id="countdown-status"></p>
+      <div class="countdown" id="countdown" role="timer" aria-label="เวลาที่เหลือก่อนวันงาน">
+        <div><span id="days">00</span><span>วัน</span></div><div><span id="hours">00</span><span>ชั่วโมง</span></div><div><span id="minutes">00</span><span>นาที</span></div><div><span id="seconds">00</span><span>วินาที</span></div>
+      </div>
+      <button class="text-button" data-calendar disabled>บันทึกวันสำคัญลงปฏิทิน <span aria-hidden="true">↗</span></button>
+    </section>
+
+    <section class="day-section section-shell" id="our-day" aria-labelledby="day-title">
+      <div class="chair-art"><img data-art="chair" src="assets/images/ceremony-chair.png" width="1024" height="1536" alt="" loading="lazy" decoding="async"></div>
+      <div class="day-content">
+        <p class="eyebrow">A MORNING TO REMEMBER</p>
+        <h2 class="script-title" id="day-title">Our wedding day</h2>
+        <p class="section-intro">เช้าวันหนึ่ง ที่เราอยากมีคุณอยู่ด้วย</p>
+        <p class="subtle schedule-note" id="schedule-note">ลำดับกิจกรรมเบื้องต้น · เวลาจะแจ้งอีกครั้ง</p>
+        <ol class="timeline" id="schedule">
+          <li><span class="timeline-index">01</span><div><h3>ยินดีต้อนรับ</h3><p>พบปะครอบครัวและคนที่เรารัก</p></div></li>
+          <li><span class="timeline-index">02</span><div><h3>ช่วงเวลาแห่งคำอวยพร</h3><p>ร่วมพิธีมงคลและรับพรจากผู้ใหญ่</p></div></li>
+          <li><span class="timeline-index">03</span><div><h3>เก็บความทรงจำด้วยกัน</h3><p>ถ่ายภาพร่วมกับบ่าวสาวและครอบครัว</p></div></li>
+          <li><span class="timeline-index">04</span><div><h3>อิ่มอร่อย ก่อนแยกย้าย</h3><p>ร่วมรับประทานอาหารกลางวันแบบอบอุ่นที่บ้าน</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="location-section" id="location" aria-labelledby="location-title">
+      <div class="section-shell location-inner">
+        <div class="location-heading"><p class="eyebrow">COME CELEBRATE WITH US</p><h2 class="script-title" id="location-title">Meet us here</h2><p class="section-intro">เดินทางมาพบกันที่หนองคาย</p><p class="location-note" data-venue-note>พิธีจัดภายในบ้าน แล้วมาร่วมรับประทานอาหารและใช้เวลาดี ๆ ด้วยกัน</p></div>
+        <div class="venue-card">
+          <p class="eyebrow">THE WEDDING VENUE</p>
+          <h3 data-venue-name>บ้านของเรา</h3><p class="venue-province" data-province>จังหวัดหนองคาย</p>
+          <p class="venue-address" id="venue-address">ที่อยู่และพิกัดที่แน่นอนจะแจ้งให้ทราบอีกครั้ง</p>
+          <div class="venue-rule"></div>
+          <p class="venue-caption">การเดินทาง</p><p id="map-status">เราจะอัปเดตหมุดนำทางที่นี่ก่อนวันงาน</p>
+          <a class="button map-link" id="map-link" hidden target="_blank" rel="noopener noreferrer">เปิด Google Maps <span aria-hidden="true">↗</span></a>
+          <button class="button button-outline" id="copy-address" hidden>คัดลอกที่อยู่</button>
+          <p class="parking-note" data-parking>รายละเอียดที่จอดรถจะแจ้งให้ทราบใกล้วันงาน</p>
+          <a class="text-button" id="contact-link" hidden></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="invitation-section section-shell" id="invitation" aria-labelledby="invitation-title">
+      <p class="eyebrow">A LITTLE NOTE, JUST FOR YOU</p>
+      <h2 class="script-title" id="invitation-title">You are invited</h2>
+      <p class="section-intro">วันของเราจะพิเศษยิ่งขึ้น เมื่อมีคุณอยู่ด้วย</p>
+      <button class="invitation-card" data-open-invite aria-label="เปิดอ่านการ์ดเชิญงานแต่งงาน">
+        <span class="card-small">ด้วยรัก และคำเชิญจากเรา</span><span class="card-monogram" data-monogram>SP</span><span class="card-guest" data-guest>ถึงคุณ คนสำคัญของเรา</span><span class="card-open">แตะเพื่อเปิดการ์ด <span aria-hidden="true">↗</span></span>
+      </button>
+      <a class="button" id="rsvp-link" hidden target="_blank" rel="noopener noreferrer">ตอบรับคำเชิญ</a>
+      <div class="love-note"><p>ฝากหัวใจเล็ก ๆ ไว้ให้เรา</p><button id="heart-button" class="heart-button" aria-label="ส่งหัวใจให้บ่าวสาว"><span aria-hidden="true">♡</span></button><p class="subtle" id="heart-note" aria-live="polite">แตะหัวใจ แล้วปล่อยให้ความรักผลิบาน</p></div>
+    </section>
+    <footer class="site-footer"><p class="script-title footer-names"><span data-groom>Somchai</span> &amp; <span data-bride>Phantira</span></p><p>ขอบคุณที่เป็นส่วนหนึ่งในเรื่องราวของเรา</p><p class="footer-meta" data-province>จังหวัดหนองคาย</p><button class="text-button" id="share-button">แชร์คำเชิญ <span aria-hidden="true">↗</span></button></footer>
+  </main>
+  <dialog id="invite-dialog" aria-labelledby="dialog-title">
+    <button class="dialog-close" id="close-dialog" aria-label="ปิดการ์ดเชิญ">×</button>
+    <div class="dialog-body"><span class="dialog-monogram" data-monogram>SP</span><p class="eyebrow">WITH LOVE</p><h2 id="dialog-title" data-guest>ถึงคุณ คนสำคัญของเรา</h2><p class="invitation-message" id="invitation-message">ด้วยความยินดีของเราทั้งสองและครอบครัว<br>ขอเชิญคุณมาเป็นส่วนหนึ่งในวันสำคัญของเรา</p><p class="script-title dialog-names"><span data-groom>Somchai</span> &amp; <span data-bride>Phantira</span></p><p data-date-label>วันงานจะแจ้งให้ทราบอีกครั้ง</p><p data-province>จังหวัดหนองคาย</p><button class="button" id="dialog-location">ดูสถานที่จัดงาน <span aria-hidden="true">↗</span></button></div>
+  </dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <div class="heart-particles" id="heart-particles" aria-hidden="true"></div>
+  <noscript><div class="noscript-note">เปิด JavaScript เพื่อดูข้อมูลล่าสุด เปิดการ์ด และใช้ปุ่มต่าง ๆ ของเว็บไซต์</div></noscript>
+</body>
+</html>

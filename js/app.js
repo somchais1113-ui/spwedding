@@ -1,0 +1,146 @@
+(function () {
+  'use strict';
+  const config = window.WEDDING_CONFIG;
+  const H = window.WeddingHelpers;
+  if (!config || !H) return;
+  const $ = selector => document.querySelector(selector);
+  const all = selector => [...document.querySelectorAll(selector)];
+  const fill = (selector, value) => all(selector).forEach(el => { el.textContent = value || ''; });
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const start = H.validDate(config.date.startAt), end = H.validDate(config.date.endAt);
+  let dateLabel = config.date.pendingLabel;
+  if (start) {
+    try { dateLabel = new Intl.DateTimeFormat('th-TH', { dateStyle: 'long', timeZone: config.date.timeZone }).format(start); }
+    catch (_) { dateLabel = new Intl.DateTimeFormat('th-TH', { dateStyle: 'long', timeZone: 'Asia/Bangkok' }).format(start); }
+  }
+  fill('[data-groom]', config.couple.groom);
+  fill('[data-bride]', config.couple.bride);
+  fill('[data-monogram]', config.couple.monogram);
+  fill('[data-date-label]', dateLabel);
+  fill('[data-time-label]', config.date.timeLabel);
+  fill('[data-province]', config.venue.province);
+  fill('[data-venue-name]', config.venue.name);
+  fill('[data-venue-note]', config.venue.note);
+  fill('[data-parking]', config.venue.parking);
+  fill('#invitation-message', config.invitation);
+  document.title = config.couple.groom + ' & ' + config.couple.bride + ' — Wedding Invitation';
+  $('meta[name="description"]').content = 'คำเชิญงานแต่งงานของ ' + config.couple.groom + ' และ ' + config.couple.bride + ' · ' + dateLabel + ' · ' + config.venue.province;
+
+  Object.entries(config.assets).forEach(([key, asset]) => {
+    const img = document.querySelector('[data-art="' + key + '"]');
+    if (!img) return;
+    img.src = asset.src;
+    if (asset.width && asset.height) { img.width = asset.width; img.height = asset.height; }
+  });
+  // Personalized links: https://your-site/?to=ชื่อแขก
+  const guest = (new URLSearchParams(location.search).get('to') || '').replace(/[\u0000-\u001f\u007f]/g, '').trim().slice(0, 80);
+  if (guest) fill('[data-guest]', 'ถึงคุณ ' + guest);
+
+  const schedule = $('#schedule');
+  schedule.replaceChildren();
+  config.schedule.forEach((item, index) => {
+    const row = document.createElement('li');
+    const number = document.createElement('span'); number.className = 'timeline-index'; number.textContent = String(index + 1).padStart(2, '0');
+    const content = document.createElement('div'); const title = document.createElement('h3'); title.textContent = item.title;
+    if (item.time) { const time = document.createElement('span'); time.className = 'timeline-time'; time.textContent = item.time; title.append(time); }
+    const description = document.createElement('p'); description.textContent = item.description;
+    content.append(title, description); row.append(number, content); schedule.append(row);
+  });
+  $('#schedule-note').textContent = config.scheduleConfirmed ? 'กำหนดการในวันงาน' : 'ลำดับกิจกรรมเบื้องต้น · เวลาจะแจ้งอีกครั้ง';
+  if (!config.schedule.length) $('#schedule-note').textContent = 'กำหนดการจะแจ้งให้ทราบอีกครั้ง';
+
+  const mapUrl = H.safeHttps(config.venue.mapUrl);
+  const address = [config.venue.name, config.venue.address, config.venue.province].filter(Boolean).join('\n');
+  if (config.venue.address.trim()) { $('#venue-address').textContent = config.venue.address; $('#copy-address').hidden = false; }
+  if (mapUrl) { $('#map-link').href = mapUrl; $('#map-link').hidden = false; $('#map-status').textContent = 'แตะปุ่มด้านล่าง เพื่อดูหมุดและเริ่มนำทาง'; }
+  if (config.contact.phone && /^\+?[\d\s()-]{8,20}$/.test(config.contact.phone)) {
+    $('#contact-link').href = 'tel:' + config.contact.phone.replace(/[^\d+]/g, '');
+    $('#contact-link').textContent = 'สอบถามการเดินทาง · ' + (config.contact.name || 'ผู้ประสานงาน'); $('#contact-link').hidden = false;
+  }
+  const rsvpUrl = H.safeHttps(config.rsvpUrl);
+  if (rsvpUrl) { $('#rsvp-link').href = rsvpUrl; $('#rsvp-link').hidden = false; }
+
+  const dialog = $('#invite-dialog'); let lastTrigger = null;
+  all('[data-open-invite]').forEach(button => button.addEventListener('click', () => {
+    lastTrigger = button; dialog.showModal(); $('#close-dialog').focus();
+  }));
+  $('#close-dialog').addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', event => {
+    if (event.target !== dialog) return;
+    const rect = dialog.getBoundingClientRect();
+    if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) dialog.close();
+  });
+  dialog.addEventListener('close', () => { if (lastTrigger) lastTrigger.focus({ preventScroll: true }); });
+  $('#dialog-location').addEventListener('click', () => {
+    lastTrigger = null;
+    dialog.close();
+    $('#location').scrollIntoView({ behavior: reducedMotion.matches ? 'instant' : 'smooth' });
+    const heading = $('#location-title'); heading.tabIndex = -1; heading.focus({ preventScroll: true });
+  });
+
+  let toastTimer;
+  function toast(message) { $('#toast').textContent = message; $('#toast').hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => { $('#toast').hidden = true; }, 5500); }
+  async function copyText(text) {
+    try { if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(text); return true; } } catch (_) { /* Try the local-file fallback below. */ }
+    const input = document.createElement('textarea'); input.value = text; input.setAttribute('readonly', ''); input.style.cssText = 'position:fixed;left:-9999px;top:0'; document.body.append(input); input.select();
+    let success = false; try { success = document.execCommand('copy'); } catch (_) { success = false; }
+    input.remove(); return success;
+  }
+  $('#copy-address').addEventListener('click', async () => { toast(await copyText(address) ? 'คัดลอกที่อยู่แล้ว' : 'กรุณาเลือกและคัดลอกที่อยู่จากข้อมูลสถานที่'); });
+  $('#share-button').addEventListener('click', async () => {
+    const url = H.safeHttps(config.siteUrl) || (location.protocol === 'https:' ? location.origin + location.pathname : '');
+    if (!url) { toast('เมื่อเว็บไซต์ออนไลน์แล้ว จะสามารถแชร์คำเชิญจากปุ่มนี้ได้'); return; }
+    // Share the general invitation. A personalized guest name is not forwarded.
+    const cleanUrl = new URL(url); cleanUrl.search = ''; cleanUrl.hash = '';
+    const data = { title: document.title, text: 'มาเป็นส่วนหนึ่งในวันสำคัญของเรานะ', url: cleanUrl.href };
+    if (navigator.share) {
+      try { await navigator.share(data); return; } catch (error) { if (error.name === 'AbortError') return; }
+    }
+    const copied = await copyText(cleanUrl.href);
+    toast(copied ? 'คัดลอกลิงก์คำเชิญแล้ว' : 'กรุณาคัดลอกลิงก์จากแถบที่อยู่ของเบราว์เซอร์');
+  });
+
+  if (start) {
+    $('#countdown-section').hidden = false;
+    const tick = () => {
+      const now = new Date();
+      if (now >= start) {
+        $('#countdown').hidden = true;
+        $('#countdown-title').textContent = end && now >= end ? 'A DAY TO REMEMBER' : 'OUR SPECIAL DAY';
+        $('#countdown-status').textContent = end && now >= end ? 'ขอบคุณที่ร่วมเป็นส่วนหนึ่งในวันของเรา' : 'ถึงวันสำคัญของเราแล้ว แล้วพบกันนะ';
+        return;
+      }
+      const parts = H.countdownParts(start, now);
+      Object.entries(parts).forEach(([key, value]) => { $('#' + key).textContent = String(value).padStart(2, '0'); });
+    };
+    tick(); setInterval(tick, 1000);
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) tick(); });
+  }
+  const calendar = H.makeCalendar(config);
+  all('[data-calendar]').forEach(button => {
+    button.disabled = !calendar; button.hidden = !calendar;
+    button.addEventListener('click', () => {
+      if (!calendar) return;
+      const url = URL.createObjectURL(new Blob([calendar], { type: 'text/calendar;charset=utf-8' }));
+      const link = document.createElement('a'); link.href = url; link.download = 'Somchai-Phantira-Wedding.ics'; document.body.append(link); link.click(); link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 30000);
+      toast('ดาวน์โหลดไฟล์ปฏิทินแล้ว เปิดไฟล์เพื่อเพิ่มวันสำคัญ');
+    });
+  });
+
+  let lastHeartAt = 0;
+  $('#heart-button').addEventListener('click', () => {
+    if (Date.now() - lastHeartAt < 400) return; lastHeartAt = Date.now();
+    $('#heart-note').textContent = 'ขอบคุณสำหรับหัวใจดวงนี้ แล้วพบกันในวันของเรา';
+    if (reducedMotion.matches) return;
+    const rect = $('#heart-button').getBoundingClientRect(); const layer = $('#heart-particles');
+    const fragment = document.createDocumentFragment(); const particles = [];
+    for (let i = 0; i < 12; i++) {
+      const particle = document.createElement('span'); particle.className = 'heart-particle'; particle.textContent = i % 3 ? '♡' : '♥';
+      particle.style.setProperty('--x', rect.left + rect.width / 2 + 'px'); particle.style.setProperty('--y', rect.top + rect.height / 2 + 'px');
+      particle.style.setProperty('--dx', (Math.random() - .5) * 240 + 'px'); particle.style.setProperty('--dy', 80 + Math.random() * 160 + 'px'); particle.style.setProperty('--r', (Math.random() - .5) * 60 + 'deg');
+      fragment.append(particle); particles.push(particle);
+    }
+    layer.append(fragment); setTimeout(() => particles.forEach(particle => particle.remove()), 1700);
+  });
+})();

@@ -1,0 +1,44 @@
+{
+  "version": "1.0.0",
+  "designDirection": "Watercolor wedding invitation; white and sage",
+  "images": [
+    {
+      "file": "assets/images/ceremony-chair.png",
+      "width": 1024,
+      "height": 1536,
+      "format": "PNG",
+      "background": "opaque white",
+      "origin": "newly generated interpretation of the Figma reference",
+      "bytes": 1771501,
+      "sha256": "fb81d4eaaf28620406ad1430ae50d36f08beb3497cc7969fd0b4ebeb8b0e54ff"
+    },
+    {
+      "file": "assets/images/hero-couple.png",
+      "width": 1536,
+      "height": 1024,
+      "format": "PNG",
+      "background": "opaque white",
+      "origin": "newly generated interpretation of the Figma reference",
+      "bytes": 2228338,
+      "sha256": "03c70ae21d192823727f848f0a657de2835b20c225352bb59de2821a4197e70c"
+    }
+  ],
+  "fonts": [
+    {
+      "file": "assets/fonts/prompt-medium.ttf",
+      "bytes": 72776
+    },
+    {
+      "file": "assets/fonts/prompt-regular.ttf",
+      "bytes": 71968
+    },
+    {
+      "file": "assets/fonts/wedding-script.otf",
+      "bytes": 114052
+    },
+    {
+      "file": "assets/fonts/wedding-serif.otf",
+      "bytes": 110236
+    }
+  ]
+}
