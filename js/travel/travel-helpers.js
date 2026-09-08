@@ -11,6 +11,8 @@
     try { const u = new URL(value); return u.protocol === 'https:' && !u.username && !u.password ? u.href : null; } catch (_) { return null; }
   }
   function imageURL(value) {
+    const remote=https(value);
+    if(remote && ['ak-d.tripcdn.com','i.ytimg.com'].includes(new URL(remote).hostname))return remote;
     return typeof value === 'string' && (/^assets\/[a-zA-Z0-9_./-]+$/.test(value) && !value.includes('..') || /^data:image\/(png|jpeg|webp|avif);base64,[a-zA-Z0-9+/=]+$/.test(value)) ? value : null;
   }
   function coordinates(point) { return !!point && Number.isFinite(point.lat) && Number.isFinite(point.lng) && Math.abs(point.lat) <= 90 && Math.abs(point.lng) <= 180; }

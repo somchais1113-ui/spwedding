@@ -33,15 +33,19 @@ test('Phone/desktop camera stays bounded through zoom and large drags',()=>{
  }
 });
 test('New section and module references preserve existing destinations and local typography',()=>{
- const html=fs.readFileSync(path.join(web,'index.html'),'utf8');assert.ok(html.indexOf('id="explore"')>html.indexOf('id="location"'));assert.ok(html.indexOf('id="explore"')<html.indexOf('id="invitation"'));
+ const html=fs.readFileSync(path.join(web,'index.html'),'utf8');assert.ok(html.indexOf('id="explore"')>html.indexOf('id="location"'));assert.ok(html.indexOf('id="explore"')>html.indexOf('id="wishes"'));assert.ok(html.indexOf('id="explore"')<html.indexOf('class="site-footer"'));assert.ok(!html.includes('travel-traveler'));
  for(const id of ['wishes','invitation','location','our-day','welcome'])assert.ok(html.includes('id="'+id+'"'));
  for(const name of ['OrangeAvenueDEMO-Regular.otf','OrangeAvenueOutlineDEMO-Regular.otf'])assert.ok(fs.existsSync(path.join(web,'assets/fonts',name)));
- for(const file of [D.map.image,D.map.character])assert.ok(fs.existsSync(path.join(web,file)));
+ for(const file of [D.map.image])assert.ok(fs.existsSync(path.join(web,file)));
 });
 test('Optional server serves travel images/modules with correct MIME and keeps wishes API available',async()=>{
  const {createWeddingServer}=await import(require('node:url').pathToFileURL(path.join(root,'server.mjs')));const server=createWeddingServer({webRoot:web});await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
  try{const base='http://127.0.0.1:'+server.address().port;
- for(const [file,type] of [[D.map.image,'image/webp'],[D.map.character,'image/webp'],['js/travel/travel.js','text/javascript'],['css/travel/travel.css','text/css']]){const res=await fetch(base+'/'+file);assert.equal(res.status,200);assert.ok(res.headers.get('content-type').startsWith(type));assert.ok((await res.arrayBuffer()).byteLength>100);}
+ for(const [file,type] of [[D.map.image,'image/webp'],['js/travel/travel.js','text/javascript'],['css/travel/travel.css','text/css']]){const res=await fetch(base+'/'+file);assert.equal(res.status,200);assert.ok(res.headers.get('content-type').startsWith(type));assert.ok((await res.arrayBuffer()).byteLength>100);}
  const status=await fetch(base+'/api/guestbook-status');assert.equal(status.status,200);assert.equal((await status.json()).service,'sp-wedding-guestbook-v1');
  }finally{server.closeAllConnections();await new Promise(resolve=>server.close(resolve));}
+});
+test('Every destination has a source-backed image; local and remote delivery are explicit',()=>{
+ let local=0,remote=0;for(const p of D.locations){const im=p.images[0];assert.ok(H.imageURL(im.src),p.id);assert.ok(H.https(im.sourcePageURL));assert.ok(im.credit);if(im.delivery==='local'){local++;assert.ok(fs.existsSync(path.join(web,im.src)));}else{remote++;assert.ok(['ak-d.tripcdn.com','i.ytimg.com'].includes(new URL(im.src).hostname));}}
+ assert.equal(local,8);assert.equal(remote,8);
 });

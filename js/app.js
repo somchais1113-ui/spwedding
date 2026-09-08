@@ -54,7 +54,7 @@
 
   const mapUrl = H.safeHttps(config.venue.mapUrl);
   if (mapUrl && !config.venue.address.trim()) $('#venue-address').textContent = 'ดูตำแหน่งบ้านและเส้นทางได้จากหมุด Google Maps ด้านล่าง';
-  const address = [config.venue.name, config.venue.address, config.venue.province].filter(Boolean).join('\n');
+  const address = [config.venue.name, config.venue.address, config.venue.address.includes(config.venue.province) ? '' : config.venue.province].filter(Boolean).join('\n');
   if (config.venue.address.trim()) { $('#venue-address').textContent = config.venue.address; $('#copy-address').hidden = false; }
   if (mapUrl) { $('#map-link').href = mapUrl; $('#map-link').hidden = false; $('#map-status').textContent = 'แตะปุ่มด้านล่าง เพื่อดูหมุดและเริ่มนำทาง'; }
   if (config.contact.phone && /^\+?[\d\s()-]{8,20}$/.test(config.contact.phone)) {

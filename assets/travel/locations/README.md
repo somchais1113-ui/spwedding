@@ -1,3 +1,5 @@
-# Destination photo slots
-See slots.json for 16 explicit filenames; all are 1200 × 800 px, 3:2.
-No real location photos were supplied. The UI renders an honest placeholder without fetching a missing image. Place a WebP here, then set that location's images[0].src to images[0].slot in js/travel/locations.js. Update alt text and confirm photo rights. Do not replace with unrelated imagery.
+# Destination photos
+
+All 16 entries have sourced imagery. Eight are local files and eight load from the observed online source URLs (internet required). Online download/visual validation remains incomplete because network approval was cancelled. See slots.json for filenames/dimensions and photo-sources.json for verified source pages, source image URLs, credits and reuse status. Full attribution notes: docs/TRAVEL-PHOTO-CREDITS.md.
+
+Photos are displayed in a 3:2 viewport; successfully downloaded originals retain their aspect ratio and are preserved in design-source/travel/locations. Replace the same named WebP and update its image metadata in js/travel/locations.js. Do not claim open licensing where the source does not state it.

@@ -9,15 +9,13 @@
   function icon(name) { const e = document.createElementNS(svgNS,'svg'); e.setAttribute('viewBox','0 0 24 24'); e.setAttribute('aria-hidden','true'); e.classList.add('travel-icon'); const p=document.createElementNS(svgNS,'path'); p.setAttribute('d',icons[name] || icons.compass);e.append(p);return e; }
   const viewport=q('.travel-viewport'), scene=q('.travel-scene'), pins=q('.travel-pins'), results=q('.travel-results'), filters=q('.travel-filters'), sheet=q('.travel-sheet'), detail=q('.travel-detail');
   const mobile=matchMedia('(max-width:900px)'), reduced=matchMedia('(prefers-reduced-motion:reduce)');
-  let mode='all', selected=null, zoom=1, camera=null, visible=false, savedFocus=null, travelTime=0, lastTime=0, raf=0, pathLength=0;
+  let mode='all', selected=null, zoom=1, camera=null, visible=false, savedFocus=null, travelTime=0, lastTime=0, raf=0;
   const map=D.map, places=D.locations || [], pinNodes=new Map(), modeNodes=new Map();
   if (!places.length) { q('.travel-results-count').textContent='กำลังเตรียมสถานที่สำหรับการเดินทางครั้งนี้'; q('.travel-layout').hidden=true; q('.travel-picker').hidden=true;return; }
   scene.style.width=map.width+'px';scene.style.height=map.height+'px';
   q('.travel-route-svg').setAttribute('viewBox',`0 0 ${map.width} ${map.height}`);
   const art=q('.travel-map-art'); if(H.imageURL(map.image)) art.src=map.image;
   art.addEventListener('error',()=>root.classList.add('travel-map-unavailable'));
-  const traveler=q('.travel-traveler');if(H.imageURL(map.character)) traveler.firstElementChild.src=map.character;
-  traveler.firstElementChild.addEventListener('error',()=>{traveler.hidden=true;});
   const venue=q('.travel-venue');venue.style.left=map.venuePosition.x+'px';venue.style.top=map.venuePosition.y+'px';
   const venueURL=H.https(window.WEDDING_CONFIG?.venue?.mapUrl || D.origin.googleMapsURL);if(venueURL)venue.href=venueURL;
   function button(cls,text,handler){const b=el('button',cls,text);b.type='button';b.addEventListener('click',handler);return b;}
@@ -33,11 +31,9 @@
     if(!camera)return;camera=H.pan(camera,viewport.clientWidth,viewport.clientHeight,map);
     scene.style.transitionDuration=smooth?'':'0s';scene.style.transform=`translate(${camera.x}px,${camera.y}px) scale(${camera.scale})`;
     scene.style.setProperty('--travel-inverse',1/camera.scale);
-    positionTraveler(Math.min(travelTime/6400,1));
   }
   function center(){
     if(!viewport.clientWidth)return;
-    if(visible){try{pathLength=q('.travel-route-line').getTotalLength();}catch(_){pathLength=0;}}
     const matches=mode==='all'?[]:H.filter(places,mode).map(p=>p.mapPosition);
     camera=H.camera(viewport.clientWidth,viewport.clientHeight,map,matches,zoom);applyCamera();
   }
@@ -51,14 +47,14 @@
     emptyDetail();buildRoute();center();
   }
   function emptyDetail(){
-    const box=el('div','travel-empty-detail'), img=el('img');img.alt='คู่บ่าวสาวกับรถคันเล็ก';img.width=1536;img.height=1024;img.loading='lazy';if(H.imageURL(map.character))img.src=map.character;
-    box.append(img,el('p','eyebrow','LET’S GO SOMEWHERE LOVELY'),el('h3','','เรื่องราวดี ๆ อยู่รอบตัว'),el('p','','แตะสถานที่ที่ถูกใจ แล้วให้เราพาไปรู้จักมุมเล็ก ๆ รอบสังคมด้วยกัน'),icon('compass'),el('p','','เลือกได้ทั้งจากหมุดบนแผนที่ หรือรายชื่อด้านล่าง'));detail.replaceChildren(box);
+    const box=el('div','travel-empty-detail');
+    box.append(el('p','eyebrow','LET’S GO SOMEWHERE LOVELY'),el('h3','','เรื่องราวดี ๆ อยู่รอบตัว'),el('p','','แตะสถานที่ที่ถูกใจ แล้วให้เราพาไปรู้จักมุมเล็ก ๆ รอบสังคมด้วยกัน'),icon('compass'),el('p','','เลือกได้ทั้งจากหมุดบนแผนที่ หรือรายชื่อด้านล่าง'));detail.replaceChildren(box);
   }
   function navigation(p){const box=el('div','travel-navigation'),url=H.navigation(p);if(url){const a=el('a','button','นำทาง');a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.setAttribute('aria-label','นำทางไป '+p.nameTH+' ใน Google Maps เปิดแท็บใหม่');a.append(icon('arrow'));box.append(a);}box.append(el('p','','Google Maps · เส้นทางจากตำแหน่งปัจจุบันของคุณ'));return box;}
   function destination(p,isSheet){
     const fragment=document.createDocumentFragment(),photo=el('div','travel-destination-image');
-    const placeholder=()=>{photo.replaceChildren(icon('camera'),el('span','','ภาพสถานที่กำลังเตรียม'));};
-    const asset=p.images?.[0];if(asset && H.imageURL(asset.src)){const img=el('img');img.src=asset.src;img.alt=asset.alt||p.nameTH;img.width=asset.width||1200;img.height=asset.height||800;img.loading='lazy';img.decoding='async';img.addEventListener('error',placeholder,{once:true});photo.append(img);}else placeholder();
+    const placeholder=()=>{photo.replaceChildren(icon('camera'),el('span','','ไม่สามารถแสดงภาพได้'));};
+    const asset=p.images?.[0];if(asset && H.imageURL(asset.src)){const img=el('img');img.src=asset.src;img.alt=asset.alt||p.nameTH;img.width=asset.width||1200;img.height=asset.height||800;img.loading='lazy';img.decoding='async';img.referrerPolicy='no-referrer';img.addEventListener('error',placeholder,{once:true});photo.append(img);}else placeholder();
     const body=el('div','travel-destination-body'),heading=el('h3','travel-place-name',p.nameTH);heading.id=isSheet?'travel-sheet-title':'travel-detail-title';const english=el('p','travel-place-english',p.nameEN);english.lang='en';
     body.append(el('p','travel-place-kicker',p.category.map(c=>D.modes.find(m=>m.id===c)?.nameTH||c).join(' / ')+' · '+p.area),heading,english,el('p','travel-place-description',p.description),el('p','travel-highlight',p.highlight));
     const facts=el('dl','travel-facts');[
@@ -71,7 +67,14 @@
     const tags=el('div','travel-tags');p.tags.forEach(t=>tags.append(el('span','',t)));more.append(tags);
     (p.sources||[]).forEach(source=>{const url=H.https(source.url);if(url){const a=el('a','',source.title);a.href=url;a.target='_blank';a.rel='noopener noreferrer';more.append(a);}});
     if(p.distance==null||p.estimatedTravelTime==null)more.append(el('p','','ระยะทางจากบ้านจัดงานยังไม่ยืนยัน หากต้องการวางแผนจากงาน ให้ตั้งจุดเริ่มต้นเป็นสถานที่จัดงานใน Google Maps'));
-    body.append(more);fragment.append(photo,body);if(isSheet)fragment.append(navigation(p));else body.append(navigation(p));return fragment;
+    body.append(more);fragment.append(photo);
+    if(asset?.sourcePageURL && H.https(asset.sourcePageURL)){
+      const credit=el('p','travel-photo-credit'),source=el('a','','ภาพ: '+(asset.credit||'แหล่งข้อมูลสถานที่'));
+      source.href=H.https(asset.sourcePageURL);source.target='_blank';source.rel='noopener noreferrer';source.setAttribute('aria-label','แหล่งภาพ '+p.nameTH+' เปิดแท็บใหม่');credit.append(source);
+      if(asset.licenseLabel){credit.append(document.createTextNode(' · '));const license=el(H.https(asset.licenseURL)?'a':'span','',asset.licenseLabel);if(license.tagName==='A'){license.href=H.https(asset.licenseURL);license.target='_blank';license.rel='noopener noreferrer';}credit.append(license);}
+      fragment.append(credit);
+    }
+    fragment.append(body);if(isSheet)fragment.append(navigation(p));else body.append(navigation(p));return fragment;
   }
   function select(id,trigger){
     const p=places.find(x=>x.id===id);if(!p)return;selected=id;
@@ -92,21 +95,17 @@
     q('.travel-route-title').textContent=route.title;q('.travel-route-subtitle').textContent=route.subtitle;q('.travel-route-note').textContent=route.note+' · เส้นทางแนะนำ ไม่ใช่ GPS';
     const list=q('.travel-route-stops');list.replaceChildren(el('li','',D.origin.nameTH));
     route.stops.forEach(id=>{const p=places.find(x=>x.id===id);if(!p)return;const li=el('li'),b=button('',p.nameTH,()=>select(id,b));li.append(b);list.append(li);const pin=pinNodes.get(id);pin.classList.add('is-route-stop');pin.disabled=false;pin.tabIndex=0;pin.setAttribute('aria-hidden','false');});list.append(el('li','','กลับที่พักตามแผนของคุณ'));
-    const path=H.routePath(H.routePoints(route,places,map.venuePosition));routeLine.setAttribute('d',path);routeShadow.setAttribute('d',path);try{pathLength=routeLine.getTotalLength();}catch(_){pathLength=0;}replay();
+    const path=H.routePath(H.routePoints(route,places,map.venuePosition));routeLine.setAttribute('d',path);routeShadow.setAttribute('d',path);replay();
   }
   function motionAllowed(){return !reduced.matches && !document.documentElement.classList.contains('motion-paused');}
-  function positionTraveler(t){
-    if(!pathLength||!camera)return;const p=routeLine.getPointAtLength(pathLength*t);const bob=motionAllowed()&&t<1?Math.sin(t*34)*2:0;
-    traveler.style.transform=`translate(${p.x}px,${p.y+bob}px) scale(${1/camera.scale})`;
-  }
   function stopFrame(){if(raf)cancelAnimationFrame(raf);raf=0;lastTime=0;}
-  function frame(now){raf=0;if(!visible||document.hidden||!motionAllowed()){lastTime=0;return;}if(lastTime)travelTime=Math.min(6400,travelTime+Math.min(now-lastTime,60));lastTime=now;routeLine.style.strokeDashoffset=String(1-Math.min(travelTime/5400,1));positionTraveler(travelTime/6400);if(travelTime<6400)raf=requestAnimationFrame(frame);else lastTime=0;}
+  function frame(now){raf=0;if(!visible||document.hidden||!motionAllowed()){lastTime=0;return;}if(lastTime)travelTime=Math.min(5400,travelTime+Math.min(now-lastTime,60));lastTime=now;routeLine.style.strokeDashoffset=String(1-Math.min(travelTime/5400,1));if(travelTime<5400)raf=requestAnimationFrame(frame);else lastTime=0;}
   function reconcileMotion(){
     stopFrame();q('.travel-replay').disabled=!motionAllowed();
-    if(!motionAllowed()){travelTime=6400;routeLine.style.strokeDashoffset='0';positionTraveler(1);return;}
-    if(visible&&!document.hidden&&travelTime<6400)raf=requestAnimationFrame(frame);
+    if(!motionAllowed()){travelTime=5400;routeLine.style.strokeDashoffset='0';return;}
+    if(visible&&!document.hidden&&travelTime<5400)raf=requestAnimationFrame(frame);
   }
-  function replay(){travelTime=motionAllowed()?0:6400;routeLine.style.strokeDashoffset=motionAllowed()?'1':'0';positionTraveler(travelTime/6400);reconcileMotion();}
+  function replay(){travelTime=motionAllowed()?0:5400;routeLine.style.strokeDashoffset=motionAllowed()?'1':'0';reconcileMotion();}
   q('.travel-replay').addEventListener('click',replay);
   new MutationObserver(reconcileMotion).observe(document.documentElement,{attributes:true,attributeFilter:['class']});
   reduced.addEventListener('change',reconcileMotion);document.addEventListener('visibilitychange',reconcileMotion);

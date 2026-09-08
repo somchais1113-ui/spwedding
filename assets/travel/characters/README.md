@@ -1,3 +1,3 @@
-# Character slot
-couple-journey.webp — 1536 × 1024 px, transparent alpha, compact bride/groom/car group.
-Keep the group centered and the canvas proportions when replacing. The same asset appears in the panel and moves along suggested routes. Original PNG: design-source/travel.
+# Character archive
+
+The moving couple/car was removed from the page in version 1.9 at the owner’s request. The original PNG remains in design-source/travel for future retouching. No character image is loaded by the travel module.

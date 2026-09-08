@@ -1,12 +1,11 @@
 /* All place content lives here. Null means unverified, never an estimated road distance. */
 window.WEDDING_TRAVEL_DATA = {
-  "version": "1.0.0",
+  "version": "1.2.0",
   "checkedAt": "2026-09-08",
   "map": {
     "width": 1000,
     "height": 667,
     "image": "assets/travel/map/sangkhom-diorama.webp",
-    "character": "assets/travel/characters/couple-journey.webp",
     "venuePosition": {
       "x": 540,
       "y": 590
@@ -67,11 +66,18 @@ window.WEDDING_TRAVEL_DATA = {
       "googleMapsURL": "https://www.google.com/maps/dir/?api=1&destination=%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%9B%E0%B9%88%E0%B8%B2%E0%B8%A0%E0%B8%B9%E0%B8%81%E0%B9%89%E0%B8%AD%E0%B8%99+%E0%B8%99%E0%B8%B2%E0%B8%A2%E0%B8%B9%E0%B8%87+%E0%B8%AD%E0%B8%B8%E0%B8%94%E0%B8%A3%E0%B8%98%E0%B8%B2%E0%B8%99%E0%B8%B5&travelmode=driving",
       "images": [
         {
-          "src": null,
+          "src": "https://ak-d.tripcdn.com/images/1mi3f224x98usqctbD583_W_640_0_R5_Q80.jpg?proc=source%2Ftrip",
           "slot": "assets/travel/locations/wat-pa-phu-kon.webp",
-          "width": 1200,
-          "height": 800,
-          "alt": "วัดป่าภูก้อน"
+          "width": null,
+          "height": null,
+          "alt": "Wat Pa Phu Kon, Na Yung, Udon Thani",
+          "sourcePageURL": "https://us.trip.com/moments/detail/na-yung-1448333-143864058/",
+          "sourceImageURL": "https://ak-d.tripcdn.com/images/1mi3f224x98usqctbD583_W_640_0_R5_Q80.jpg?proc=source%2Ftrip",
+          "credit": "The Healing Traveler via Trip.com",
+          "licenseLabel": null,
+          "licenseURL": null,
+          "reuseStatement": "No open reuse license stated on inspected travel post.",
+          "delivery": "remote"
         }
       ],
       "highlight": "พระพุทธไสยาสน์หินอ่อนขาว",
@@ -122,11 +128,18 @@ window.WEDDING_TRAVEL_DATA = {
       "googleMapsURL": "https://www.google.com/maps/dir/?api=1&destination=%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%9C%E0%B8%B2%E0%B8%95%E0%B8%B2%E0%B8%81%E0%B9%80%E0%B8%AA%E0%B8%B7%E0%B9%89%E0%B8%AD+%E0%B8%9C%E0%B8%B2%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87+%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1&travelmode=driving",
       "images": [
         {
-          "src": null,
+          "src": "https://ak-d.tripcdn.com/images/1mi472215fi4r6khc5027_W_640_0_R5_Q80.jpg?proc=source%2Ftrip",
           "slot": "assets/travel/locations/pha-tak-suea.webp",
-          "width": 1200,
-          "height": 800,
-          "alt": "วัดผาตากเสื้อ"
+          "width": null,
+          "height": null,
+          "alt": "Wat Pha Tak Suea skywalk, Sangkhom, Nong Khai",
+          "sourcePageURL": "https://hk.trip.com/moments/detail/sangkhom-1447168-119387460?locale=en-HK",
+          "sourceImageURL": "https://ak-d.tripcdn.com/images/1mi472215fi4r6khc5027_W_640_0_R5_Q80.jpg?proc=source%2Ftrip",
+          "credit": "นนท์ นี่หว่า(สายเที่ยว)ไปมาแล้ว via Trip.com",
+          "licenseLabel": null,
+          "licenseURL": null,
+          "reuseStatement": "No open reuse license stated on inspected travel post.",
+          "delivery": "remote"
         }
       ],
       "highlight": "วัดและวิวโขงในจุดเดียว",
@@ -178,11 +191,18 @@ window.WEDDING_TRAVEL_DATA = {
       "googleMapsURL": "https://www.google.com/maps/dir/?api=1&destination=%E0%B8%96%E0%B9%89%E0%B8%B3%E0%B8%94%E0%B8%B4%E0%B8%99%E0%B9%80%E0%B8%9E%E0%B8%B5%E0%B8%A2%E0%B8%87+%E0%B8%9C%E0%B8%B2%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87+%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1&travelmode=driving",
       "images": [
         {
-          "src": null,
+          "src": "https://ak-d.tripcdn.com/images/1mi402224ux5ox9b46F3A_W_640_0_R5_Q80.jpg?proc=source%2Ftrip",
           "slot": "assets/travel/locations/tham-din-phiang.webp",
-          "width": 1200,
-          "height": 800,
-          "alt": "ถ้ำดินเพียง"
+          "width": null,
+          "height": null,
+          "alt": "Tham Din Phiang at Wat Tham Si Mongkhon, Nong Khai",
+          "sourcePageURL": "https://sa.trip.com/moments/detail/sangkhom-1447168-119221458?locale=en-SA",
+          "sourceImageURL": "https://ak-d.tripcdn.com/images/1mi402224ux5ox9b46F3A_W_640_0_R5_Q80.jpg?proc=source%2Ftrip",
+          "credit": "สายเที่ยว สายมู สายบุญ via Trip.com",
+          "licenseLabel": null,
+          "licenseURL": null,
+          "reuseStatement": "No open reuse license stated on inspected travel post.",
+          "delivery": "remote"
         }
       ],
       "highlight": "เรื่องเล่าและเส้นทางภายในถ้ำ",
@@ -234,11 +254,18 @@ window.WEDDING_TRAVEL_DATA = {
       "googleMapsURL": "https://www.google.com/maps/dir/?api=1&destination=%E0%B9%84%E0%B8%A3%E0%B9%88%E0%B8%89%E0%B8%B1%E0%B8%95%E0%B8%A3%E0%B8%94%E0%B8%99%E0%B8%B1%E0%B8%A2+%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1+%E0%B8%AB%E0%B8%99%E0%B8%AD%E0%B8%87%E0%B8%84%E0%B8%B2%E0%B8%A2&travelmode=driving",
       "images": [
         {
-          "src": null,
+          "src": "assets/travel/locations/chatdanai-cafe.webp",
           "slot": "assets/travel/locations/chatdanai-cafe.webp",
-          "width": 1200,
-          "height": 800,
-          "alt": "ไร่ฉัตรดนัย"
+          "width": 1560,
+          "height": 2080,
+          "alt": "ระเบียงที่นั่งของไร่ฉัตรดนัย ท่ามกลางภูเขาและลำธาร ตำบลบ้านม่วง อำเภอสังคม",
+          "sourcePageURL": "https://www.lemon8-app.com/@earnaps/7320940646808748545?region=th",
+          "sourceImageURL": "https://www.lemon8-app.com/seo/image?item_id=7320940646808748545&index=0&sign=c91252679238f9dd2ce5aa3789f66275",
+          "credit": "earnaps / Lemon8",
+          "licenseLabel": null,
+          "licenseURL": null,
+          "reuseStatement": "No reuse permission or open license identified on source; attribution does not establish permission.",
+          "delivery": "local"
         }
       ],
       "highlight": "คาเฟ่ท่ามกลางธรรมชาติ",
@@ -290,11 +317,18 @@ window.WEDDING_TRAVEL_DATA = {
       "googleMapsURL": "https://www.google.com/maps/dir/?api=1&destination=188+Cafe+Camp+%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%A1%E0%B9%88%E0%B8%A7%E0%B8%87+%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1&travelmode=driving",
       "images": [
         {
-          "src": null,
+          "src": "assets/travel/locations/188-cafe-camp.webp",
           "slot": "assets/travel/locations/188-cafe-camp.webp",
-          "width": 1200,
-          "height": 800,
-          "alt": "188 Cafe Camp"
+          "width": 640,
+          "height": 640,
+          "alt": "ด้านหน้าร้าน 188 Cafe Camp บ้านตาดเสริม อำเภอสังคม มีชื่อร้านบนผนัง",
+          "sourcePageURL": "https://th.trip.com/moments/detail/sangkhom-1447168-11594621/",
+          "sourceImageURL": "https://ak-d.tripcdn.com/images/1i617223456bg499s74D0_W_640_0_R5_Q80.jpg?proc=source%2Ftrip",
+          "credit": "ฅน ติด เที่ยว / Trip.com",
+          "licenseLabel": null,
+          "licenseURL": null,
+          "reuseStatement": "No reuse permission or open license identified on source; attribution does not establish permission.",
+          "delivery": "local"
         }
       ],
       "highlight": "เครื่องดื่มและบรรยากาศริมโขง",
@@ -346,11 +380,18 @@ window.WEDDING_TRAVEL_DATA = {
       "googleMapsURL": "https://www.google.com/maps/dir/?api=1&destination=Move+Camp+%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B9%84%E0%B8%9E%E0%B8%A3+%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1&travelmode=driving",
       "images": [
         {
-          "src": null,
+          "src": "assets/travel/locations/move-camp.webp",
           "slot": "assets/travel/locations/move-camp.webp",
-          "width": 1200,
-          "height": 800,
-          "alt": "Move Camp"
+          "width": 1920,
+          "height": 1440,
+          "alt": "ป้ายทางเข้า Move Camp ไร่โชควัฒนะ และวิวแม่น้ำโขง",
+          "sourcePageURL": "https://www.lemon8-app.com/@tiewtamjai.85/7608470463949308417?region=th",
+          "sourceImageURL": "https://www.lemon8-app.com/seo/image?item_id=7608470463949308417&index=0&sign=4c7488f0f02fd302a2bbef5aeb35d84f",
+          "credit": "เที่ยวตามใจ (@tiewtamjai.85) / Lemon8",
+          "licenseLabel": null,
+          "licenseURL": null,
+          "reuseStatement": "No reuse permission or open license identified on source; attribution does not establish permission.",
+          "delivery": "local"
         }
       ],
       "highlight": "คาเฟ่ อาหาร และแคมป์ในที่เดียว",
@@ -402,11 +443,18 @@ window.WEDDING_TRAVEL_DATA = {
       "googleMapsURL": "https://www.google.com/maps/dir/?api=1&destination=Adore+Story+Cafe+%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1+%E0%B8%AB%E0%B8%99%E0%B8%AD%E0%B8%87%E0%B8%84%E0%B8%B2%E0%B8%A2&travelmode=driving",
       "images": [
         {
-          "src": null,
+          "src": "assets/travel/locations/adore-story-cafe.webp",
           "slot": "assets/travel/locations/adore-story-cafe.webp",
-          "width": 1200,
-          "height": 800,
-          "alt": "Adore Story Cafe"
+          "width": 1080,
+          "height": 1440,
+          "alt": "เคาน์เตอร์กาแฟและป้าย ADORE STORY ภายในคาเฟ่",
+          "sourcePageURL": "https://www.lemon8-app.com/@tine_thida/7582591811013706256?region=th",
+          "sourceImageURL": "https://www.lemon8-app.com/seo/image?item_id=7582591811013706256&index=1&sign=b93fabc5e328b3a7b8ca136ccb330b41",
+          "credit": "Thidaphorn (@tine_thida) / Lemon8",
+          "licenseLabel": null,
+          "licenseURL": null,
+          "reuseStatement": "No reuse permission or open license identified on source; attribution does not establish permission.",
+          "delivery": "local"
         }
       ],
       "highlight": "แวะพัก จิบกาแฟ และถ่ายรูป",
@@ -457,11 +505,18 @@ window.WEDDING_TRAVEL_DATA = {
       "googleMapsURL": "https://www.google.com/maps/dir/?api=1&destination=Banaberry+Cafe+%E0%B8%9C%E0%B8%B2%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87+%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1&travelmode=driving",
       "images": [
         {
-          "src": null,
+          "src": "assets/travel/locations/banaberry-cafe.webp",
           "slot": "assets/travel/locations/banaberry-cafe.webp",
-          "width": 1200,
-          "height": 800,
-          "alt": "Banaberry Cafe"
+          "width": 640,
+          "height": 480,
+          "alt": "อาคาร Banaberry Cafe บนเนินในตำบลผาตั้ง อำเภอสังคม มีป้ายชื่อร้านชัดเจน",
+          "sourcePageURL": "https://th.trip.com/moments/detail/sangkhom-1447168-16055007/",
+          "sourceImageURL": "https://ak-d.tripcdn.com/images/1i61y22349hf02p0114A3_W_640_0_R5_Q80.jpg?proc=source%2Ftrip",
+          "credit": "Notmeeye / Trip.com",
+          "licenseLabel": null,
+          "licenseURL": null,
+          "reuseStatement": "No reuse permission or open license identified on source; attribution does not establish permission.",
+          "delivery": "local"
         }
       ],
       "highlight": "จุดพักกาแฟย่านผาตั้ง",
@@ -512,11 +567,18 @@ window.WEDDING_TRAVEL_DATA = {
       "googleMapsURL": "https://www.google.com/maps/dir/?api=1&destination=ATV+%E0%B8%99%E0%B8%B2%E0%B8%87%E0%B8%B4%E0%B9%89%E0%B8%A7+%2F+%E0%B8%81%E0%B8%B2%E0%B9%81%E0%B8%9F%E0%B9%80%E0%B8%AD%E0%B8%B4%E0%B8%87%E0%B9%80%E0%B8%AD%E0%B8%A2+%E0%B8%99%E0%B8%B2%E0%B8%87%E0%B8%B4%E0%B9%89%E0%B8%A7+%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1&travelmode=driving",
       "images": [
         {
-          "src": null,
+          "src": "https://i.ytimg.com/vi/N9tuCvqxfjs/hqdefault.jpg",
           "slot": "assets/travel/locations/atv-nangio.webp",
-          "width": 1200,
-          "height": 800,
-          "alt": "ATV นางิ้ว / กาแฟเอิงเอย"
+          "width": null,
+          "height": null,
+          "alt": "ภาพปกวิดีโอการเที่ยว ATV นางิ้ว เอิงเอย",
+          "sourcePageURL": "https://www.youtube.com/shorts/N9tuCvqxfjs",
+          "sourceImageURL": "https://i.ytimg.com/vi/N9tuCvqxfjs/hqdefault.jpg",
+          "credit": "วิดีโอ ATV นางิ้ว เอิงเอย / YouTube",
+          "licenseLabel": null,
+          "licenseURL": null,
+          "reuseStatement": "No open reuse license identified. Video thumbnail linked from the matching operator trip video.",
+          "delivery": "remote"
         }
       ],
       "highlight": "กิจกรรม ATV กับผู้ให้บริการท้องถิ่น",
@@ -571,11 +633,18 @@ window.WEDDING_TRAVEL_DATA = {
       "googleMapsURL": "https://www.google.com/maps/dir/?api=1&destination=18.05375222546508%2C102.08682462472942&travelmode=driving",
       "images": [
         {
-          "src": null,
+          "src": "assets/travel/locations/khiri-wongkot.webp",
           "slot": "assets/travel/locations/khiri-wongkot.webp",
-          "width": 1200,
-          "height": 800,
-          "alt": "หมู่บ้านคีรีวงกต"
+          "width": 1024,
+          "height": 768,
+          "alt": "อาคารที่พักโฮมสเตย์ในหมู่บ้านคีรีวงกต",
+          "sourcePageURL": "https://iammanussite.com/2020/09/09/kiriwongkot/",
+          "sourceImageURL": "https://iammanussite.com/wp-content/uploads/2020/09/k-img20200828121606.jpg?w=1024",
+          "credit": "iammanus / เรื่องเล่าคราวเดินทาง",
+          "licenseLabel": null,
+          "licenseURL": null,
+          "reuseStatement": "No reuse license stated on inspected article.",
+          "delivery": "local"
         }
       ],
       "highlight": "วิถีชุมชน รถอีแต๊ก และธรรมชาติ",
@@ -630,11 +699,18 @@ window.WEDDING_TRAVEL_DATA = {
       "googleMapsURL": "https://www.google.com/maps/dir/?api=1&destination=18.05375222546508%2C102.08682462472942&travelmode=driving",
       "images": [
         {
-          "src": null,
+          "src": "https://ak-d.tripcdn.com/images/1mi2c224x93so12v9AF96_W_640_0_R5_Q80.jpg?proc=source%2Ftrip",
           "slot": "assets/travel/locations/etaek-journey.webp",
-          "width": 1200,
-          "height": 800,
-          "alt": "รถอีแต๊กลุยธรรมชาติ"
+          "width": null,
+          "height": null,
+          "alt": "E-taek excursion at Khiri Wongkot village",
+          "sourcePageURL": "https://us.trip.com/moments/detail/na-yung-1448333-134565181/",
+          "sourceImageURL": "https://ak-d.tripcdn.com/images/1mi2c224x93so12v9AF96_W_640_0_R5_Q80.jpg?proc=source%2Ftrip",
+          "credit": "Kitti@happiness via Trip.com",
+          "licenseLabel": null,
+          "licenseURL": null,
+          "reuseStatement": "No open reuse license stated on inspected travel post.",
+          "delivery": "remote"
         }
       ],
       "highlight": "ร่วมทางกับคนในชุมชน",
@@ -685,11 +761,18 @@ window.WEDDING_TRAVEL_DATA = {
       "googleMapsURL": "https://www.google.com/maps/dir/?api=1&destination=Move+Camp+%E0%B9%84%E0%B8%A3%E0%B9%88%E0%B9%82%E0%B8%8A%E0%B8%84%E0%B8%A7%E0%B8%B1%E0%B8%92%E0%B8%99%E0%B8%B0+%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1+%E0%B8%AB%E0%B8%99%E0%B8%AD%E0%B8%87%E0%B8%84%E0%B8%B2%E0%B8%A2&travelmode=driving",
       "images": [
         {
-          "src": null,
+          "src": "assets/travel/locations/camping-move-camp.webp",
           "slot": "assets/travel/locations/camping-move-camp.webp",
-          "width": 1200,
-          "height": 800,
-          "alt": "Camping ที่ Move Camp"
+          "width": 1920,
+          "height": 1440,
+          "alt": "สนามหญ้าและที่นั่งกลางแจ้งของ Move Camp ริมโขง",
+          "sourcePageURL": "https://www.lemon8-app.com/@tiewtamjai.85/7608470463949308417?region=th",
+          "sourceImageURL": "https://www.lemon8-app.com/seo/image?item_id=7608470463949308417&index=2&sign=32b46a4b1469af4e6304672a1327b420",
+          "credit": "เที่ยวตามใจ (@tiewtamjai.85) / Lemon8",
+          "licenseLabel": null,
+          "licenseURL": null,
+          "reuseStatement": "No reuse permission or open license identified on source; attribution does not establish permission.",
+          "delivery": "local"
         }
       ],
       "highlight": "หนึ่งคืนใกล้ธรรมชาติ",
@@ -704,7 +787,7 @@ window.WEDDING_TRAVEL_DATA = {
         "nature",
         "รอบสังคม"
       ],
-      "details": "เป็นบริการใน Move Camp ไม่ใช่แคมป์อิสระ ตรวจลาน ห้องน้ำ ไฟฟ้า อุปกรณ์ และเงื่อนไขการเข้าพักกับสถานที่",
+      "details": "เป็นบริการใน Move Camp ไม่ใช่แคมป์อิสระ ตรวจลาน ห้องน้ำ ไฟฟ้า อุปกรณ์ และเงื่อนไขการเข้าพักกับสถานที่ ภาพแสดงสนามหญ้าและพื้นที่กลางแจ้งของสถานที่ ไม่ใช่ภาพเต็นท์ที่ยืนยันการเปิดบริการในวันเดินทาง",
       "mapPosition": {
         "x": 660,
         "y": 100
@@ -740,11 +823,18 @@ window.WEDDING_TRAVEL_DATA = {
       "googleMapsURL": "https://www.google.com/maps/dir/?api=1&destination=%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%95%E0%B8%81%E0%B8%98%E0%B8%B2%E0%B8%A3%E0%B8%97%E0%B8%B4%E0%B8%9E%E0%B8%A2%E0%B9%8C+%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%A1%E0%B9%88%E0%B8%A7%E0%B8%87+%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1&travelmode=driving",
       "images": [
         {
-          "src": null,
+          "src": "https://ak-d.tripcdn.com/images/1mi5j224x94quiwd2F2C4_W_640_0_R5_Q80.jpg?proc=source%2Ftrip",
           "slot": "assets/travel/locations/than-thip-waterfall.webp",
-          "width": 1200,
-          "height": 800,
-          "alt": "น้ำตกธารทิพย์"
+          "width": null,
+          "height": null,
+          "alt": "Than Thip Waterfall, Sangkhom, Nong Khai",
+          "sourcePageURL": "https://www.trip.com/moments/detail/sangkhom-1447168-135588714/",
+          "sourceImageURL": "https://ak-d.tripcdn.com/images/1mi5j224x94quiwd2F2C4_W_640_0_R5_Q80.jpg?proc=source%2Ftrip",
+          "credit": "pisa chimchill via Trip.com",
+          "licenseLabel": null,
+          "licenseURL": null,
+          "reuseStatement": "No open reuse license stated on inspected travel post.",
+          "delivery": "remote"
         }
       ],
       "highlight": "น้ำตกท่ามกลางพื้นที่สีเขียว",
@@ -797,11 +887,18 @@ window.WEDDING_TRAVEL_DATA = {
       "googleMapsURL": "https://www.google.com/maps/dir/?api=1&destination=18.02818389940527%2C102.36625271177762&travelmode=driving",
       "images": [
         {
-          "src": null,
+          "src": "https://ak-d.tripcdn.com/images/1mi18224x94qunggyF1FF_W_640_0_R5_Q80.jpg?proc=source%2Ftrip",
           "slot": "assets/travel/locations/than-thong-waterfall.webp",
-          "width": 1200,
-          "height": 800,
-          "alt": "น้ำตกธารทอง"
+          "width": null,
+          "height": null,
+          "alt": "Than Thong Waterfall, Sangkhom, Nong Khai",
+          "sourcePageURL": "https://www.trip.com/moments/detail/sangkhom-1447168-135589386/",
+          "sourceImageURL": "https://ak-d.tripcdn.com/images/1mi18224x94qunggyF1FF_W_640_0_R5_Q80.jpg?proc=source%2Ftrip",
+          "credit": "pisa chimchill via Trip.com",
+          "licenseLabel": null,
+          "licenseURL": null,
+          "reuseStatement": "No open reuse license stated on inspected travel post.",
+          "delivery": "remote"
         }
       ],
       "highlight": "น้ำตกและสวนรุกขชาติ",
@@ -852,11 +949,18 @@ window.WEDDING_TRAVEL_DATA = {
       "googleMapsURL": "https://www.google.com/maps/dir/?api=1&destination=%E0%B8%A0%E0%B8%B9%E0%B8%AB%E0%B9%89%E0%B8%A7%E0%B8%A2%E0%B8%AD%E0%B8%B5%E0%B8%AA%E0%B8%B1%E0%B8%99+%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%A1%E0%B9%88%E0%B8%A7%E0%B8%87+%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1&travelmode=driving",
       "images": [
         {
-          "src": null,
+          "src": "assets/travel/locations/phu-huai-isan.webp",
           "slot": "assets/travel/locations/phu-huai-isan.webp",
-          "width": 1200,
-          "height": 800,
-          "alt": "ภูห้วยอีสัน"
+          "width": 1600,
+          "height": 1060,
+          "alt": "Golden sunrise over a sea of clouds and forested hills at Phu Huai Isan",
+          "sourcePageURL": "https://cbtthailand.dasta.or.th/webapp/relattraction/content/3883/",
+          "sourceImageURL": "https://cbtthailand.dasta.or.th/upload-file-api/Resources/RelateAttraction/Images/RAT430061/1.jpeg",
+          "credit": "CBT Thailand / DASTA",
+          "licenseLabel": null,
+          "licenseURL": null,
+          "reuseStatement": "Source footer © 2020 DASTA. All Rights Reserved.",
+          "delivery": "local"
         }
       ],
       "highlight": "แสงเช้าและวิวโขงจากมุมสูง",
@@ -872,7 +976,7 @@ window.WEDDING_TRAVEL_DATA = {
         "adventure",
         "รอบสังคม"
       ],
-      "details": "ไม่จัดทริปนี้ก่อนพิธี 07:00 น. ในวันงาน ควรใช้เช้าวันอื่น ยืนยันรถขึ้นจุดชมวิวและไม่รับประกันว่าจะพบทะเลหมอก",
+      "details": "ไม่จัดทริปนี้ก่อนพิธี 09:09 น. ในวันงาน ควรใช้เช้าวันอื่น ยืนยันรถขึ้นจุดชมวิวและไม่รับประกันว่าจะพบทะเลหมอก",
       "mapPosition": {
         "x": 500,
         "y": 275
@@ -908,11 +1012,18 @@ window.WEDDING_TRAVEL_DATA = {
       "googleMapsURL": "https://www.google.com/maps/dir/?api=1&destination=%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%9C%E0%B8%B2%E0%B8%95%E0%B8%B2%E0%B8%81%E0%B9%80%E0%B8%AA%E0%B8%B7%E0%B9%89%E0%B8%AD+%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1+%E0%B8%AB%E0%B8%99%E0%B8%AD%E0%B8%87%E0%B8%84%E0%B8%B2%E0%B8%A2&travelmode=driving",
       "images": [
         {
-          "src": null,
+          "src": "https://ak-d.tripcdn.com/images/1mi472215fi4r6khc5027_W_640_0_R5_Q80.jpg?proc=source%2Ftrip",
           "slot": "assets/travel/locations/mekong-viewpoint.webp",
-          "width": 1200,
-          "height": 800,
-          "alt": "จุดชมวิวแม่น้ำโขง"
+          "width": null,
+          "height": null,
+          "alt": "จุดชมวิวและสกายวอล์กบริเวณวัดผาตากเสื้อ",
+          "sourcePageURL": "https://hk.trip.com/moments/detail/sangkhom-1447168-119387460?locale=en-HK",
+          "sourceImageURL": "https://ak-d.tripcdn.com/images/1mi472215fi4r6khc5027_W_640_0_R5_Q80.jpg?proc=source%2Ftrip",
+          "credit": "นนท์ นี่หว่า(สายเที่ยว)ไปมาแล้ว via Trip.com",
+          "licenseLabel": null,
+          "licenseURL": null,
+          "reuseStatement": "No open reuse license stated on inspected travel post.",
+          "delivery": "remote"
         }
       ],
       "highlight": "มุมมองแม่น้ำจากที่สูง",
@@ -995,7 +1106,7 @@ window.WEDDING_TRAVEL_DATA = {
         "phu-huai-isan",
         "188-cafe-camp"
       ],
-      "note": "สำหรับเช้าวันก่อนหรือหลังงาน ไม่ใช่ก่อนพิธี 07:00 น. และต้องเช็กเวลาคาเฟ่"
+      "note": "สำหรับเช้าวันก่อนหรือหลังงาน ไม่ใช่ก่อนพิธี 09:09 น. และต้องเช็กเวลาคาเฟ่"
     }
   ]
 };

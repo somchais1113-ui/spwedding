@@ -43,7 +43,7 @@
     const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//SP Wedding Invitation//TH', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH', 'BEGIN:VEVENT',
       'UID:sp-wedding-' + start.getTime() + '@wedding.local', 'DTSTAMP:' + stamp(now), ...dates,
       'SUMMARY:' + escapeICS('งานแต่งงาน ' + names),
-      'LOCATION:' + escapeICS([config.venue.name, config.venue.address, config.venue.province].filter(Boolean).join(' ')),
+      'LOCATION:' + escapeICS([config.venue.name, config.venue.address, config.venue.address.includes(config.venue.province) ? '' : config.venue.province].filter(Boolean).join(' ')),
       'DESCRIPTION:' + escapeICS([config.invitation, config.date.timeLabel, safeHttps(config.venue.mapUrl)].filter(Boolean).join('\n')),
       'STATUS:CONFIRMED', 'END:VEVENT', 'END:VCALENDAR'];
     return lines.map(foldICS).join('\r\n') + '\r\n';

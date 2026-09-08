@@ -96,6 +96,30 @@
     if (mode==='type' ? !$('wish-text').value.trim() : !strokes.length) { $('wish-status').textContent=mode==='type'?'พิมพ์คำอวยพรสักนิดก่อนนะครับ':'เขียนคำอวยพรบนการ์ดก่อนนะครับ'; if(mode==='type') $('wish-text').focus(); return false; }
     return true;
   }
+  // Export remains available independently of server delivery.
+  const exportButton=$('export-wish'), exportStatus=$('wish-export-status'), photoDialog=$('wish-photo-dialog');
+  let exporting=false, photoURL=null;
+  exportButton.addEventListener('click',async()=>{
+    if(exporting||!validate())return;
+    exporting=true;exportButton.disabled=true;exportButton.setAttribute('aria-busy','true');exportStatus.textContent='กำลังจัดคำอวยพรลงบนการ์ด…';
+    const format=$('wish-export-format').value;
+    // Snapshot the active handwriting before asynchronous image/font decoding.
+    const snapshot=document.createElement('canvas');snapshot.width=canvas.width;snapshot.height=canvas.height;snapshot.getContext('2d').drawImage(canvas,0,0);
+    const options={format,mode,text:$('wish-text').value,name:$('wish-name').value,drawing:snapshot};
+    try{
+      const result=await window.WeddingWishExport.render(options);
+      if(photoURL)URL.revokeObjectURL(photoURL);photoURL=URL.createObjectURL(result.blob);
+      $('wish-photo-preview').src=photoURL;$('wish-photo-preview').width=result.width;$('wish-photo-preview').height=result.height;
+      const download=$('download-wish-photo');download.href=photoURL;download.download='SP-Wedding-Wish-'+(format==='portrait'?'4x5':'16x9')+'.png';
+      photoDialog.showModal();photoDialog.scrollTop=0;$('close-wish-photo').focus({preventScroll:true});exportStatus.textContent='การ์ดพร้อมแล้ว เลือกดาวน์โหลด PNG เพื่อบันทึกภาพ';
+    }catch(error){
+      exportStatus.textContent=error.message==='text-too-long'?'ข้อความยาวเกินพื้นที่การ์ด ลองลดข้อความหรือจำนวนบรรทัดก่อนบันทึกนะครับ':error.name==='SecurityError'?'กรุณาเปิดไฟล์ SP-Wedding-Preview.html หรือเปิดเว็บผ่านเซิร์ฟเวอร์ เพื่อบันทึกการ์ดเป็นภาพ':'ยังจัดทำภาพไม่สำเร็จ กรุณาลองอีกครั้ง และตรวจว่าไฟล์เทมเพลตอยู่ครบ';
+    }finally{exporting=false;exportButton.disabled=false;exportButton.setAttribute('aria-busy','false');}
+  });
+  $('close-wish-photo').addEventListener('click',()=>photoDialog.close());
+  photoDialog.addEventListener('close',()=>exportButton.focus({preventScroll:true}));
+  photoDialog.addEventListener('click',event=>{if(event.target!==photoDialog)return;const rect=photoDialog.getBoundingClientRect();if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)photoDialog.close();});
+  window.addEventListener('pagehide',()=>{if(photoURL)URL.revokeObjectURL(photoURL);});
   const sendButton = $('save-wish'), sendLabel = $('send-wish-label');
   let sending = false, lastSent = '';
   function sendState(state, label) {
@@ -105,7 +129,7 @@
   }
   $('wish-form').addEventListener('input', () => { if (!sending) sendState('idle', 'ส่งคำอวยพร'); });
   $('wish-form').addEventListener('submit', async event => {
-    event.preventDefault(); if (sending || !validate()) return;
+    event.preventDefault(); if (sending || exporting || !validate()) return;
     const payload = {name:$('wish-name').value.trim(), mode, text:mode==='type'?$('wish-text').value.trim():'', image:mode==='draw'?canvas.toDataURL('image/png'):''};
     const body = JSON.stringify(payload);
     if (body === lastSent) { $('wish-status').textContent = 'คำอวยพรนี้ส่งถึงบ่าวสาวแล้ว ขอบคุณมากนะ'; return; }
