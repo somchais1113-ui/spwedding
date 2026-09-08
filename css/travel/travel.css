@@ -9,6 +9,7 @@
 @media(max-width:900px){.travel-layout{grid-template-columns:minmax(0,1fr)}.travel-detail{display:none}.travel-viewport{height:440px}.travel-results{grid-template-columns:repeat(3,minmax(0,1fr))}.travel-filter{flex-basis:155px}.travel-guide{padding-block:58px 20px}}
 @media(max-width:600px){.travel-guide{width:calc(100% - 32px)}.travel-heading .eyebrow{font-size:10px;letter-spacing:.13em}.travel-heading{margin-bottom:24px}.travel-filters{margin-inline:-4px}.travel-filter{min-height:74px;flex-basis:148px;padding:11px 13px;gap:9px;font-size:14px}.travel-viewport{height:390px}.travel-results{grid-template-columns:repeat(2,minmax(0,1fr))}.travel-route-heading{align-items:flex-start}.travel-route-heading h3{font-size:17px}.travel-replay{font-size:11px}.travel-results-heading{align-items:flex-start}.travel-closing{font-size:22px}.travel-result{font-size:12px}.travel-map-caption{font-size:10px;left:8px;top:8px}.travel-sheet .travel-place-name{font-size:24px}}
 @media(prefers-reduced-motion:reduce){.travel-guide *, .travel-sheet *{animation:none!important;transition:none!important}}
+@media(max-height:480px) and (orientation:landscape){.travel-viewport{height:min(58vh,500px)}}
 .motion-paused .travel-guide *{animation:none!important;transition:none!important}.travel-guide.is-inactive .travel-pin-disc{animation-play-state:paused}
 
 /* Keep source photos in a fixed viewport; preserve their intrinsic proportions. */

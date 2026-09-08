@@ -111,6 +111,19 @@
       if(photoURL)URL.revokeObjectURL(photoURL);photoURL=URL.createObjectURL(result.blob);
       $('wish-photo-preview').src=photoURL;$('wish-photo-preview').width=result.width;$('wish-photo-preview').height=result.height;
       const download=$('download-wish-photo');download.href=photoURL;download.download='SP-Wedding-Wish-'+(format==='portrait'?'4x5':'16x9')+'.png';
+      // Web Share API (Level 2, with files) is the web equivalent of UIActivityViewController / Intent.ACTION_SEND:
+      // on supported mobile browsers it opens the device's own native share sheet with every installed app that accepts an image.
+      const shareButton=$('share-wish-photo');
+      if (shareButton) {
+        let shareFile=null;
+        try { shareFile=new File([result.blob],download.download,{type:'image/png'}); } catch(_) { shareFile=null; }
+        const canNativeShare=Boolean(shareFile && navigator.canShare && navigator.canShare({files:[shareFile]}));
+        shareButton.hidden=!canNativeShare;
+        shareButton.onclick=async()=>{
+          try { await navigator.share({files:[shareFile],title:'การ์ดคำอวยพร Somchai & Phantira',text:'การ์ดคำอวยพรจากงานแต่งของเรา'}); }
+          catch(error){ if(error.name!=='AbortError') exportStatus.textContent='แชร์ไม่สำเร็จ กรุณาลองดาวน์โหลดแทน'; }
+        };
+      }
       photoDialog.showModal();photoDialog.scrollTop=0;$('close-wish-photo').focus({preventScroll:true});exportStatus.textContent='การ์ดพร้อมแล้ว เลือกดาวน์โหลด PNG เพื่อบันทึกภาพ';
     }catch(error){
       exportStatus.textContent=error.message==='text-too-long'?'ข้อความยาวเกินพื้นที่การ์ด ลองลดข้อความหรือจำนวนบรรทัดก่อนบันทึกนะครับ':error.name==='SecurityError'?'กรุณาเปิดไฟล์ SP-Wedding-Preview.html หรือเปิดเว็บผ่านเซิร์ฟเวอร์ เพื่อบันทึกการ์ดเป็นภาพ':'ยังจัดทำภาพไม่สำเร็จ กรุณาลองอีกครั้ง และตรวจว่าไฟล์เทมเพลตอยู่ครบ';

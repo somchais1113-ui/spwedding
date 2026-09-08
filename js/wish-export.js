@@ -40,12 +40,21 @@
     const canvas=document.createElement('canvas');canvas.width=spec.width;canvas.height=spec.height;const ctx=canvas.getContext('2d');if(!ctx)throw new Error('canvas-unavailable');
     ctx.drawImage(template,0,0,spec.width,spec.height);
     const box={x:spec.box.x*spec.width,y:spec.box.y*spec.height,w:spec.box.w*spec.width,h:spec.box.h*spec.height};
-    ctx.fillStyle='#163e72';ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillStyle='#163e72';ctx.textAlign='left';ctx.textBaseline='middle';
     if(mode==='draw'&&drawing){const scale=Math.min(box.w/drawing.width,box.h/drawing.height),w=drawing.width*scale,h=drawing.height*scale;ctx.drawImage(drawing,box.x+(box.w-w)/2,box.y+(box.h-h)/2,w,h);}
-    else{const fitted=fitText(ctx,text.trim(),box,format==='landscape'?44:40);const start=box.y+(box.h-fitted.lines.length*fitted.lineHeight)/2+fitted.lineHeight/2;fitted.lines.forEach((line,i)=>ctx.fillText(line,box.x+box.w/2,start+i*fitted.lineHeight));}
+    else{
+      // Left-aligned and flush to the top of the text box, like a written note.
+      // The top padding is reserved BEFORE fitting, so the last line can never
+      // spill past the bottom of the safe region.
+      const topPad=box.h*0.04;
+      const textBox={x:box.x,y:box.y+topPad,w:box.w,h:box.h-topPad};
+      const fitted=fitText(ctx,text.trim(),textBox,format==='landscape'?44:40);
+      const start=textBox.y+fitted.lineHeight/2;
+      fitted.lines.forEach((line,i)=>ctx.fillText(line,textBox.x,start+i*fitted.lineHeight));
+    }
     if(name.trim()){
       const signature='ด้วยความยินดี จาก '+name.trim();let size=26;while(size>16){ctx.font=`500 ${size}px Prompt, Tahoma, sans-serif`;if(ctx.measureText(signature).width<=box.w)break;size--;}
-      const lines=wrapLines(signature,t=>ctx.measureText(t).width,box.w);lines.forEach((line,i)=>ctx.fillText(line,box.x+box.w/2,spec.signatureY*spec.height+i*size*1.5));
+      const lines=wrapLines(signature,t=>ctx.measureText(t).width,box.w);lines.forEach((line,i)=>ctx.fillText(line,box.x,spec.signatureY*spec.height+i*size*1.5));
     }
     return new Promise((resolve,reject)=>{try{canvas.toBlob(blob=>blob?resolve({blob,width:spec.width,height:spec.height}):reject(new Error('export-failed')),'image/png');}catch(error){reject(error);}});
   }

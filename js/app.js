@@ -52,10 +52,25 @@
   $('#schedule-note').textContent = config.scheduleConfirmed ? 'กำหนดการในวันงาน' : (config.scheduleNote || 'กำหนดการเบื้องต้น · เวลาอาจมีการเปลี่ยนแปลง');
   if (!config.schedule.length) $('#schedule-note').textContent = 'กำหนดการจะแจ้งให้ทราบอีกครั้ง';
 
+  const dresscodeSection = $('#dresscode');
+  const dresscodeNote = $('.dresscode-note');
+  if (dresscodeNote) dresscodeNote.textContent = (config.dressCode && config.dressCode.note) || '';
+  const palette = $('#dresscode-palette');
+  if (palette && config.dressCode && Array.isArray(config.dressCode.colors) && config.dressCode.colors.length) {
+    palette.replaceChildren();
+    config.dressCode.colors.forEach(color => {
+      const item = document.createElement('li'); item.style.setProperty('--swatch', color.hex);
+      const chip = document.createElement('span'); chip.className = 'dresscode-chip'; chip.setAttribute('aria-hidden', 'true');
+      const name = document.createElement('span'); name.className = 'dresscode-name'; name.textContent = color.name;
+      item.append(chip, name); palette.append(item);
+    });
+  } else if (dresscodeSection) {
+    dresscodeSection.hidden = true;
+  }
+
   const mapUrl = H.safeHttps(config.venue.mapUrl);
   if (mapUrl && !config.venue.address.trim()) $('#venue-address').textContent = 'ดูตำแหน่งบ้านและเส้นทางได้จากหมุด Google Maps ด้านล่าง';
-  const address = [config.venue.name, config.venue.address, config.venue.address.includes(config.venue.province) ? '' : config.venue.province].filter(Boolean).join('\n');
-  if (config.venue.address.trim()) { $('#venue-address').textContent = config.venue.address; $('#copy-address').hidden = false; }
+  if (config.venue.address.trim()) { $('#venue-address').textContent = config.venue.address; }
   if (mapUrl) { $('#map-link').href = mapUrl; $('#map-link').hidden = false; $('#map-status').textContent = 'แตะปุ่มด้านล่าง เพื่อดูหมุดและเริ่มนำทาง'; }
   if (config.contact.phone && /^\+?[\d\s()-]{8,20}$/.test(config.contact.phone)) {
     $('#contact-link').href = 'tel:' + config.contact.phone.replace(/[^\d+]/g, '');
@@ -90,7 +105,6 @@
     let success = false; try { success = document.execCommand('copy'); } catch (_) { success = false; }
     input.remove(); return success;
   }
-  $('#copy-address').addEventListener('click', async () => { toast(await copyText(address) ? 'คัดลอกที่อยู่แล้ว' : 'กรุณาเลือกและคัดลอกที่อยู่จากข้อมูลสถานที่'); });
   $('#share-button').addEventListener('click', async () => {
     const url = H.safeHttps(config.siteUrl) || (location.protocol === 'https:' ? location.origin + location.pathname : '');
     if (!url) { toast('เมื่อเว็บไซต์ออนไลน์แล้ว จะสามารถแชร์คำเชิญจากปุ่มนี้ได้'); return; }
