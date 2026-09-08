@@ -11,11 +11,15 @@
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/motion.css">
   <link rel="stylesheet" href="css/celebration.css">
+  <link rel="stylesheet" href="css/travel/travel.css">
   <script src="js/config.js" defer></script>
   <script src="js/helpers.js" defer></script>
   <script src="js/app.js" defer></script>
   <script src="js/motion.js" defer></script>
   <script src="js/celebration.js" defer></script>
+  <script src="js/travel/locations.js" defer></script>
+  <script src="js/travel/travel-helpers.js" defer></script>
+  <script src="js/travel/travel.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">ข้ามไปเนื้อหา</a>
@@ -129,6 +133,42 @@
           <a class="text-button" id="contact-link" hidden></a>
         </div>
       </div>
+    </section>
+
+    <section class="travel-guide section-shell" id="explore" aria-labelledby="travel-title">
+      <header class="travel-heading">
+        <p class="eyebrow" lang="en">SOMCHAI &amp; PHANTIRA · A LITTLE FURTHER TOGETHER</p>
+        <h2 class="script-title" id="travel-title" lang="en">Explore Around Us</h2>
+        <p class="section-intro">เที่ยวรอบสังคม</p>
+        <p class="subtle">ไหน ๆ ก็เดินทางมาหาเราแล้ว<br>ลองออกไปเจอเรื่องราวดี ๆ รอบสังคมกันนะ</p>
+      </header>
+      <div class="travel-picker"><p>วันนี้อยากเที่ยวแบบไหนดี?</p><div class="travel-filters" role="group" aria-label="เลือกสไตล์การเที่ยว"></div></div>
+      <div class="travel-layout">
+        <div class="travel-map-column">
+          <div class="travel-map-frame">
+            <div class="travel-viewport" tabindex="0" role="region" aria-label="แผนที่ภาพประกอบ ลากเพื่อเลื่อน หรือใช้ปุ่มลูกศร" aria-describedby="travel-map-help">
+              <div class="travel-scene">
+                <img class="travel-map-art" width="1536" height="1024" alt="แผนที่จำลองสังคม มีแม่น้ำโขง ภูเขา วัด คาเฟ่ และน้ำตก" loading="lazy" decoding="async">
+                <svg class="travel-route-svg" viewBox="0 0 1000 667" aria-hidden="true"><path class="travel-route-shadow"></path><path class="travel-route-line"></path></svg>
+                <div class="travel-pins"></div>
+                <a class="travel-venue" target="_blank" rel="noopener noreferrer" aria-label="เปิดสถานที่จัดงานใน Google Maps"><span lang="en">SP</span><small>งานของเรา</small></a>
+                <div class="travel-traveler" aria-hidden="true"><img width="1536" height="1024" alt="" loading="lazy" decoding="async"></div>
+              </div>
+            </div>
+            <p class="travel-map-caption">แผนที่ภาพประกอบ · ไม่ใช่มาตราส่วนจริง</p>
+            <div class="travel-map-tools" role="group" aria-label="ควบคุมแผนที่"><button type="button" data-travel-zoom="in" aria-label="ขยายแผนที่">+</button><button type="button" data-travel-zoom="out" aria-label="ย่อแผนที่">−</button><button type="button" data-travel-zoom="reset" aria-label="แสดงแผนที่ทั้งหมด">พอดี</button></div>
+          </div>
+          <p class="travel-map-help subtle" id="travel-map-help">ลากแผนที่เพื่อสำรวจ · แตะหมุดหรือชื่อด้านล่างเพื่อดูรายละเอียด</p>
+          <div class="travel-journey"><div class="travel-route-heading"><div><p class="eyebrow" lang="en">OUR LITTLE JOURNEY</p><h3 class="travel-route-title"></h3></div><button type="button" class="text-button travel-replay">ดูเส้นทางอีกครั้ง</button></div><p class="travel-route-subtitle subtle"></p><ol class="travel-route-stops" aria-label="ลำดับสถานที่แนะนำ"></ol><p class="travel-route-note subtle"></p></div>
+        </div>
+        <p class="sr-only travel-selection-status" role="status" aria-live="polite"></p>
+        <aside class="travel-detail" aria-label="รายละเอียดสถานที่"></aside>
+      </div>
+      <div class="travel-results-heading"><p class="travel-results-count" role="status" aria-live="polite"></p><p class="subtle">เลือกจากรายชื่อได้เช่นกัน</p></div>
+      <div class="travel-results" role="group" aria-label="สถานที่ในสไตล์ที่เลือก"></div>
+      <p class="travel-closing" lang="en">Different places. Same beautiful journey.</p>
+      <noscript><p>เปิด JavaScript เพื่อเลือกสถานที่และดูเส้นทางเที่ยวรอบสังคม</p></noscript>
+      <dialog class="travel-sheet" aria-label="รายละเอียดสถานที่ท่องเที่ยว"><div class="travel-sheet-top"><span class="travel-sheet-handle" aria-hidden="true"></span><button type="button" class="travel-sheet-close" aria-label="ปิดรายละเอียดสถานที่">×</button></div><div class="travel-sheet-content"></div></dialog>
     </section>
 
     <section class="invitation-section section-shell" id="invitation" aria-labelledby="invitation-title">

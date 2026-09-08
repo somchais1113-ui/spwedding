@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { randomUUID } from 'node:crypto';
 const here=path.dirname(fileURLToPath(import.meta.url));
 const defaultWeb=path.join(here,'dist');
-const types={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.png':'image/png','.jpeg':'image/jpeg','.jpg':'image/jpeg','.ttf':'font/ttf','.otf':'font/otf','.txt':'text/plain; charset=utf-8'};
+const types={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.png':'image/png','.webp':'image/webp','.avif':'image/avif','.jpeg':'image/jpeg','.jpg':'image/jpeg','.ttf':'font/ttf','.otf':'font/otf','.txt':'text/plain; charset=utf-8'};
 export function createWeddingServer({webRoot=defaultWeb,dataDir=process.env.WISHES_DATA_DIR||path.join(here,'private-wishes')}={}) {
   const limits=new Map();
   return http.createServer(async(req,res)=>{

@@ -1,6 +1,6 @@
 {
-  "version": "1.7.0",
-  "designDirection": "Navy blue / ice blue watercolor wedding",
+  "version": "1.8.0",
+  "designDirection": "Pure white / navy / soft blue; original watercolor artwork and miniature journey module",
   "images": [
     {
       "file": "assets/images/ceremony-chair.jpeg",
@@ -8,7 +8,7 @@
       "height": 1296,
       "format": "JPEG",
       "background": "white",
-      "origin": "user supplied replacement artwork; unchanged bytes and natural colors",
+      "origin": "user supplied original, unchanged bytes",
       "bytes": 276004,
       "sha256": "eebe223a886023fb38dd6326c6e37d61d314116d0f34f46290ad81f64dd8a5f3"
     },
@@ -18,7 +18,7 @@
       "height": 1086,
       "format": "JPEG",
       "background": "white",
-      "origin": "user supplied replacement artwork; unchanged bytes and natural colors",
+      "origin": "user supplied original, unchanged bytes",
       "bytes": 625149,
       "sha256": "df71ad48773e4ce380d629a1c309ccb863fd5dd4bcda2c8a7b563a9f8f06edee"
     },
@@ -28,9 +28,29 @@
       "height": 1254,
       "format": "PNG",
       "background": "transparent",
-      "origin": "user supplied original logo, unchanged",
+      "origin": "user supplied original, unchanged bytes",
       "bytes": 609204,
       "sha256": "c5be2e5c36e632c3a23ca18aa2161cd20c257b3002bddacec161f8d8f43754b2"
+    },
+    {
+      "file": "assets/travel/characters/couple-journey.webp",
+      "width": 1536,
+      "height": 1024,
+      "format": "WEBP",
+      "background": "transparent",
+      "origin": "generated miniature illustrative asset, delivery format WebP; original PNG in design-source/travel",
+      "bytes": 160648,
+      "sha256": "62ad688dd8d5feae011329a8019f059f34d67a33d7c8f5c6ead20734f216a014"
+    },
+    {
+      "file": "assets/travel/map/sangkhom-diorama.webp",
+      "width": 1536,
+      "height": 1024,
+      "format": "WEBP",
+      "background": "white",
+      "origin": "generated miniature illustrative asset, delivery format WebP; original PNG in design-source/travel",
+      "bytes": 266160,
+      "sha256": "db1d1b1838a2268270e0b914e9d6bac43383e5393443a54a2c633bb6a0b5803a"
     }
   ],
   "fonts": [

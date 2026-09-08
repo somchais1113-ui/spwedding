@@ -30,7 +30,7 @@ for reference in parser.refs:
     if not (web / reference).is_file(): errors.append('Missing HTML asset: ' + reference)
 for anchor in parser.anchors:
     if anchor not in parser.ids: errors.append('Missing anchor target: ' + anchor)
-for css in (web / 'css').glob('*.css'):
+for css in (web / 'css').rglob('*.css'):
     for reference in re.findall(r'url\([\'\"]?([^\'\")]+)', css.read_text()):
         if not reference.startswith(('data:', 'https:')) and not (css.parent / reference).is_file():
             errors.append('Missing CSS asset: ' + reference)

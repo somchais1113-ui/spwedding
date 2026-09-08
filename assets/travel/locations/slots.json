@@ -1,0 +1,146 @@
+[
+  {
+    "id": "wat-pa-phu-kon",
+    "name": "วัดป่าภูก้อน",
+    "src": null,
+    "slot": "assets/travel/locations/wat-pa-phu-kon.webp",
+    "width": 1200,
+    "height": 800,
+    "alt": "วัดป่าภูก้อน"
+  },
+  {
+    "id": "pha-tak-suea",
+    "name": "วัดผาตากเสื้อ",
+    "src": null,
+    "slot": "assets/travel/locations/pha-tak-suea.webp",
+    "width": 1200,
+    "height": 800,
+    "alt": "วัดผาตากเสื้อ"
+  },
+  {
+    "id": "tham-din-phiang",
+    "name": "ถ้ำดินเพียง",
+    "src": null,
+    "slot": "assets/travel/locations/tham-din-phiang.webp",
+    "width": 1200,
+    "height": 800,
+    "alt": "ถ้ำดินเพียง"
+  },
+  {
+    "id": "chatdanai-cafe",
+    "name": "ไร่ฉัตรดนัย",
+    "src": null,
+    "slot": "assets/travel/locations/chatdanai-cafe.webp",
+    "width": 1200,
+    "height": 800,
+    "alt": "ไร่ฉัตรดนัย"
+  },
+  {
+    "id": "188-cafe-camp",
+    "name": "188 Cafe Camp",
+    "src": null,
+    "slot": "assets/travel/locations/188-cafe-camp.webp",
+    "width": 1200,
+    "height": 800,
+    "alt": "188 Cafe Camp"
+  },
+  {
+    "id": "move-camp",
+    "name": "Move Camp",
+    "src": null,
+    "slot": "assets/travel/locations/move-camp.webp",
+    "width": 1200,
+    "height": 800,
+    "alt": "Move Camp"
+  },
+  {
+    "id": "adore-story-cafe",
+    "name": "Adore Story Cafe",
+    "src": null,
+    "slot": "assets/travel/locations/adore-story-cafe.webp",
+    "width": 1200,
+    "height": 800,
+    "alt": "Adore Story Cafe"
+  },
+  {
+    "id": "banaberry-cafe",
+    "name": "Banaberry Cafe",
+    "src": null,
+    "slot": "assets/travel/locations/banaberry-cafe.webp",
+    "width": 1200,
+    "height": 800,
+    "alt": "Banaberry Cafe"
+  },
+  {
+    "id": "atv-nangio",
+    "name": "ATV นางิ้ว / กาแฟเอิงเอย",
+    "src": null,
+    "slot": "assets/travel/locations/atv-nangio.webp",
+    "width": 1200,
+    "height": 800,
+    "alt": "ATV นางิ้ว / กาแฟเอิงเอย"
+  },
+  {
+    "id": "khiri-wongkot",
+    "name": "หมู่บ้านคีรีวงกต",
+    "src": null,
+    "slot": "assets/travel/locations/khiri-wongkot.webp",
+    "width": 1200,
+    "height": 800,
+    "alt": "หมู่บ้านคีรีวงกต"
+  },
+  {
+    "id": "etaek-journey",
+    "name": "รถอีแต๊กลุยธรรมชาติ",
+    "src": null,
+    "slot": "assets/travel/locations/etaek-journey.webp",
+    "width": 1200,
+    "height": 800,
+    "alt": "รถอีแต๊กลุยธรรมชาติ"
+  },
+  {
+    "id": "camping-move-camp",
+    "name": "Camping ที่ Move Camp",
+    "src": null,
+    "slot": "assets/travel/locations/camping-move-camp.webp",
+    "width": 1200,
+    "height": 800,
+    "alt": "Camping ที่ Move Camp"
+  },
+  {
+    "id": "than-thip-waterfall",
+    "name": "น้ำตกธารทิพย์",
+    "src": null,
+    "slot": "assets/travel/locations/than-thip-waterfall.webp",
+    "width": 1200,
+    "height": 800,
+    "alt": "น้ำตกธารทิพย์"
+  },
+  {
+    "id": "than-thong-waterfall",
+    "name": "น้ำตกธารทอง",
+    "src": null,
+    "slot": "assets/travel/locations/than-thong-waterfall.webp",
+    "width": 1200,
+    "height": 800,
+    "alt": "น้ำตกธารทอง"
+  },
+  {
+    "id": "phu-huai-isan",
+    "name": "ภูห้วยอีสัน",
+    "src": null,
+    "slot": "assets/travel/locations/phu-huai-isan.webp",
+    "width": 1200,
+    "height": 800,
+    "alt": "ภูห้วยอีสัน"
+  },
+  {
+    "id": "mekong-viewpoint",
+    "name": "จุดชมวิวแม่น้ำโขง",
+    "src": null,
+    "slot": "assets/travel/locations/mekong-viewpoint.webp",
+    "width": 1200,
+    "height": 800,
+    "alt": "จุดชมวิวแม่น้ำโขง"
+  }
+]
