@@ -27,6 +27,10 @@
   function introduce(scene) {
     if (!enabled || !scene.active || scene.introduced || !scene.image.complete || !scene.image.naturalWidth) return;
     scene.introduced = true;
+    if (scene.element.dataset.scene === 'hero') {
+      scene.element.classList.add('story-started');
+      return;
+    }
     scene.entrance.classList.add('is-entering');
   }
   function reveal(element, delay = 0) {

@@ -1,5 +1,5 @@
 {
-  "version": "1.6.0",
+  "version": "1.7.0",
   "designDirection": "Navy blue / ice blue watercolor wedding",
   "images": [
     {
@@ -34,6 +34,14 @@
     }
   ],
   "fonts": [
+    {
+      "file": "assets/fonts/OrangeAvenueDEMO-Regular.otf",
+      "bytes": 42152
+    },
+    {
+      "file": "assets/fonts/OrangeAvenueOutlineDEMO-Regular.otf",
+      "bytes": 70664
+    },
     {
       "file": "assets/fonts/prompt-medium.ttf",
       "bytes": 72776

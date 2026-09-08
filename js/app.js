@@ -32,6 +32,7 @@
     const img = document.querySelector('[data-art="' + key + '"]');
     if (!img) return;
     img.src = asset.src;
+    if (key === 'hero') document.querySelectorAll('.story-layer img').forEach(layer => { layer.src = asset.src; if (asset.width && asset.height) { layer.width = asset.width; layer.height = asset.height; } });
     if (asset.width && asset.height) { img.width = asset.width; img.height = asset.height; }
   });
   // Personalized links: https://your-site/?to=ชื่อแขก

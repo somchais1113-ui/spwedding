@@ -75,3 +75,47 @@
 @keyframes send-confetti{0%{opacity:0;transform:translate(0,0) rotate(0)}15%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(var(--r))}}
 @media(max-width:600px){.paper-inside{padding:44px 18px 28px;border-width:8px;min-height:520px}.paper-inside .dialog-names{font-size:32px}.book-cover-front{padding:40px 25px;gap:20px}.wish-send-button{width:100%}}
 @media(prefers-reduced-motion:reduce){.book-cover{display:none}.wish-send-button,.send-loader,.send-confetti i{animation:none!important}.send-confetti{display:none}}
+
+/* Orange Avenue type system: filled titles, outline ampersand as a single accent. */
+:root{--font-outline:OrangeAvenueOutline,OrangeAvenue,Georgia,serif}
+.eyebrow{font-family:OrangeAvenue,Georgia,serif;font-size:14px;letter-spacing:.15em;line-height:1.7}
+.hero h1{font-size:clamp(48px,6.5vw,80px);gap:0 20px;line-height:1.2;margin:20px 0 18px;font-synthesis:none}
+.hero h1 .ampersand{font-family:var(--font-outline);font-size:.78em;font-style:normal;line-height:1.2}
+.script-title{font-size:clamp(36px,4.6vw,55px);line-height:1.2;margin:14px 0 16px;font-synthesis:none}
+.footer-names{font-size:36px}.dialog-names,.paper-inside .dialog-names{font-size:34px;line-height:1.25}
+.countdown>div>span:first-child{font-size:42px;line-height:1.45}.welcome-countdown>div>span:first-child{font-size:40px}
+/* Cinematic story using complementary soft masks over the original photo.
+   The unmasked master resolves last, retaining every original pixel. */
+.hero-story{margin-bottom:12px}
+.story-camera{position:relative;isolation:isolate;transform-origin:50% 65%}
+.story-master{position:relative;z-index:3}
+.story-layer{position:absolute;inset:0;display:none;pointer-events:none}
+.story-layer img{width:100%;height:100%;object-fit:contain}
+.story-setting{-webkit-mask-image:radial-gradient(ellipse 36% 54% at 49% 66%,transparent 57%,#000 84%);mask-image:radial-gradient(ellipse 36% 54% at 49% 66%,transparent 57%,#000 84%)}
+.story-couple{-webkit-mask-image:radial-gradient(ellipse 36% 54% at 49% 66%,#000 57%,transparent 84%);mask-image:radial-gradient(ellipse 36% 54% at 49% 66%,#000 57%,transparent 84%)}
+.story-light{display:none;position:absolute;inset:0;z-index:4;pointer-events:none;background:linear-gradient(110deg,transparent 25%,#fff6 45%,transparent 62%);opacity:0}
+.hero-story-caption{position:relative;display:grid;place-items:center;min-height:44px;margin:0 12px 8px;font-family:Prompt,Tahoma,sans-serif;font-size:15px;line-height:1.9;color:var(--muted)}
+.story-line{grid-area:1/1;text-align:center}.story-line-one,.story-line-two{display:none}
+.motion-enabled .hero-story .art-tilt{transform:none}
+.motion-enabled .hero-story .art-drift{animation:none}
+.motion-enabled .story-started .story-layer{display:block}
+.motion-enabled .story-started .story-setting{animation:story-garden-arrives 2200ms cubic-bezier(.22,1,.36,1) both}
+.motion-enabled .story-started .story-couple{animation:story-couple-arrives 2200ms 1200ms cubic-bezier(.22,1,.36,1) both}
+.motion-enabled .story-started .story-master{animation:story-whole-memory 4400ms ease both}
+.motion-enabled .story-started .story-camera{animation:story-camera-settles 8500ms cubic-bezier(.2,.5,.2,1) both}
+.motion-enabled .story-started .story-light{display:block;animation:story-morning-light 3800ms 2800ms ease-in-out both}
+.motion-enabled .story-started .story-line-one{display:block;animation:story-caption-passing 2700ms ease both}
+.motion-enabled .story-started .story-line-two{display:block;animation:story-caption-passing 2900ms 2700ms ease both}
+.motion-enabled .story-started .story-line-three{animation:story-caption-final 1500ms 5600ms ease both}
+.motion-background .hero-story *,.motion-enabled .hero-story:not(.scene-active) *{animation-play-state:paused!important}
+@keyframes story-garden-arrives{from{opacity:0;transform:scale(1.018)}to{opacity:1;transform:none}}
+@keyframes story-couple-arrives{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+@keyframes story-whole-memory{0%,68%{opacity:0}100%{opacity:1}}
+@keyframes story-camera-settles{0%{transform:scale(1.035)}100%{transform:scale(1)}}
+@keyframes story-morning-light{0%{opacity:0;transform:translateX(-22%)}40%{opacity:.24}100%{opacity:0;transform:translateX(22%)}}
+@keyframes story-caption-passing{0%{opacity:0;transform:translateY(5px)}20%,73%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-4px)}}
+@keyframes story-caption-final{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.motion-paused .hero-story .story-layer,.motion-paused .hero-story .story-light,.motion-paused .hero-story .story-line-one,.motion-paused .hero-story .story-line-two{display:none}
+.motion-paused .hero-story .story-master,.motion-paused .hero-story .story-line-three{opacity:1!important;transform:none!important}
+@media(max-width:600px){.hero-story{margin-bottom:8px}.hero h1{font-size:clamp(37px,9.4vw,52px);gap:0 12px;line-height:1.22;margin:16px 0}.hero h1 .ampersand{font-size:.75em}.script-title{font-size:clamp(31px,8.4vw,43px)}.footer-names{font-size:29px}.paper-inside .dialog-names{font-size:28px}.hero-story-caption{font-size:14px;min-height:54px;margin-inline:16px}.welcome-countdown>div>span:first-child{font-size:34px}.hero .eyebrow,.welcome-eyebrow{font-size:13px;letter-spacing:.12em}}
+@media(prefers-reduced-motion:reduce){.hero-story *{animation:none!important;transform:none!important}.hero-story .story-layer,.hero-story .story-light,.hero-story .story-line-one,.hero-story .story-line-two{display:none!important}.hero-story .story-master,.hero-story .story-line-three{opacity:1!important}}
