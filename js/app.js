@@ -8,7 +8,8 @@
   const fill = (selector, value) => all(selector).forEach(el => { el.textContent = value || ''; });
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const prefersStill = () => reducedMotion.matches || document.documentElement.classList.contains('motion-paused');
-  const start = H.validDate(config.date.startAt), end = H.validDate(config.date.endAt);
+  const start = H.validDate(config.date.startAt) || H.validDate(config.date.eventDay + 'T00:00:00+07:00');
+  const end = H.validDate(config.date.endAt) || (start ? new Date(start.getTime() + 86400000) : null);
   let dateLabel = config.date.pendingLabel;
   if (start) {
     try { dateLabel = new Intl.DateTimeFormat('th-TH', { dateStyle: 'long', timeZone: config.date.timeZone }).format(start); }
@@ -47,10 +48,11 @@
     const description = document.createElement('p'); description.textContent = item.description;
     content.append(title, description); row.append(number, content); schedule.append(row);
   });
-  $('#schedule-note').textContent = config.scheduleConfirmed ? 'กำหนดการในวันงาน' : 'ลำดับกิจกรรมเบื้องต้น · เวลาจะแจ้งอีกครั้ง';
+  $('#schedule-note').textContent = config.scheduleConfirmed ? 'กำหนดการในวันงาน' : (config.scheduleNote || 'กำหนดการเบื้องต้น · เวลาอาจมีการเปลี่ยนแปลง');
   if (!config.schedule.length) $('#schedule-note').textContent = 'กำหนดการจะแจ้งให้ทราบอีกครั้ง';
 
   const mapUrl = H.safeHttps(config.venue.mapUrl);
+  if (mapUrl && !config.venue.address.trim()) $('#venue-address').textContent = 'ดูตำแหน่งบ้านและเส้นทางได้จากหมุด Google Maps ด้านล่าง';
   const address = [config.venue.name, config.venue.address, config.venue.province].filter(Boolean).join('\n');
   if (config.venue.address.trim()) { $('#venue-address').textContent = config.venue.address; $('#copy-address').hidden = false; }
   if (mapUrl) { $('#map-link').href = mapUrl; $('#map-link').hidden = false; $('#map-status').textContent = 'แตะปุ่มด้านล่าง เพื่อดูหมุดและเริ่มนำทาง'; }
@@ -102,16 +104,21 @@
   });
 
   if (start) {
+    $('#welcome-countdown-note').textContent = 'นับถอยหลังถึงเวลาเริ่มงาน · เวลาไทย';
     $('#countdown-section').hidden = false;
     const tick = () => {
       const now = new Date();
+      const parts = H.countdownParts(start, now);
+      Object.entries(parts).forEach(([key, value]) => {
+        all('[data-count="' + key + '"]').forEach(el => { el.textContent = String(value).padStart(2, '0'); });
+      });
       if (now >= start) {
         $('#countdown').hidden = true;
         $('#countdown-title').textContent = end && now >= end ? 'A DAY TO REMEMBER' : 'OUR SPECIAL DAY';
         $('#countdown-status').textContent = end && now >= end ? 'ขอบคุณที่ร่วมเป็นส่วนหนึ่งในวันของเรา' : 'ถึงวันสำคัญของเราแล้ว แล้วพบกันนะ';
+        $('#welcome-countdown-note').textContent = $('#countdown-status').textContent;
         return;
       }
-      const parts = H.countdownParts(start, now);
       Object.entries(parts).forEach(([key, value]) => { $('#' + key).textContent = String(value).padStart(2, '0'); });
     };
     tick(); setInterval(tick, 1000);
@@ -129,19 +136,7 @@
     });
   });
 
-  let lastHeartAt = 0;
   $('#heart-button').addEventListener('click', () => {
-    if (Date.now() - lastHeartAt < 400) return; lastHeartAt = Date.now();
-    $('#heart-note').textContent = 'ขอบคุณสำหรับหัวใจดวงนี้ แล้วพบกันในวันของเรา';
-    if (prefersStill()) return;
-    const rect = $('#heart-button').getBoundingClientRect(); const layer = $('#heart-particles');
-    const fragment = document.createDocumentFragment(); const particles = [];
-    for (let i = 0; i < 12; i++) {
-      const particle = document.createElement('span'); particle.className = 'heart-particle'; particle.textContent = i % 3 ? '♡' : '♥';
-      particle.style.setProperty('--x', rect.left + rect.width / 2 + 'px'); particle.style.setProperty('--y', rect.top + rect.height / 2 + 'px');
-      particle.style.setProperty('--dx', (Math.random() - .5) * 240 + 'px'); particle.style.setProperty('--dy', 80 + Math.random() * 160 + 'px'); particle.style.setProperty('--r', (Math.random() - .5) * 60 + 'deg');
-      fragment.append(particle); particles.push(particle);
-    }
-    layer.append(fragment); setTimeout(() => particles.forEach(particle => particle.remove()), 1700);
+    $('#heart-note').textContent = 'ขอบคุณสำหรับความยินดี แล้วพบกันในวันของเรา';
   });
 })();

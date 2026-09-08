@@ -31,15 +31,20 @@
     return output + segment;
   }
   function makeCalendar(config, now = new Date()) {
-    const start = validDate(config.date.startAt), end = validDate(config.date.endAt);
-    if (!start || !end || end <= start) return null;
+    const timedStart = validDate(config.date.startAt);
+    const start = timedStart || validDate(config.date.eventDay + 'T00:00:00+07:00');
+    const end = validDate(config.date.endAt);
+    if (!start || (timedStart && (!end || end <= start))) return null;
+    const day = config.date.eventDay;
+    const nextDay = new Date(start.getTime() + 86400000 + 7 * 3600000).toISOString().slice(0,10).replace(/-/g, '');
     const stamp = date => date.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+    const dates = timedStart ? ['DTSTART:' + stamp(start), 'DTEND:' + stamp(end)] : ['DTSTART;VALUE=DATE:' + day.replace(/-/g, ''), 'DTEND;VALUE=DATE:' + nextDay];
     const names = config.couple.groom + ' & ' + config.couple.bride;
     const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//SP Wedding Invitation//TH', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH', 'BEGIN:VEVENT',
-      'UID:sp-wedding-' + start.getTime() + '@wedding.local', 'DTSTAMP:' + stamp(now), 'DTSTART:' + stamp(start), 'DTEND:' + stamp(end),
+      'UID:sp-wedding-' + start.getTime() + '@wedding.local', 'DTSTAMP:' + stamp(now), ...dates,
       'SUMMARY:' + escapeICS('งานแต่งงาน ' + names),
       'LOCATION:' + escapeICS([config.venue.name, config.venue.address, config.venue.province].filter(Boolean).join(' ')),
-      'DESCRIPTION:' + escapeICS([config.invitation, safeHttps(config.venue.mapUrl)].filter(Boolean).join('\n')),
+      'DESCRIPTION:' + escapeICS([config.invitation, config.date.timeLabel, safeHttps(config.venue.mapUrl)].filter(Boolean).join('\n')),
       'STATUS:CONFIRMED', 'END:VEVENT', 'END:VCALENDAR'];
     return lines.map(foldICS).join('\r\n') + '\r\n';
   }

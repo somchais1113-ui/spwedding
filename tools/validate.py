@@ -34,7 +34,7 @@ for css in (web / 'css').glob('*.css'):
     for reference in re.findall(r'url\([\'\"]?([^\'\")]+)', css.read_text()):
         if not reference.startswith(('data:', 'https:')) and not (css.parent / reference).is_file():
             errors.append('Missing CSS asset: ' + reference)
-for name in ('hero-couple.png', 'ceremony-chair.png'):
+for name in ('hero-couple.jpeg', 'ceremony-chair.jpeg'):
     path = web / 'assets/images' / name
     if not path.is_file() or path.stat().st_size < 1000: errors.append('Missing/empty artwork: ' + name)
 if errors:

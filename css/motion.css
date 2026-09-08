@@ -14,13 +14,13 @@
 .motion-enabled [data-scene="chair"].ambient-on .art-drift{animation-duration:15s;animation-delay:-4s}
 .motion-background .art-drift{animation-play-state:paused!important}
 .motion-enabled .invitation-card{overflow:hidden;transition:transform 650ms var(--motion-ease),box-shadow 650ms var(--motion-ease),border-color 650ms ease}
-.motion-enabled .invitation-card:hover{transform:translateY(-6px) rotate(-.4deg);box-shadow:0 22px 54px #39433318;border-color:#aab99c}
+.motion-enabled .invitation-card:hover{transform:none;box-shadow:0 22px 54px #152d5018;border-color:#9cb7db}
 .motion-enabled .invitation-card:after{content:'';position:absolute;inset:-45% -70%;pointer-events:none;background:linear-gradient(110deg,transparent 38%,#ffffffe0 49%,transparent 60%);transform:translateX(-100%) rotate(5deg);opacity:0}
 .motion-enabled .invitation-card:hover:after,.motion-enabled .invitation-card:focus-visible:after{animation:paper-light 1350ms var(--motion-ease) both}
-.motion-enabled dialog[open]{animation:invitation-unfold 520ms var(--motion-ease) both;transform-origin:50% 65%}
+.motion-enabled dialog[open]{animation:none;transform-origin:50% 65%}
 .motion-enabled dialog[open]::backdrop{animation:backdrop-arrival 420ms ease-out both}
 .motion-enabled .button{transition:background 250ms ease,border-color 250ms ease,transform 450ms var(--motion-ease),box-shadow 450ms ease}
-.motion-enabled .button:hover{box-shadow:0 6px 16px #39433312;transform:translateY(-2px)}
+.motion-enabled .button:hover{box-shadow:0 6px 16px #152d5012;transform:translateY(-2px)}
 .motion-toggle{min-width:58px;min-height:44px;padding:8px 11px;border:1px solid var(--line);border-radius:24px;background:transparent;color:var(--muted);font:400 12px/1.7 var(--font-body);white-space:nowrap}
 .motion-toggle:hover{border-color:var(--accent);color:var(--accent-dark)}
 .motion-toggle[aria-pressed="true"]{background:var(--wash)}

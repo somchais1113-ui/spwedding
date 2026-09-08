@@ -1,26 +1,36 @@
 {
-  "version": "1.1.0",
-  "designDirection": "Watercolor wedding invitation; white and sage",
+  "version": "1.6.0",
+  "designDirection": "Navy blue / ice blue watercolor wedding",
   "images": [
     {
-      "file": "assets/images/ceremony-chair.png",
-      "width": 1024,
-      "height": 1536,
-      "format": "PNG",
-      "background": "opaque white",
-      "origin": "newly generated interpretation of the Figma reference",
-      "bytes": 1771501,
-      "sha256": "fb81d4eaaf28620406ad1430ae50d36f08beb3497cc7969fd0b4ebeb8b0e54ff"
+      "file": "assets/images/ceremony-chair.jpeg",
+      "width": 1213,
+      "height": 1296,
+      "format": "JPEG",
+      "background": "white",
+      "origin": "user supplied replacement artwork; unchanged bytes and natural colors",
+      "bytes": 276004,
+      "sha256": "eebe223a886023fb38dd6326c6e37d61d314116d0f34f46290ad81f64dd8a5f3"
     },
     {
-      "file": "assets/images/hero-couple.png",
-      "width": 1536,
-      "height": 1024,
+      "file": "assets/images/hero-couple.jpeg",
+      "width": 1448,
+      "height": 1086,
+      "format": "JPEG",
+      "background": "white",
+      "origin": "user supplied replacement artwork; unchanged bytes and natural colors",
+      "bytes": 625149,
+      "sha256": "df71ad48773e4ce380d629a1c309ccb863fd5dd4bcda2c8a7b563a9f8f06edee"
+    },
+    {
+      "file": "assets/images/sp-wedding-logo.png",
+      "width": 1254,
+      "height": 1254,
       "format": "PNG",
-      "background": "opaque white",
-      "origin": "newly generated interpretation of the Figma reference",
-      "bytes": 2228338,
-      "sha256": "03c70ae21d192823727f848f0a657de2835b20c225352bb59de2821a4197e70c"
+      "background": "transparent",
+      "origin": "user supplied original logo, unchanged",
+      "bytes": 609204,
+      "sha256": "c5be2e5c36e632c3a23ca18aa2161cd20c257b3002bddacec161f8d8f43754b2"
     }
   ],
   "fonts": [
