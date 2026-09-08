@@ -1,5 +1,5 @@
 {
-  "version": "2.0.0",
+  "version": "2.2.0",
   "designDirection": "Pure white / navy / soft blue; original watercolor artwork and miniature journey module",
   "images": [
     {
@@ -151,6 +151,10 @@
     {
       "file": "assets/fonts/OrangeAvenueOutlineDEMO-Regular.otf",
       "bytes": 70664
+    },
+    {
+      "file": "assets/fonts/PKF-rayraiDEMO.ttf",
+      "bytes": 140392
     },
     {
       "file": "assets/fonts/prompt-medium.ttf",

@@ -22,6 +22,16 @@ test('Text fitting reduces size and refuses impossible layouts without dropping 
  assert.throws(()=>E.fitText(ctx,'a\n'.repeat(1000),box,40,17),/text-too-long/);
 });
 test('Requested removals and independent export/send affordances are present',()=>{
- const html=fs.readFileSync(path.join(web,'index.html'),'utf8');for(const text of ['และอยากมีคุณอยู่ในความทรงจำนี้','และอยากให้คุณอยู่ในความทรงจำนี้','จะเป็นตัวพิมพ์ หรือลายมือของคุณ ก็มีความหมายกับเรา','07:00'])assert.ok(!html.includes(text));
+ const html=fs.readFileSync(path.join(web,'index.html'),'utf8');for(const text of ['และอยากมีคุณอยู่ในความทรงจำนี้','และอยากให้คุณอยู่ในความทรงจำนี้','จะเป็นตัวพิมพ์ หรือลายมือของคุณ ก็มีความหมายกับเรา','07:00','เช้าวันหนึ่ง ที่เราอยากมีคุณอยู่ด้วย','copy-address','บ้านของเรา'])assert.ok(!html.includes(text));
  assert.equal(C.scheduleNote,'กำหนดพิธีการ รายละเอียดดังต่อไปนี้');assert.ok(html.includes('class="button share-invitation-cta"'));assert.ok(html.includes('id="export-wish"'));assert.ok(html.includes('id="save-wish"'));assert.ok(html.includes('welcome-mesh'));
+});
+
+test('300 DPI metadata is singular, before IDAT, and preserves compressed pixels',async()=>{
+ const source=new Blob([Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aYuoAAAAASUVORK5CYII=','base64')],{type:'image/png'});
+ const chunkList=async blob=>{const b=Buffer.from(await blob.arrayBuffer()),chunks=[];for(let o=8;o<b.length;){const n=b.readUInt32BE(o),type=b.toString('ascii',o+4,o+8);chunks.push({type,data:b.subarray(o+8,o+8+n)});o+=n+12;}return chunks;};
+ const first=await E.withDPI(source),second=await E.withDPI(first);assert.deepEqual(Buffer.from(await first.arrayBuffer()),Buffer.from(await second.arrayBuffer()));
+ const chunks=await chunkList(second),phys=chunks.filter(c=>c.type==='pHYs');assert.equal(phys.length,1);assert.equal(phys[0].data.readUInt32BE(0),11811);assert.equal(phys[0].data.readUInt32BE(4),11811);assert.equal(phys[0].data[8],1);
+ assert.ok(chunks.findIndex(c=>c.type==='pHYs')<chunks.findIndex(c=>c.type==='IDAT'));
+ assert.deepEqual(chunks.find(c=>c.type==='IDAT').data,(await chunkList(source)).find(c=>c.type==='IDAT').data);
+ await assert.rejects(E.withDPI(new Blob(['bad'])),/invalid-png/);
 });

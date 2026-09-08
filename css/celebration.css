@@ -71,7 +71,7 @@
 .send-confetti i:nth-child(1){--dx:-95px;--dy:-65px;--r:-100deg}.send-confetti i:nth-child(2){--dx:-55px;--dy:-88px;--r:130deg;background:#d9b4bd}.send-confetti i:nth-child(3){--dx:5px;--dy:-75px;--r:200deg}.send-confetti i:nth-child(4){--dx:60px;--dy:-85px;--r:-160deg;background:#d9b4bd}.send-confetti i:nth-child(5){--dx:105px;--dy:-48px;--r:95deg}.send-confetti i:nth-child(6){--dx:-110px;--dy:-25px;--r:250deg;background:#becbdb}
 [data-state="success"] .send-confetti i{animation:send-confetti 1100ms ease-out both}
 @keyframes send-spin{to{transform:rotate(360deg)}}@keyframes send-soft-pulse{50%{box-shadow:0 0 0 11px #224e8305}}
-@keyframes send-thank-you{0%{transform:scale(1)}40%{transform:scale(1.035)}100%{transform:scale(1)}}
+@keyframes send-thank-you{0%{transform:scale(1)}40%{transform:scale(1.014)}100%{transform:scale(1)}}
 @keyframes send-confetti{0%{opacity:0;transform:translate(0,0) rotate(0)}15%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(var(--r))}}
 @media(max-width:600px){.paper-inside{padding:44px 18px 28px;border-width:8px;min-height:520px}.paper-inside .dialog-names{font-size:32px}.book-cover-front{padding:40px 25px;gap:20px}.wish-send-button{width:100%}}
 @media(prefers-reduced-motion:reduce){.book-cover{display:none}.wish-send-button,.send-loader,.send-confetti i{animation:none!important}.send-confetti{display:none}}
@@ -97,21 +97,22 @@
 .hero-story-caption{position:relative;display:grid;place-items:center;min-height:44px;margin:0 12px 8px;font-family:Prompt,Tahoma,sans-serif;font-size:15px;line-height:1.9;color:var(--muted)}
 .story-line{grid-area:1/1;text-align:center}.story-line-one,.story-line-two{display:none}
 .motion-enabled .hero-story .art-tilt{transform:none}
-.motion-enabled .hero-story .art-drift{animation:none}
+.motion-enabled .hero-story .art-drift{animation:story-breathes 18s ease-in-out infinite;animation-play-state:paused}
+.motion-enabled .hero-story.scene-active .art-drift{animation-play-state:running}
 .motion-enabled .story-started .story-layer{display:block}
-.motion-enabled .story-started .story-setting{animation:story-garden-arrives 2200ms cubic-bezier(.22,1,.36,1) both}
-.motion-enabled .story-started .story-couple{animation:story-couple-arrives 2200ms 1200ms cubic-bezier(.22,1,.36,1) both}
+.motion-enabled .story-started .story-setting{animation:story-garden-arrives 3000ms cubic-bezier(.25,.1,.25,1) both}
+.motion-enabled .story-started .story-couple{animation:story-couple-arrives 3200ms 800ms cubic-bezier(.25,.1,.25,1) both}
 .motion-enabled .story-started .story-master{animation:story-whole-memory 4400ms ease both}
-.motion-enabled .story-started .story-camera{animation:story-camera-settles 8500ms cubic-bezier(.2,.5,.2,1) both}
+.motion-enabled .story-started .story-camera{animation:story-camera-settles 6500ms cubic-bezier(.25,.1,.25,1) both}
 .motion-enabled .story-started .story-light{display:block;animation:story-morning-light 3800ms 2800ms ease-in-out both}
 .motion-enabled .story-started .story-line-one{display:block;animation:story-caption-passing 2700ms ease both}
 .motion-enabled .story-started .story-line-two{display:block;animation:story-caption-passing 2900ms 2700ms ease both}
 .motion-enabled .story-started .story-line-three{animation:story-caption-final 1500ms 5600ms ease both}
 .motion-background .hero-story *,.motion-enabled .hero-story:not(.scene-active) *{animation-play-state:paused!important}
-@keyframes story-garden-arrives{from{opacity:0;transform:scale(1.018)}to{opacity:1;transform:none}}
-@keyframes story-couple-arrives{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+@keyframes story-garden-arrives{from{opacity:0}to{opacity:1}}
+@keyframes story-couple-arrives{from{opacity:0}to{opacity:1}}
 @keyframes story-whole-memory{0%,68%{opacity:0}100%{opacity:1}}
-@keyframes story-camera-settles{0%{transform:scale(1.035)}100%{transform:scale(1)}}
+@keyframes story-camera-settles{0%{transform:scale(1.014)}100%{transform:scale(1)}}
 @keyframes story-morning-light{0%{opacity:0;transform:translateX(-22%)}40%{opacity:.24}100%{opacity:0;transform:translateX(22%)}}
 @keyframes story-caption-passing{0%{opacity:0;transform:translateY(5px)}20%,73%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-4px)}}
 @keyframes story-caption-final{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
@@ -161,3 +162,10 @@
   .welcome-footnote{margin-top:8px}
   .welcome-motion{top:12px;right:16px;padding:5px 9px;min-height:32px}
 }
+
+/* A continuous loop with matching endpoints; no replay of the story entrance. */
+@keyframes story-breathes{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(0,-3px,0) scale(1.006)}}
+/* The original Orange Avenue has only a regular face. Allow gentle synthetic weight. */
+[lang="en"],.eyebrow,.script-title,.hero h1,.footer-names,.dialog-names,.ampersand,.countdown>div>span:first-child,.dresscode-name{font-weight:600;font-synthesis:weight}
+.hero h1 .ampersand{font-family:var(--font-serif);font-weight:600}
+.wish-photo-actions p{font-size:14px;line-height:1.6}

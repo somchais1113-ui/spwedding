@@ -69,7 +69,7 @@
   }
 
   const mapUrl = H.safeHttps(config.venue.mapUrl);
-  if (mapUrl && !config.venue.address.trim()) $('#venue-address').textContent = 'ดูตำแหน่งบ้านและเส้นทางได้จากหมุด Google Maps ด้านล่าง';
+  if (mapUrl && !config.venue.address.trim()) $('#venue-address').textContent = 'ดูสถานที่จัดงานและเส้นทางได้จากหมุด Google Maps ด้านล่าง';
   if (config.venue.address.trim()) { $('#venue-address').textContent = config.venue.address; }
   if (mapUrl) { $('#map-link').href = mapUrl; $('#map-link').hidden = false; $('#map-status').textContent = 'แตะปุ่มด้านล่าง เพื่อดูหมุดและเริ่มนำทาง'; }
   if (config.contact.phone && /^\+?[\d\s()-]{8,20}$/.test(config.contact.phone)) {

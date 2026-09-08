@@ -2,8 +2,8 @@
 (function(root){
   'use strict';
   const formats={
-    portrait:{width:1080,height:1350,template:'assets/templates/wish-portrait.png',box:{x:.11,y:.235,w:.78,h:.205},signatureY:.463},
-    landscape:{width:1920,height:1080,template:'assets/templates/wish-landscape.png',box:{x:.11,y:.35,w:.41,h:.36},signatureY:.77}
+    portrait:{width:2400,height:3000,layoutWidth:1080,layoutHeight:1350,template:'assets/templates/wish-portrait.png',box:{x:.12,y:.25,w:.72,h:.16},signatureY:.46},
+    landscape:{width:3200,height:1800,layoutWidth:1920,layoutHeight:1080,template:'assets/templates/wish-landscape.png',box:{x:.12,y:.35,w:.39,h:.32},signatureY:.77}
   };
   const segment=(text,granularity)=>typeof Intl.Segmenter==='function'?[...new Intl.Segmenter('th',{granularity}).segment(text)].map(s=>s.segment):Array.from(text);
   function wrapLines(text,measure,maxWidth){
@@ -23,7 +23,7 @@
   }
   function fitText(context,text,box,maxSize=42,minSize=17){
     for(let size=maxSize;size>=minSize;size--){
-      context.font=`400 ${size}px Prompt, Tahoma, sans-serif`;
+      context.font=`400 ${size}px "PKF-Rayrai", Prompt, Tahoma, sans-serif`;
       const lines=wrapLines(text,t=>context.measureText(t).width,box.w),lineHeight=size*1.65;
       if(lines.length*lineHeight<=box.h)return {size,lines,lineHeight};
     }
@@ -34,29 +34,67 @@
     if(!cache.has(src))cache.set(src,new Promise((resolve,reject)=>{const image=new Image(),timer=setTimeout(()=>reject(new Error('template-unavailable')),20000);image.onload=()=>{clearTimeout(timer);resolve(image);};image.onerror=()=>{clearTimeout(timer);reject(new Error('template-unavailable'));};image.src=src;}).catch(error=>{cache.delete(src);throw error;}));
     return cache.get(src);
   }
+  // PNG pHYs uses integer pixels per metre: 300 / 0.0254 = 11811.
+  // Preserve every image-data chunk; replace only density metadata, with valid CRC.
+  function crc32(bytes){
+    let crc=0xffffffff;
+    for(const byte of bytes){crc^=byte;for(let k=0;k<8;k++)crc=(crc>>>1)^((crc&1)?0xedb88320:0);}
+    return (crc^0xffffffff)>>>0;
+  }
+  async function withDPI(blob,dpi=300){
+    if(!Number.isFinite(dpi)||dpi<=0||dpi>1200)throw new Error('invalid-dpi');
+    const bytes=new Uint8Array(await blob.arrayBuffer());
+    if(bytes.length<33||![137,80,78,71,13,10,26,10].every((v,i)=>bytes[i]===v))throw new Error('invalid-png');
+    const chunk=new Uint8Array(21),v=new DataView(chunk.buffer),ppm=Math.round(dpi/.0254);
+    v.setUint32(0,9);chunk.set([112,72,89,115],4);v.setUint32(8,ppm);v.setUint32(12,ppm);chunk[16]=1;v.setUint32(17,crc32(chunk.subarray(4,17)));
+    const parts=[bytes.subarray(0,8)],view=new DataView(bytes.buffer);let offset=8,inserted=false,ended=false;
+    while(offset+12<=bytes.length){
+      const length=view.getUint32(offset),end=offset+length+12;
+      if(end>bytes.length)throw new Error('invalid-png');
+      const type=String.fromCharCode(...bytes.subarray(offset+4,offset+8));
+      if(type!=='pHYs')parts.push(bytes.subarray(offset,end));
+      if(type==='IHDR'&&!inserted){parts.push(chunk);inserted=true;}
+      offset=end;if(type==='IEND'){ended=true;break;}
+    }
+    if(!inserted||!ended)throw new Error('invalid-png');
+    return new Blob(parts,{type:'image/png'});
+  }
   async function render({format='portrait',mode='type',text='',name='',drawing}){
     const spec=formats[format]||formats.portrait;
-    const [template]=await Promise.all([loadImage(spec.template),document.fonts.load('400 32px Prompt'),document.fonts.load('500 26px Prompt')]);
-    const canvas=document.createElement('canvas');canvas.width=spec.width;canvas.height=spec.height;const ctx=canvas.getContext('2d');if(!ctx)throw new Error('canvas-unavailable');
-    ctx.drawImage(template,0,0,spec.width,spec.height);
-    const box={x:spec.box.x*spec.width,y:spec.box.y*spec.height,w:spec.box.w*spec.width,h:spec.box.h*spec.height};
-    ctx.fillStyle='#163e72';ctx.textAlign='left';ctx.textBaseline='middle';
-    if(mode==='draw'&&drawing){const scale=Math.min(box.w/drawing.width,box.h/drawing.height),w=drawing.width*scale,h=drawing.height*scale;ctx.drawImage(drawing,box.x+(box.w-w)/2,box.y+(box.h-h)/2,w,h);}
-    else{
-      // Left-aligned and flush to the top of the text box, like a written note.
-      // The top padding is reserved BEFORE fitting, so the last line can never
-      // spill past the bottom of the safe region.
-      const topPad=box.h*0.04;
-      const textBox={x:box.x,y:box.y+topPad,w:box.w,h:box.h-topPad};
-      const fitted=fitText(ctx,text.trim(),textBox,format==='landscape'?44:40);
-      const start=textBox.y+fitted.lineHeight/2;
-      fitted.lines.forEach((line,i)=>ctx.fillText(line,textBox.x,start+i*fitted.lineHeight));
-    }
-    if(name.trim()){
-      const signature='ด้วยความยินดี จาก '+name.trim();let size=26;while(size>16){ctx.font=`500 ${size}px Prompt, Tahoma, sans-serif`;if(ctx.measureText(signature).width<=box.w)break;size--;}
-      const lines=wrapLines(signature,t=>ctx.measureText(t).width,box.w);lines.forEach((line,i)=>ctx.fillText(line,box.x,spec.signatureY*spec.height+i*size*1.5));
-    }
-    return new Promise((resolve,reject)=>{try{canvas.toBlob(blob=>blob?resolve({blob,width:spec.width,height:spec.height}):reject(new Error('export-failed')),'image/png');}catch(error){reject(error);}});
+    const [template,faces]=await Promise.all([loadImage(spec.template),document.fonts.load('400 40px "PKF-Rayrai"'),document.fonts.load('400 32px Prompt')]);
+    if(!faces.length)throw new Error('font-unavailable');
+    const canvas=document.createElement('canvas');canvas.width=spec.width;canvas.height=spec.height;
+    const ctx=canvas.getContext('2d');if(!ctx)throw new Error('canvas-unavailable');
+    try{
+      // Logical layout coordinates retain the composition; text is rasterized at export resolution.
+      ctx.scale(spec.width/spec.layoutWidth,spec.height/spec.layoutHeight);
+      ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';
+      ctx.drawImage(template,0,0,spec.layoutWidth,spec.layoutHeight);
+      const box={x:spec.box.x*spec.layoutWidth,y:spec.box.y*spec.layoutHeight,w:spec.box.w*spec.layoutWidth,h:spec.box.h*spec.layoutHeight};
+      ctx.fillStyle='#163e72';ctx.textAlign='left';ctx.textBaseline='top';
+      let contentBottom=box.y;
+      if(mode==='draw'&&drawing){
+        const scale=Math.min(box.w/drawing.width,box.h/drawing.height),w=drawing.width*scale,h=drawing.height*scale;
+        ctx.drawImage(drawing,box.x,box.y,w,h);contentBottom=box.y+h;
+      }else{
+        const fitted=fitText(ctx,text.trim(),box,format==='landscape'?54:50,22);
+        fitted.lines.forEach((line,i)=>ctx.fillText(line,box.x,box.y+i*fitted.lineHeight));
+        contentBottom=box.y+fitted.lines.length*fitted.lineHeight;
+      }
+      if(name.trim()){
+        const signatureY=Math.max(box.y+110,contentBottom+24),signatureWidth=Math.min(box.w,spec.layoutWidth*.36);
+        // The narrow left signature column stays clear of the bouquet and the arch.
+        const signatureBottom=spec.layoutHeight*(format==='landscape'?.83:.55);
+        const nameBox={w:signatureWidth,h:signatureBottom-signatureY-38};
+        const signature=fitText(ctx,name.trim(),nameBox,36,22);
+        ctx.beginPath();ctx.strokeStyle='#c3d1e2';ctx.lineWidth=1;ctx.moveTo(box.x,signatureY-12);ctx.lineTo(box.x+46,signatureY-12);ctx.stroke();
+        ctx.font='400 28px "PKF-Rayrai", Prompt, sans-serif';ctx.fillStyle='#5b6e87';ctx.fillText('ด้วยความยินดี',box.x,signatureY);
+        ctx.font=`400 ${signature.size}px "PKF-Rayrai", Prompt, sans-serif`;ctx.fillStyle='#163e72';
+        signature.lines.forEach((line,i)=>ctx.fillText(line,box.x,signatureY+38+i*signature.lineHeight));
+      }
+      const raw=await new Promise((resolve,reject)=>canvas.toBlob(blob=>blob?resolve(blob):reject(new Error('export-failed')),'image/png'));
+      return {blob:await withDPI(raw,300),width:spec.width,height:spec.height,dpi:300};
+    }finally{canvas.width=canvas.height=1;}
   }
-  const api={formats,wrapLines,fitText,render};if(typeof module==='object'&&module.exports)module.exports=api;else root.WeddingWishExport=api;
+  const api={formats,wrapLines,fitText,withDPI,render};if(typeof module==='object'&&module.exports)module.exports=api;else root.WeddingWishExport=api;
 })(typeof window==='undefined'?globalThis:window);

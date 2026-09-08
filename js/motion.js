@@ -11,10 +11,10 @@
   const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
   const mobile = matchMedia('(max-width: 600px)');
   const toggle = document.getElementById('motion-toggle');
-  const scenes = [...document.querySelectorAll('.art-scene')].map(element => ({ element, entrance: element.querySelector('.art-entrance'), image: element.querySelector('img'), active: false, introduced: false, x: 0, y: 0, tx: 0, ty: 0 }));
+  const scenes = [...document.querySelectorAll('.art-scene')].map(element => ({ element, entrance: element.querySelector('.art-entrance'), image: element.querySelector('img'), active: false, introduced: false, x: 0, y: 0, tx: 0, ty: 0, sy: 0, tsy: 0 }));
   const seen = new WeakSet();
   const animations = new Set();
-  let paused = false, enabled = false, scrollFrame = 0, pointerFrame = 0, observer = null;
+  let paused = false, enabled = false, scrollFrame = 0, pointerFrame = 0, scrollTweenFrame = 0, scrollTime = 0, pointerTime = 0, observer = null;
   try { paused = localStorage.getItem('sp-wedding-motion-paused') === '1'; } catch (_) { /* Storage is optional in private/file mode. */ }
   root.style.setProperty('--motion-duration', duration + 'ms');
   root.style.setProperty('--drift-distance', (-6 * strength).toFixed(2) + 'px');
@@ -60,8 +60,22 @@
     readouts.forEach(({ scene, bounds }) => {
       const travel = (scene.element.dataset.scene === 'hero' ? 26 : 18) * strength * (mobile.matches ? .4 : 1);
       const progress = clamp((height / 2 - bounds.top - bounds.height / 2) / height, -1, 1);
-      scene.element.style.setProperty('--scroll-y', (progress * travel).toFixed(2) + 'px');
+      scene.tsy = progress * travel;
     });
+    if(!scrollTweenFrame){scrollTime=0;scrollTweenFrame=requestAnimationFrame(easeScroll);}
+  }
+  function easeScroll(time){
+    scrollTweenFrame=0;
+    if(!enabled||document.hidden)return;
+    const dt=scrollTime?Math.min(64,time-scrollTime):16.67,alpha=1-Math.exp(-dt/180);scrollTime=time;
+    let unsettled=false;
+    scenes.forEach(scene=>{
+      if(!scene.active)return;
+      scene.sy+=(scene.tsy-scene.sy)*alpha;
+      if(Math.abs(scene.tsy-scene.sy)>.015)unsettled=true;else scene.sy=scene.tsy;
+      scene.element.style.setProperty('--scroll-y',scene.sy.toFixed(3)+'px');
+    });
+    if(unsettled)scrollTweenFrame=requestAnimationFrame(easeScroll);else scrollTime=0;
   }
   function requestScroll() {
     if (!scrollFrame && enabled && !document.hidden && settings.scroll) scrollFrame = requestAnimationFrame(updateScroll);
@@ -70,13 +84,14 @@
     scene.x = scene.y = scene.tx = scene.ty = 0;
     ['--pointer-x', '--pointer-y', '--rotate-x', '--rotate-y'].forEach(key => scene.element.style.removeProperty(key));
   }
-  function animatePointer() {
+  function animatePointer(time) {
     pointerFrame = 0;
     if (!enabled || document.hidden || !finePointer.matches || !settings.pointer) return;
+    const dt=pointerTime?Math.min(64,time-pointerTime):16.67,alpha=1-Math.exp(-dt/175);pointerTime=time;
     let unsettled = false;
     scenes.forEach(scene => {
       if (!scene.active) return;
-      scene.x += (scene.tx - scene.x) * .09; scene.y += (scene.ty - scene.y) * .09;
+      scene.x += (scene.tx - scene.x) * alpha; scene.y += (scene.ty - scene.y) * alpha;
       if (Math.abs(scene.tx - scene.x) + Math.abs(scene.ty - scene.y) > .002) unsettled = true;
       else { scene.x = scene.tx; scene.y = scene.ty; }
       scene.element.style.setProperty('--pointer-x', (scene.x * 7 * strength).toFixed(2) + 'px');
@@ -84,7 +99,7 @@
       scene.element.style.setProperty('--rotate-x', (-scene.y * 1.2 * strength).toFixed(3) + 'deg');
       scene.element.style.setProperty('--rotate-y', (scene.x * 1.6 * strength).toFixed(3) + 'deg');
     });
-    if (unsettled) pointerFrame = requestAnimationFrame(animatePointer);
+    if (unsettled) pointerFrame = requestAnimationFrame(animatePointer); else pointerTime=0;
   }
   function requestPointer() { if (!pointerFrame) pointerFrame = requestAnimationFrame(animatePointer); }
   scenes.forEach(scene => {
@@ -106,10 +121,10 @@
     toggle.setAttribute('aria-pressed', String(paused));
     toggle.setAttribute('aria-label', paused ? 'เปิดภาพเคลื่อนไหว' : 'พักภาพเคลื่อนไหว');
     if (!enabled) {
-      cancelAnimationFrame(scrollFrame); cancelAnimationFrame(pointerFrame); scrollFrame = pointerFrame = 0;
+      cancelAnimationFrame(scrollFrame); cancelAnimationFrame(pointerFrame); cancelAnimationFrame(scrollTweenFrame); scrollFrame = pointerFrame = scrollTweenFrame = scrollTime = pointerTime = 0;
       animations.forEach(animation => animation.cancel()); animations.clear();
       document.getElementById('heart-particles').replaceChildren();
-      scenes.forEach(scene => { resetPointer(scene); scene.element.style.removeProperty('--scroll-y'); scene.entrance.classList.remove('is-entering'); });
+      scenes.forEach(scene => { resetPointer(scene); scene.sy=scene.tsy=0; scene.element.style.removeProperty('--scroll-y'); scene.entrance.classList.remove('is-entering'); });
     } else {
       scenes.forEach(introduce); requestScroll();
     }
@@ -154,7 +169,7 @@
   document.addEventListener('visibilitychange', () => {
     root.classList.toggle('motion-background', document.hidden);
     if (document.hidden) {
-      cancelAnimationFrame(scrollFrame); cancelAnimationFrame(pointerFrame); scrollFrame = pointerFrame = 0;
+      cancelAnimationFrame(scrollFrame); cancelAnimationFrame(pointerFrame); cancelAnimationFrame(scrollTweenFrame); scrollFrame = pointerFrame = scrollTweenFrame = scrollTime = pointerTime = 0;
       animations.forEach(animation => animation.finish());
       scenes.forEach(resetPointer);
     } else requestScroll();

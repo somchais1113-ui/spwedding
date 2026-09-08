@@ -1,3 +1,4 @@
+@font-face{font-family:"PKF-Rayrai";src:url('../assets/fonts/PKF-rayraiDEMO.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:OrangeAvenue;src:url('../assets/fonts/OrangeAvenueDEMO-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap;unicode-range:U+0000-024F,U+2000-206F}
 @font-face{font-family:OrangeAvenueOutline;src:url('../assets/fonts/OrangeAvenueOutlineDEMO-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap;unicode-range:U+0000-024F,U+2000-206F}
 @font-face{font-family:Prompt;src:url('../assets/fonts/prompt-regular.ttf') format('truetype');font-weight:400;font-display:swap}
