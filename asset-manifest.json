@@ -1,5 +1,5 @@
 {
-  "version": "2.0.0",
+  "version": "2.3.0",
   "designDirection": "Pure white / navy / soft blue; original watercolor artwork and miniature journey module",
   "images": [
     {
@@ -139,11 +139,15 @@
       "format": "WEBP",
       "background": "white",
       "origin": "generated miniature illustrative asset, delivery format WebP; original PNG in design-source/travel",
-      "bytes": 266160,
-      "sha256": "db1d1b1838a2268270e0b914e9d6bac43383e5393443a54a2c633bb6a0b5803a"
+      "bytes": 394032,
+      "sha256": "913bad318cddef64e9af87220137f5866a2b8c086db2b6cfa466dec46c1e212e"
     }
   ],
   "fonts": [
+    {
+      "file": "assets/fonts/NotoSansTC-VariableFont_wght.ttf",
+      "bytes": 11917560
+    },
     {
       "file": "assets/fonts/OrangeAvenueDEMO-Regular.otf",
       "bytes": 42152

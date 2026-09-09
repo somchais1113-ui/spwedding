@@ -5,7 +5,7 @@
 .art-scroll,.art-tilt,.art-drift,.art-entrance{width:100%;transform-origin:50% 65%}
 .art-tilt{transform-origin:50% 55%}
 .art-entrance img{user-select:none;-webkit-user-drag:none}
-.motion-enabled .art-scroll{transform:translate3d(0,var(--scroll-y,0px),0);transition:transform 240ms ease-out}
+.motion-enabled .art-scroll{transform:translate3d(0,var(--scroll-y,0px),0);transition:none}
 .motion-enabled .art-tilt{transform:translate3d(var(--pointer-x,0px),var(--pointer-y,0px),0) rotateX(var(--rotate-x,0deg)) rotateY(var(--rotate-y,0deg))}
 .motion-enabled .scene-active .art-tilt{will-change:transform}
 .motion-enabled .art-entrance.is-entering{animation:watercolor-arrival var(--motion-duration) var(--motion-ease) both}
@@ -34,6 +34,6 @@
 .motion-paused *,.motion-paused *:before,.motion-paused *:after{animation:none!important;transition:none!important}
 .motion-paused .art-scroll,.motion-paused .art-tilt,.motion-paused .art-drift,.motion-paused .art-entrance{transform:none!important;opacity:1!important;will-change:auto}
 .motion-paused .invitation-card:hover,.motion-paused .button:hover,.motion-paused .heart-button:hover,.motion-paused .heart-button:active{transform:none!important}
-@media(max-width:600px){.site-header nav{gap:14px}.motion-toggle{min-width:52px;padding-inline:8px}.motion-enabled .art-tilt{transform:none}.motion-enabled .art-scroll{transition-duration:160ms}.motion-enabled .invitation-card:hover{transform:none}}
+@media(max-width:600px){.site-header nav{gap:14px}.motion-toggle{min-width:52px;padding-inline:8px}.motion-enabled .art-tilt{transform:none}.motion-enabled .art-scroll{transition:none}.motion-enabled .invitation-card:hover{transform:none}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.art-scroll,.art-tilt,.art-drift,.art-entrance{transform:none!important;opacity:1!important;will-change:auto!important}.motion-toggle{display:none}.invitation-card:hover,.button:hover,.heart-button:hover{transform:none!important}}
 @media print{.motion-toggle{display:none!important}.art-scroll,.art-tilt,.art-drift,.art-entrance{transform:none!important;opacity:1!important;animation:none!important}}

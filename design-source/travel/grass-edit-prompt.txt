@@ -1,0 +1,1 @@
+Built-in image generation edit. Replace empty white ground with continuous short pale green model lawn. Preserve original 3:2 composition, camera, landmarks, river, road and all object positions. No tall grass, new landmarks, labels, pins or UI. Input: assets/travel/map/sangkhom-diorama.webp from version 2.2. Output: sangkhom-diorama-grass.png.

@@ -105,7 +105,6 @@
       <div class="day-content">
         <p class="eyebrow" lang="en">A MORNING TO REMEMBER</p>
         <h2 class="script-title" id="day-title" lang="en">Our wedding day</h2>
-        <p class="section-intro">เช้าวันหนึ่ง ที่เราอยากมีคุณอยู่ด้วย</p>
         <p class="subtle schedule-note" id="schedule-note">กำหนดพิธีการ รายละเอียดดังต่อไปนี้</p>
         <ol class="timeline" id="schedule">
 <li><span class="timeline-index">01</span><div><h3>ทำบุญเช้าเพื่อความเป็นสิริมงคล<span class="timeline-time">09:09–09:35 น.</span></h3><p>ร่วมพิธีสงฆ์และถวายภัตตาหารเช้ากับครอบครัว</p></div></li>
@@ -120,17 +119,24 @@
       </div>
     </section>
 
+    <section class="dresscode-section section-shell" id="dresscode" aria-labelledby="dresscode-title">
+      <p class="eyebrow" lang="en">WEAR YOUR BRIGHTEST</p>
+      <h2 class="script-title" id="dresscode-title" lang="en">Dress code</h2>
+      <p class="section-intro">แต่งกายด้วยโทนสีสดใสแบบงานบุญอีสาน มาร่วมสร้างสีสันในวันสำคัญของเรา</p>
+      <ul class="dresscode-palette" id="dresscode-palette" aria-label="โทนสีชุดที่แนะนำ"></ul>
+      <p class="subtle dresscode-note"></p>
+    </section>
+
     <section class="location-section" id="location" aria-labelledby="location-title">
       <div class="section-shell location-inner">
         <div class="location-heading"><p class="eyebrow" lang="en">COME CELEBRATE WITH US</p><h2 class="script-title" id="location-title" lang="en">Meet us here</h2><p class="section-intro">เดินทางมาพบกันที่หนองคาย</p><p class="location-note" data-venue-note>พิธีจัดภายในบ้าน แล้วมาร่วมรับประทานอาหารและใช้เวลาดี ๆ ด้วยกัน</p></div>
         <div class="venue-card">
           <p class="eyebrow" lang="en">THE WEDDING VENUE</p>
-          <h3 data-venue-name>บ้านของเรา</h3>
+          <h3 data-venue-name>สถานที่จัดงาน</h3>
           <p class="venue-address" id="venue-address">ตำบลนางิ้ว อำเภอสังคม จังหวัดหนองคาย</p>
           <div class="venue-rule"></div>
           <p class="venue-caption">การเดินทาง</p><p id="map-status">แตะปุ่มด้านล่าง เพื่อดูหมุดและเริ่มนำทาง</p>
           <a class="button map-link" id="map-link" href="https://maps.app.goo.gl/iWyshhVcmBTzDKYW7?g_st=ic" target="_blank" rel="noopener noreferrer">เปิด Google Maps </a>
-          <button class="button button-outline" id="copy-address" hidden>คัดลอกที่อยู่</button>
           <p class="parking-note" data-parking>รายละเอียดที่จอดรถจะแจ้งให้ทราบใกล้วันงาน</p>
           <a class="text-button" id="contact-link" hidden></a>
         </div>
@@ -145,7 +151,7 @@
         <span class="card-small">ด้วยรัก และคำเชิญจากเรา</span><img class="card-logo" src="assets/images/sp-wedding-logo.png" width="1254" height="1254" alt="SP — Somchai &amp; Phantira"><span class="card-guest" data-guest>ถึงคุณ คนสำคัญของเรา</span><span class="card-open">แตะเพื่อเปิดการ์ด </span>
       </button>
       <a class="button" id="rsvp-link" hidden target="_blank" rel="noopener noreferrer">ตอบรับคำเชิญ</a>
-      <div class="love-note"><p>ฝากความยินดีไว้ให้เรา</p><button id="heart-button" class="heart-button" aria-label="ส่งความยินดีให้บ่าวสาว">ส่งความยินดี</button><p class="subtle" id="heart-note" aria-live="polite">ร่วมแสดงความยินดีกับเราสองคน</p></div>
+      <div class="love-note"><p>ฝากความยินดีไว้ให้เรา</p><button id="heart-button" class="heart-button" aria-label="เขียนคำอวยพรให้บ่าวสาว" aria-controls="wishes">ส่งความยินดี</button><p class="subtle" id="heart-note" aria-live="polite">ร่วมแสดงความยินดีกับเราสองคน</p></div>
     </section>
 
     <section class="wishes-section section-shell" id="wishes" aria-labelledby="wishes-title">
@@ -202,8 +208,8 @@
         <p class="sr-only travel-selection-status" role="status" aria-live="polite"></p>
         <aside class="travel-detail" aria-label="รายละเอียดสถานที่"></aside>
       </div>
-      <div class="travel-results-heading"><p class="travel-results-count" role="status" aria-live="polite"></p><p class="subtle">เลือกจากรายชื่อได้เช่นกัน</p></div>
-      <div class="travel-results" role="group" aria-label="สถานที่ในสไตล์ที่เลือก"></div>
+      <div class="travel-results-heading"><p class="travel-results-count" id="travel-results-count" role="status" aria-live="polite"></p><p class="subtle">เลือกจากรายชื่อได้เช่นกัน</p></div>
+      <label class="travel-select-label" for="travel-destination-select">เลือกสถานที่และกิจกรรม</label><select class="travel-results travel-destination-select" id="travel-destination-select" aria-describedby="travel-results-count"><option value="">เลือกสถานที่เพื่อดูรายละเอียด</option></select>
       <p class="travel-closing" lang="en">Different places. Same beautiful journey.</p>
       <noscript><p>เปิด JavaScript เพื่อเลือกสถานที่และดูเส้นทางเที่ยวรอบสังคม</p></noscript>
       <dialog class="travel-sheet" aria-label="รายละเอียดสถานที่ท่องเที่ยว"><div class="travel-sheet-top"><span class="travel-sheet-handle" aria-hidden="true"></span><button type="button" class="travel-sheet-close" aria-label="ปิดรายละเอียดสถานที่">×</button></div><div class="travel-sheet-content"></div></dialog>
@@ -214,11 +220,11 @@
   </div>
   <dialog id="invite-dialog" aria-labelledby="dialog-title">
     <button class="dialog-close" id="close-dialog" aria-label="ปิดการ์ดเชิญ">×</button>
-    <div class="book-shell"><div class="dialog-body paper-inside"><img class="dialog-logo" src="assets/images/sp-wedding-logo.png" width="1254" height="1254" alt="SP — Somchai &amp; Phantira"><p class="eyebrow" lang="en">WITH LOVE</p><h2 id="dialog-title" data-guest>ถึงคุณ คนสำคัญของเรา</h2><p class="invitation-message" id="invitation-message">ด้วยความยินดีของเราทั้งสองและครอบครัว<br>ขอเชิญคุณมาเป็นส่วนหนึ่งในวันสำคัญของเรา</p><p class="script-title dialog-names"><span data-groom lang="en">Somchai</span> &amp; <span data-bride lang="en">Phantira</span></p><p data-date-label>25 ตุลาคม 2569</p><p data-province>จังหวัดหนองคาย</p><button class="button" id="dialog-location">ดูสถานที่จัดงาน </button></div>
+    <div class="book-shell"><div class="dialog-body paper-inside"><img class="dialog-logo" src="assets/images/sp-wedding-logo.png" width="1254" height="1254" alt="SP — Somchai &amp; Phantira"><p class="eyebrow" lang="en">WITH LOVE</p><h2 id="dialog-title" data-guest>ถึงคุณ คนสำคัญของเรา</h2><p class="invitation-message" id="invitation-message">ด้วยความยินดีของเราทั้งสองและครอบครัว<br>ขอเชิญคุณมาเป็นส่วนหนึ่งในวันสำคัญของเรา</p><p class="script-title dialog-names"><span data-groom lang="en">Somchai</span> &amp; <span data-bride lang="en">Phantira</span></p><p data-date-label>25 ตุลาคม 2569</p><p data-venue-address>ตำบลนางิ้ว อำเภอสังคม จังหวัดหนองคาย</p><button class="button" id="dialog-location">ดูสถานที่จัดงาน </button></div>
       <div class="book-cover" aria-hidden="true"><div class="book-cover-front"><p>ด้วยรัก และคำเชิญจากเรา</p><img src="assets/images/sp-wedding-logo.png" width="1254" height="1254" alt=""><p data-guest>ถึงคุณ คนสำคัญของเรา</p><span>วันสำคัญที่อยากมีคุณอยู่ด้วย</span></div></div>
     </div>
   </dialog>
-  <dialog id="wish-photo-dialog" aria-labelledby="wish-photo-title"><div class="wish-photo-heading"><h2 id="wish-photo-title">การ์ดคำอวยพรของคุณ</h2><button type="button" id="close-wish-photo" aria-label="ปิดตัวอย่างการ์ด">×</button></div><img id="wish-photo-preview" alt="ภาพการ์ดคำอวยพรที่จัดทำจากข้อความหรือลายมือของคุณ"><div class="wish-photo-actions"><a class="button" id="download-wish-photo" download="SP-Wedding-Wish.png">ดาวน์โหลด PNG</a><p class="subtle">บนมือถือ แตะค้างที่ภาพเพื่อบันทึกได้เช่นกัน</p></div></dialog>
+  <dialog id="wish-photo-dialog" aria-labelledby="wish-photo-title"><div class="wish-photo-heading"><h2 id="wish-photo-title">การ์ดคำอวยพรของคุณ</h2><button type="button" id="close-wish-photo" aria-label="ปิดตัวอย่างการ์ด">×</button></div><img id="wish-photo-preview" alt="ภาพการ์ดคำอวยพรที่จัดทำจากข้อความหรือลายมือของคุณ"><div class="wish-photo-actions"><div class="wish-photo-buttonrow"><button type="button" class="button" id="share-wish-photo" hidden>แชร์ภาพการ์ด</button><a class="button button-outline" id="download-wish-photo" download="SP-Wedding-Wish.png">ดาวน์โหลด PNG</a></div><p class="subtle" id="wish-photo-share-status" aria-live="polite"></p><p class="subtle">PNG · 300 DPI — บันทึกหรือแชร์ภาพได้จากปุ่มด้านบน</p></div></dialog>
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
   <div class="heart-particles" id="heart-particles" aria-hidden="true"></div>
   <noscript><div class="noscript-note">เปิด JavaScript เพื่อดูข้อมูลล่าสุด เปิดการ์ด และใช้ปุ่มต่าง ๆ ของเว็บไซต์</div></noscript>

@@ -7,7 +7,7 @@
 .welcome:before{content:'';position:absolute;z-index:-1;inset:-50%;background:conic-gradient(from 25deg,transparent 0 25%,#cbdcf44d 35%,transparent 45% 75%,#ffffffb0 85%,transparent 95%);animation:welcome-light 30s linear infinite;pointer-events:none}
 .welcome-frame{position:absolute;inset:22px;border:1px solid #b9cce4;pointer-events:none}.welcome-frame:after{content:'';position:absolute;inset:6px;border:1px solid #dfe8f5}.welcome-content{width:min(100%,640px)}
 .welcome-eyebrow{color:var(--blue);font-size:12px;letter-spacing:.3em;margin-top:8px}.welcome-logo{width:clamp(220px,31vh,335px);height:auto;margin:12px auto 16px;animation:logo-arrive 1500ms cubic-bezier(.2,.8,.2,1) both}
-.welcome-date{font-size:clamp(24px,4vw,32px);font-weight:400;line-height:1.6;color:var(--navy);letter-spacing:.02em}.welcome-time{font-size:14px;color:var(--muted);margin-top:5px}.welcome-place{font-size:14px;color:var(--muted);margin-top:4px}.welcome-countdown{gap:30px;margin:18px 0 5px}.welcome-countdown>div{min-width:60px}.welcome-countdown>div>span:first-child{font-size:42px;line-height:1.25}.welcome-countdown>div>span:last-child{font-size:13px}.countdown-caption{font-size:12px;color:var(--muted);margin-bottom:20px}.enter-button{position:relative;overflow:hidden;min-width:255px;padding:14px 26px;background:var(--navy);border-color:var(--navy);box-shadow:0 8px 24px #12365e1a}.enter-button:after{content:'';position:absolute;inset:-100% -50%;background:linear-gradient(110deg,transparent 40%,#ffffff40 50%,transparent 60%);transform:translateX(-100%);animation:button-light 7s 1.4s ease-in-out infinite;pointer-events:none}.enter-button span{transition:transform .35s}.enter-button:hover span{transform:translateX(5px)}.welcome-footnote{font-size:12px;color:var(--muted);margin-top:18px}.welcome-motion{position:absolute;right:42px;top:36px;background:#ffffffb0;z-index:2}
+.welcome-date{font-size:clamp(24px,4vw,32px);font-weight:400;line-height:1.6;color:var(--navy);letter-spacing:.02em}.welcome-time{font-size:14px;color:var(--muted);margin-top:5px}.welcome-place{font-size:14px;color:var(--muted);margin-top:4px}.welcome-countdown{gap:30px;margin:18px 0 5px}.welcome-countdown>div{min-width:60px}.welcome-countdown>div>span:first-child{font-size:42px;line-height:1.25}.welcome-countdown>div>span:last-child{font-size:13px}.countdown-caption{font-size:12px;color:var(--muted);margin-bottom:20px}.enter-button{position:relative;overflow:hidden;min-width:min(255px,100%);padding:14px 26px;background:var(--navy);border-color:var(--navy);box-shadow:0 8px 24px #12365e1a}.enter-button:after{content:'';position:absolute;inset:-100% -50%;background:linear-gradient(110deg,transparent 40%,#ffffff40 50%,transparent 60%);transform:translateX(-100%);animation:button-light 7s 1.4s ease-in-out infinite;pointer-events:none}.enter-button span{transition:transform .35s}.enter-button:hover span{transform:translateX(5px)}.welcome-footnote{font-size:12px;color:var(--muted);margin-top:18px}.welcome-motion{position:absolute;right:42px;top:36px;background:#ffffffb0;z-index:2}
 .welcome-content>:not(.welcome-logo){animation:welcome-arrive 1100ms .25s both}.welcome.exiting .welcome-content{animation:welcome-exit 650ms cubic-bezier(.6,0,.4,1) both}.welcome.exiting .welcome-frame{transition:opacity .5s;opacity:0}
 .wishes-section{padding-block:70px 90px;border-top:1px solid var(--line)}.wishes-heading{text-align:center;margin-bottom:30px}.wishes-heading .subtle{margin-top:8px}.wish-form{max-width:700px;margin:auto;padding:34px;border:1px solid var(--line);background:linear-gradient(155deg,#fff,#f5f9fe);box-shadow:0 16px 45px #16396408}.wish-form label{display:block;font-size:14px;margin-bottom:8px}.wish-form input,.wish-form textarea,.wish-form select{font:16px/1.8 var(--font-body);color:var(--ink);border:1px solid var(--silver);background:#fff;border-radius:4px;padding:11px 14px;max-width:100%}.wish-form input,.wish-form textarea{width:100%}.wish-form textarea{resize:vertical;min-height:190px}.wish-tabs{display:flex;gap:4px;background:#eaf1fa;padding:5px;border-radius:8px;margin:22px 0 18px}.wish-tabs button{flex:1;border:0;border-radius:5px;background:transparent;color:var(--muted);padding:11px 8px;font-size:14px;min-height:48px}.wish-tabs [aria-selected="true"]{background:var(--navy);color:white;box-shadow:0 3px 9px #17375e12}.wish-counter{text-align:right;color:var(--muted);font-size:12px}.drawing-sheet{position:relative;margin-top:12px;background:white;border:1px solid var(--silver);border-radius:4px;overflow:hidden}.drawing-sheet canvas{width:100%;height:auto;aspect-ratio:5/3;display:block;touch-action:none;cursor:crosshair}.drawing-sheet>span{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;color:#8299b6;font-size:14px}.drawing-tools{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:10px}.drawing-tools label{margin:0}.drawing-tools select{padding:5px 8px;font-size:14px}.drawing-tools .text-button{margin-left:auto}.drawing-tools .text-button+.text-button{margin-left:0}.wish-storage-note{margin-top:22px}.wish-status{margin-top:10px;font-size:14px;color:var(--navy);white-space:pre-line;overflow-wrap:anywhere}.wish-status:empty{display:none}.wish-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 @keyframes logo-arrive{from{opacity:0;transform:translateY(12px) scale(.95);filter:blur(3px)}to{opacity:1;transform:none;filter:none}}@keyframes welcome-arrive{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}@keyframes welcome-exit{to{opacity:0;transform:translateY(-24px) scale(1.035)}}@keyframes welcome-light{to{transform:rotate(360deg)}}@keyframes button-light{0%,55%{transform:translateX(-100%)}80%,100%{transform:translateX(100%)}}
@@ -62,7 +62,7 @@
 @keyframes open-navy-cover{0%,12%{transform:rotateY(0);opacity:1}85%{opacity:1}100%{transform:rotateY(-112deg);opacity:0;visibility:hidden}}
 .motion-paused .book-cover{display:none}
 /* Button status always follows the real POST result; no simulated success. */
-.wish-send-button{position:relative;min-width:230px;min-height:52px;isolation:isolate;transition:background .3s,box-shadow .3s}
+.wish-send-button{position:relative;min-width:min(230px,100%);min-height:52px;isolation:isolate;transition:background .3s,box-shadow .3s}
 .wish-send-button:disabled{opacity:1;cursor:wait}.wish-send-button[data-state="sending"]{box-shadow:0 0 0 7px #224e8310;animation:send-soft-pulse 1.4s ease-in-out infinite}
 .send-loader{display:none;width:17px;height:17px;border:2px solid #ffffff50;border-top-color:white;border-radius:50%}
 [data-state="sending"] .send-loader{display:inline-block;animation:send-spin 900ms linear infinite}
@@ -71,7 +71,7 @@
 .send-confetti i:nth-child(1){--dx:-95px;--dy:-65px;--r:-100deg}.send-confetti i:nth-child(2){--dx:-55px;--dy:-88px;--r:130deg;background:#d9b4bd}.send-confetti i:nth-child(3){--dx:5px;--dy:-75px;--r:200deg}.send-confetti i:nth-child(4){--dx:60px;--dy:-85px;--r:-160deg;background:#d9b4bd}.send-confetti i:nth-child(5){--dx:105px;--dy:-48px;--r:95deg}.send-confetti i:nth-child(6){--dx:-110px;--dy:-25px;--r:250deg;background:#becbdb}
 [data-state="success"] .send-confetti i{animation:send-confetti 1100ms ease-out both}
 @keyframes send-spin{to{transform:rotate(360deg)}}@keyframes send-soft-pulse{50%{box-shadow:0 0 0 11px #224e8305}}
-@keyframes send-thank-you{0%{transform:scale(1)}40%{transform:scale(1.035)}100%{transform:scale(1)}}
+@keyframes send-thank-you{0%{transform:scale(1)}40%{transform:scale(1.014)}100%{transform:scale(1)}}
 @keyframes send-confetti{0%{opacity:0;transform:translate(0,0) rotate(0)}15%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(var(--r))}}
 @media(max-width:600px){.paper-inside{padding:44px 18px 28px;border-width:8px;min-height:520px}.paper-inside .dialog-names{font-size:32px}.book-cover-front{padding:40px 25px;gap:20px}.wish-send-button{width:100%}}
 @media(prefers-reduced-motion:reduce){.book-cover{display:none}.wish-send-button,.send-loader,.send-confetti i{animation:none!important}.send-confetti{display:none}}
@@ -97,21 +97,22 @@
 .hero-story-caption{position:relative;display:grid;place-items:center;min-height:44px;margin:0 12px 8px;font-family:Prompt,Tahoma,sans-serif;font-size:15px;line-height:1.9;color:var(--muted)}
 .story-line{grid-area:1/1;text-align:center}.story-line-one,.story-line-two{display:none}
 .motion-enabled .hero-story .art-tilt{transform:none}
-.motion-enabled .hero-story .art-drift{animation:none}
+.motion-enabled .hero-story .art-drift{animation:story-breathes 18s ease-in-out infinite;animation-play-state:paused}
+.motion-enabled .hero-story.scene-active .art-drift{animation-play-state:running}
 .motion-enabled .story-started .story-layer{display:block}
-.motion-enabled .story-started .story-setting{animation:story-garden-arrives 2200ms cubic-bezier(.22,1,.36,1) both}
-.motion-enabled .story-started .story-couple{animation:story-couple-arrives 2200ms 1200ms cubic-bezier(.22,1,.36,1) both}
+.motion-enabled .story-started .story-setting{animation:story-garden-arrives 3000ms cubic-bezier(.25,.1,.25,1) both}
+.motion-enabled .story-started .story-couple{animation:story-couple-arrives 3200ms 800ms cubic-bezier(.25,.1,.25,1) both}
 .motion-enabled .story-started .story-master{animation:story-whole-memory 4400ms ease both}
-.motion-enabled .story-started .story-camera{animation:story-camera-settles 8500ms cubic-bezier(.2,.5,.2,1) both}
+.motion-enabled .story-started .story-camera{animation:story-camera-settles 6500ms cubic-bezier(.25,.1,.25,1) both}
 .motion-enabled .story-started .story-light{display:block;animation:story-morning-light 3800ms 2800ms ease-in-out both}
 .motion-enabled .story-started .story-line-one{display:block;animation:story-caption-passing 2700ms ease both}
 .motion-enabled .story-started .story-line-two{display:block;animation:story-caption-passing 2900ms 2700ms ease both}
 .motion-enabled .story-started .story-line-three{animation:story-caption-final 1500ms 5600ms ease both}
 .motion-background .hero-story *,.motion-enabled .hero-story:not(.scene-active) *{animation-play-state:paused!important}
-@keyframes story-garden-arrives{from{opacity:0;transform:scale(1.018)}to{opacity:1;transform:none}}
-@keyframes story-couple-arrives{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+@keyframes story-garden-arrives{from{opacity:0}to{opacity:1}}
+@keyframes story-couple-arrives{from{opacity:0}to{opacity:1}}
 @keyframes story-whole-memory{0%,68%{opacity:0}100%{opacity:1}}
-@keyframes story-camera-settles{0%{transform:scale(1.035)}100%{transform:scale(1)}}
+@keyframes story-camera-settles{0%{transform:scale(1.014)}100%{transform:scale(1)}}
 @keyframes story-morning-light{0%{opacity:0;transform:translateX(-22%)}40%{opacity:.24}100%{opacity:0;transform:translateX(22%)}}
 @keyframes story-caption-passing{0%{opacity:0;transform:translateY(5px)}20%,73%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-4px)}}
 @keyframes story-caption-final{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
@@ -133,14 +134,38 @@
 @keyframes mesh-flow-three{from{transform:translate(15%,-16%) scale(.9)}to{transform:translate(-32%,25%) scale(1.25)}}
 .motion-paused .welcome-mesh i,.motion-background .welcome-mesh i,.welcome.exiting .welcome-mesh i{animation-play-state:paused!important;will-change:auto}
 .timeline-time{font-family:Prompt,Tahoma,sans-serif;font-weight:600;font-size:16px;letter-spacing:.015em;color:var(--accent-dark)}
-.share-invitation-cta{margin-top:20px;min-width:210px;min-height:52px;background:var(--accent-dark);border-color:var(--accent-dark);color:#fff;font-size:16px}
+.share-invitation-cta{margin-top:20px;min-width:min(210px,100%);min-height:52px;background:var(--accent-dark);border-color:var(--accent-dark);color:#fff;font-size:16px}
 .wish-export-controls{border-top:1px solid var(--line);margin-top:25px;padding-top:22px}.wish-export-row{display:flex;gap:10px}.wish-export-row select{min-height:48px;flex:0 1 165px}.wish-export-row .button{flex:1}.wish-export-controls .subtle{font-size:12px;margin-top:9px}.wish-export-controls #wish-export-status{font-size:13px;margin-top:8px}
 #wish-photo-dialog{padding:0;border-radius:12px;width:min(calc(100% - 24px),650px);max-height:92dvh;overscroll-behavior:contain}
 .wish-photo-heading{position:sticky;top:0;background:#fff;padding:10px 12px 10px 20px;display:flex;justify-content:space-between;gap:12px;align-items:center;z-index:2;border-bottom:1px solid var(--line)}.wish-photo-heading h2{font-size:18px;font-weight:400}.wish-photo-heading button{width:44px;height:44px;background:#fff;border:0;font:28px Georgia,serif;color:var(--ink)}
-#wish-photo-preview{display:block;width:100%;height:auto;background:#fff}.wish-photo-actions{position:sticky;bottom:0;background:#fff;padding:12px 20px max(12px,env(safe-area-inset-bottom));text-align:center;border-top:1px solid var(--line)}.wish-photo-actions .button{width:100%}.wish-photo-actions p{font-size:11px;margin-top:6px}
+#wish-photo-preview{display:block;width:100%;height:auto;background:#fff}.wish-photo-actions{position:sticky;bottom:0;background:#fff;padding:12px 20px max(12px,env(safe-area-inset-bottom));text-align:center;border-top:1px solid var(--line)}.wish-photo-buttonrow{display:flex;flex-wrap:wrap;gap:10px}.wish-photo-buttonrow .button{flex:1;min-width:140px;width:auto}.wish-photo-actions p{font-size:11px;margin-top:6px}
 @media(max-width:600px){.hero h1{flex-direction:column;align-items:center;gap:5px;font-size:clamp(47px,13vw,64px);line-height:1.2}.hero h1 .ampersand{font-size:.44em;line-height:1.1;margin:3px 0}.wish-export-row{flex-direction:column}.wish-export-row select{flex:auto;width:100%}.timeline-time{font-size:16px}}
 @media(prefers-reduced-motion:reduce){.welcome-mesh i{animation:none;will-change:auto}}
 
 .motion-enabled .story-started .story-line-two{animation:story-caption-final 1500ms 2700ms ease both}
 .motion-paused .hero-story .story-line-two{display:block!important;opacity:1!important;transform:none!important}
 @media(prefers-reduced-motion:reduce){.hero-story .story-line-two{display:block!important;opacity:1!important}}
+
+/* Landscape phones (short viewport height, e.g. rotated to browse): the splash
+   screen otherwise needs more vertical space than the screen offers. Tightened
+   independently of width, since these devices are wide, not narrow. */
+@media(max-height:480px) and (orientation:landscape){
+  .welcome{padding:18px 24px;min-height:100svh}
+  .welcome-frame{inset:12px}
+  .welcome-eyebrow{margin-top:2px}
+  .welcome-logo{width:clamp(110px,24vh,220px);margin:6px auto 8px}
+  .welcome-date{font-size:clamp(20px,3vh,26px)}
+  .welcome-countdown{gap:18px;margin:10px 0 3px}
+  .welcome-countdown>div>span:first-child{font-size:26px;line-height:1.2}
+  .countdown-caption{margin-bottom:8px}
+  .enter-button{min-height:42px;padding:9px 22px}
+  .welcome-footnote{margin-top:8px}
+  .welcome-motion{top:12px;right:16px;padding:5px 9px;min-height:32px}
+}
+
+/* A continuous loop with matching endpoints; no replay of the story entrance. */
+@keyframes story-breathes{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(0,-3px,0) scale(1.006)}}
+/* The original Orange Avenue has only a regular face. Allow gentle synthetic weight. */
+[lang="en"],.eyebrow,.script-title,.hero h1,.footer-names,.dialog-names,.ampersand,.countdown>div>span:first-child,.dresscode-name{font-weight:600;font-synthesis:weight}
+.hero h1 .ampersand{font-family:var(--font-serif);font-weight:600}
+.wish-photo-actions p{font-size:14px;line-height:1.6}
