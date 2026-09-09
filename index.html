@@ -28,7 +28,7 @@
   <section class="welcome" id="welcome" aria-labelledby="welcome-title">
     <div class="welcome-mesh" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
     <div class="welcome-frame" aria-hidden="true"></div>
-    <button type="button" class="motion-toggle welcome-motion" id="welcome-motion" aria-pressed="false">พักภาพ</button>
+    
     <div class="welcome-content">
       <p class="eyebrow welcome-eyebrow" lang="en">THE WEDDING OF</p>
       <div class="welcome-logo botanical-logo" id="botanical-logo" role="img" aria-label="SP — Somchai &amp; Phantira — Together Always">
@@ -56,7 +56,7 @@
       </div>
       <p class="countdown-caption" id="welcome-countdown-note">นับถอยหลังถึงเวลาเริ่มงาน · เวลาไทย</p>
       <button class="button enter-button" id="enter-wedding" type="button">เปิดประตูสู่วันของเรา </button>
-      <p class="welcome-footnote">ด้วยรัก และคำเชิญจากเราสองคน</p>
+      <div class="welcome-shortcuts"><a class="button welcome-secondary" data-map-link href="https://maps.app.goo.gl/iWyshhVcmBTzDKYW7?g_st=ic" target="_blank" rel="noopener noreferrer">แผนที่นำทาง</a><button class="button welcome-secondary" type="button" data-open-invite>ดูการ์ดเชิญ</button></div>
     </div>
   </section>
   <div id="wedding-page">
@@ -66,7 +66,7 @@
       <a href="#our-day">วันของเรา</a>
       <a href="#location">สถานที่</a>
       <a class="nav-invite" href="#invitation">คำเชิญถึงคุณ</a><a href="#wishes">คำอวยพร</a>
-      <button class="motion-toggle" id="motion-toggle" type="button" aria-pressed="false" aria-label="พักภาพเคลื่อนไหว" hidden>พักภาพ</button>
+      
     </nav>
   </header>
   <main id="main">
@@ -172,7 +172,7 @@
         <div class="wish-actions"><button class="button wish-send-button" type="submit" id="save-wish"><span class="send-loader" aria-hidden="true"></span><span id="send-wish-label">ส่งคำอวยพร</span><span class="send-confetti" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span></button></div>
         <div class="wish-export-controls">
           <label for="wish-export-format">เก็บการ์ดคำอวยพรของคุณ</label>
-          <div class="wish-export-row"><select id="wish-export-format" aria-label="ขนาดภาพคำอวยพร"><option value="portrait">แนวตั้ง 4:5</option><option value="landscape">แนวนอน 16:9</option></select><button class="button button-outline" type="button" id="export-wish">บันทึกการ์ดเป็นภาพ</button></div>
+          <div class="wish-export-row"><select id="wish-export-format" aria-label="ขนาดภาพคำอวยพร"><option value="portrait">แนวตั้ง 4:5</option><option value="landscape">แนวนอน 16:9</option></select><button class="button memory-export-cta" type="button" id="export-wish">มาแชร์ความทรงจำกันเถอะ</button></div>
           <p class="subtle">ใช้แบบการ์ดของเรา พร้อมข้อความหรือลายมือของคุณ</p>
           <p id="wish-export-status" role="status" aria-live="polite"></p>
         </div>
@@ -213,12 +213,12 @@
       <dialog class="travel-sheet" aria-label="รายละเอียดสถานที่ท่องเที่ยว"><div class="travel-sheet-top"><span class="travel-sheet-handle" aria-hidden="true"></span><button type="button" class="travel-sheet-close" aria-label="ปิดรายละเอียดสถานที่">×</button></div><div class="travel-sheet-content"></div></dialog>
     </section>
 
-    <footer class="site-footer"><p class="script-title footer-names"><span data-groom lang="en">Somchai</span> &amp; <span data-bride lang="en">Phantira</span></p><p>ขอบคุณที่เป็นส่วนหนึ่งในเรื่องราวของเรา</p><p class="footer-meta" data-province>จังหวัดหนองคาย</p><button class="button share-invitation-cta" id="share-button">แชร์คำเชิญ </button></footer>
+    <footer class="site-footer"><div class="footer-mesh" aria-hidden="true"><i></i><i></i></div><p class="script-title footer-names"><span data-groom lang="en">Somchai</span> &amp; <span data-bride lang="en">Phantira</span></p><p>ขอบคุณที่เป็นส่วนหนึ่งในเรื่องราวของเรา</p><p class="footer-meta" data-province>จังหวัดหนองคาย</p><button class="button share-invitation-cta" id="share-button">แชร์คำเชิญ </button></footer>
   </main>
   </div>
   <dialog id="invite-dialog" aria-labelledby="dialog-title">
     <button class="dialog-close" id="close-dialog" aria-label="ปิดการ์ดเชิญ">×</button>
-    <div class="book-shell"><div class="dialog-body paper-inside"><img class="dialog-logo" src="assets/images/sp-wedding-logo.png" width="1254" height="1254" alt="SP — Somchai &amp; Phantira"><p class="eyebrow" lang="en">WITH LOVE</p><h2 id="dialog-title" data-guest>ถึงคุณ คนสำคัญของเรา</h2><p class="invitation-message" id="invitation-message">ด้วยความยินดีของเราทั้งสองและครอบครัว<br>ขอเชิญคุณมาเป็นส่วนหนึ่งในวันสำคัญของเรา</p><p class="script-title dialog-names"><span data-groom lang="en">Somchai</span> &amp; <span data-bride lang="en">Phantira</span></p><p data-date-label>25 ตุลาคม 2569</p><p data-venue-address>ตำบลนางิ้ว อำเภอสังคม จังหวัดหนองคาย</p><button class="button" id="dialog-location">ดูสถานที่จัดงาน </button></div>
+    <div class="book-shell"><div class="dialog-body paper-inside"><img class="dialog-logo" src="assets/images/sp-wedding-logo.png" width="1254" height="1254" alt="SP — Somchai &amp; Phantira"><p class="eyebrow" lang="en">WITH LOVE</p><h2 id="dialog-title" data-guest>ถึงคุณ คนสำคัญของเรา</h2><p class="invitation-message" id="invitation-message">ด้วยความยินดีของเราทั้งสองและครอบครัว<br>ขอเชิญคุณมาเป็นส่วนหนึ่งในวันสำคัญของเรา</p><p class="script-title dialog-names"><span data-groom lang="en">Somchai</span> &amp; <span data-bride lang="en">Phantira</span></p><p data-date-label>25 ตุลาคม 2569</p><p data-venue-address>ตำบลนางิ้ว อำเภอสังคม จังหวัดหนองคาย</p><section class="invitation-schedule" aria-labelledby="invitation-schedule-title"><h3 id="invitation-schedule-title">กำหนดการ</h3><ol id="invitation-schedule"><li><span class="invitation-schedule-time">06:00–06:30</span><span>ทำบุญเช้าเพื่อความเป็นสิริมงคล</span></li><li><span class="invitation-schedule-time">08:30–09:00</span><span>แห่ขันหมากรับตัวเจ้าสาว</span></li><li><span class="invitation-schedule-time">09:09–10:00</span><span>พิธีบายศรีสู่ขวัญคู่บ่าวสาว</span></li><li><span class="invitation-schedule-time">10:00–10:30</span><span>ผูกแขนและสมมาผู้ใหญ่</span></li><li><span class="invitation-schedule-time">10:30–11:00</span><span>ถ่ายภาพและรับคำอวยพร</span></li><li><span class="invitation-schedule-time">11:00–12:00</span><span>ร่วมรับประทานอาหารและส่งแขก</span></li></ol></section><a class="button" id="dialog-location" data-map-link href="https://maps.app.goo.gl/iWyshhVcmBTzDKYW7?g_st=ic" target="_blank" rel="noopener noreferrer">แผนที่สถานที่จัดงาน</a></div>
       <div class="book-cover" aria-hidden="true"><div class="book-cover-front"><p>ด้วยรัก และคำเชิญจากเรา</p><img src="assets/images/sp-wedding-logo.png" width="1254" height="1254" alt=""><p data-guest>ถึงคุณ คนสำคัญของเรา</p><span>วันสำคัญที่อยากมีคุณอยู่ด้วย</span></div></div>
     </div>
   </dialog>

@@ -5,11 +5,6 @@
   page.hidden = true;
   let entering = false;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-  const welcomeMotion = $('welcome-motion'), motion = $('motion-toggle');
-  const syncMotion = () => { welcomeMotion.hidden = motion.hidden; welcomeMotion.textContent = motion.textContent; welcomeMotion.setAttribute('aria-pressed', motion.getAttribute('aria-pressed')); };
-  welcomeMotion.addEventListener('click', () => { motion.click(); syncMotion(); });
-  new MutationObserver(syncMotion).observe(motion, { attributes:true, childList:true });
-  syncMotion();
   // Begin only after the exact source image has decoded, including offline preview.
   const botanicalLogo = $('botanical-logo');
   const botanicalAsset = document.getElementById('botanical-artwork');
@@ -33,6 +28,9 @@
     const finish = () => { welcome.hidden = true; page.hidden = false; window.scrollTo(0,0); $('couple-title').focus({ preventScroll:true }); window.dispatchEvent(new Event('resize')); };
     setTimeout(finish, reduced.matches || document.documentElement.classList.contains('motion-paused') ? 0 : 660);
   });
+  const footer=document.querySelector('.site-footer');
+  if('IntersectionObserver' in window)new IntersectionObserver(entries=>{entries.forEach(entry=>footer.classList.toggle('footer-motion-active',entry.isIntersecting));}).observe(footer);
+  else footer.classList.add('footer-motion-active');
   // Pointer coordinates are normalized, preserving artwork through resize/rotation.
   const canvas = $('wish-canvas'), ctx = canvas.getContext('2d');
   const strokes = []; let activeStroke = null, mode = 'type';
