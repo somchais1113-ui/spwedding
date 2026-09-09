@@ -114,7 +114,7 @@
       photoFile=typeof File==='function'?new File([result.blob],download.download,{type:'image/png'}):null;
       let canSharePhoto=false;try{canSharePhoto=!!(window.isSecureContext&&navigator.share&&navigator.canShare&&photoFile&&navigator.canShare({files:[photoFile]}));}catch(_){}
       photoShare.hidden=!canSharePhoto;photoShareStatus.textContent=canSharePhoto?'เลือกแชร์ภาพเพื่อเปิดเมนูของอุปกรณ์':'อุปกรณ์นี้ยังแชร์ไฟล์ภาพจากเว็บไม่ได้ ใช้ดาวน์โหลด PNG ได้เลย';
-      photoDialog.showModal();photoDialog.scrollTop=0;$('close-wish-photo').focus({preventScroll:true});exportStatus.textContent='การ์ดพร้อมแล้ว เลือกแชร์ภาพหรือดาวน์โหลด PNG';
+      window.WeddingDialogs.open(photoDialog,exportButton,$('close-wish-photo'));exportStatus.textContent='การ์ดพร้อมแล้ว เลือกแชร์ภาพหรือดาวน์โหลด PNG';
     }catch(error){
       exportStatus.textContent=error.message==='text-too-long'?'ข้อความยาวเกินพื้นที่การ์ด ลองลดข้อความหรือจำนวนบรรทัดก่อนบันทึกนะครับ':error.message==='font-unavailable'?'โหลดฟอนต์การ์ดไม่สำเร็จ กรุณาลองอีกครั้ง':error.name==='SecurityError'?'กรุณาเปิดไฟล์ SP-Wedding-Preview.html หรือเปิดเว็บผ่านเซิร์ฟเวอร์ เพื่อบันทึกการ์ดเป็นภาพ':'ยังจัดทำภาพไม่สำเร็จ กรุณาลองอีกครั้ง และตรวจว่าไฟล์เทมเพลตอยู่ครบ';
     }finally{if(snapshot)snapshot.width=snapshot.height=1;exporting=false;exportButton.disabled=false;exportButton.setAttribute('aria-busy','false');}
@@ -128,7 +128,6 @@
     finally{sharingPhoto=false;photoShare.disabled=false;}
   });
   $('close-wish-photo').addEventListener('click',()=>photoDialog.close());
-  photoDialog.addEventListener('close',()=>exportButton.focus({preventScroll:true}));
   photoDialog.addEventListener('click',event=>{if(event.target!==photoDialog)return;const rect=photoDialog.getBoundingClientRect();if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)photoDialog.close();});
   window.addEventListener('pagehide',()=>{if(photoURL)URL.revokeObjectURL(photoURL);});
   const sendButton = $('save-wish'), sendLabel = $('send-wish-label');

@@ -85,13 +85,12 @@
     results.value=id;
     detail.replaceChildren(destination(p,false));
     q('.travel-selection-status').textContent='เลือก '+p.nameTH+' แล้ว';
-    if(mobile.matches){savedFocus=trigger;q('.travel-sheet-content').replaceChildren(destination(p,true));sheet.setAttribute('aria-labelledby','travel-sheet-title');if(!sheet.open)sheet.showModal();sheet.scrollTop=0;q('.travel-sheet-close').focus({preventScroll:true});}
+    if(mobile.matches){savedFocus=trigger;q('.travel-sheet-content').replaceChildren(destination(p,true));sheet.setAttribute('aria-labelledby','travel-sheet-title');if(!sheet.open)window.WeddingDialogs.open(sheet,trigger,q('.travel-sheet-close'));sheet.scrollTop=0;}
     else{camera.x=viewport.clientWidth/2-p.mapPosition.x*camera.scale;camera.y=viewport.clientHeight/2-p.mapPosition.y*camera.scale;applyCamera();}
   }
   results.addEventListener('change',()=>{if(results.value)select(results.value,results);});
   q('.travel-sheet-close').addEventListener('click',()=>sheet.close());
   sheet.addEventListener('click',e=>{if(e.target===sheet){const r=sheet.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)sheet.close();}});
-  sheet.addEventListener('close',()=>{if(savedFocus?.isConnected && !savedFocus.disabled)savedFocus.focus({preventScroll:true});});
   mobile.addEventListener('change',()=>{if(sheet.open)sheet.close();center();});
   const routeLine=q('.travel-route-line'),routeShadow=q('.travel-route-shadow');routeLine.setAttribute('pathLength','1');
   function buildRoute(){

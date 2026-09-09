@@ -12,9 +12,12 @@
   <link rel="stylesheet" href="css/motion.css">
   <link rel="stylesheet" href="css/celebration.css">
   <link rel="stylesheet" href="css/travel/travel.css">
+  <link rel="stylesheet" href="css/dialogs.css">
   <script src="js/config.js" defer></script>
   <script src="js/helpers.js" defer></script>
+  <script src="js/dialogs.js" defer></script>
   <script src="js/app.js" defer></script>
+  <script src="js/qr-share.js" defer></script>
   <script src="js/motion.js" defer></script>
   <script src="js/wish-export.js" defer></script>
   <script src="js/celebration.js" defer></script>
@@ -72,7 +75,7 @@
   <main id="main">
     <section class="hero" id="home" aria-labelledby="couple-title">
       <div class="hero-art art-scene hero-story" data-scene="hero">
-        <div class="art-scroll"><div class="art-tilt"><div class="art-drift"><div class="art-entrance"><div class="story-camera">
+        <div class="art-scroll" id="open-qr" role="button" tabindex="0" aria-label="เปิดรูป Qr Code" aria-haspopup="dialog" aria-controls="qr-dialog"><div class="art-tilt"><div class="art-drift"><div class="art-entrance"><div class="story-camera">
           <img class="story-master" data-art="hero" src="assets/images/hero-couple.jpeg" width="1448" height="1086" alt="ภาพสีน้ำคู่บ่าวสาวใต้ซุ้มดอกไม้สีชมพูและขาว" fetchpriority="high">
           <div class="story-setting story-layer" aria-hidden="true"><img src="assets/images/hero-couple.jpeg" width="1448" height="1086" alt=""></div>
           <div class="story-couple story-layer" aria-hidden="true"><img src="assets/images/hero-couple.jpeg" width="1448" height="1086" alt=""></div>
@@ -218,11 +221,12 @@
   </div>
   <dialog id="invite-dialog" aria-labelledby="dialog-title">
     <button class="dialog-close" id="close-dialog" aria-label="ปิดการ์ดเชิญ">×</button>
-    <div class="book-shell"><div class="dialog-body paper-inside"><img class="dialog-logo" src="assets/images/sp-wedding-logo.png" width="1254" height="1254" alt="SP — Somchai &amp; Phantira"><p class="eyebrow" lang="en">WITH LOVE</p><h2 id="dialog-title" data-guest>ถึงคุณ คนสำคัญของเรา</h2><p class="invitation-message" id="invitation-message">ด้วยความยินดีของเราทั้งสองและครอบครัว<br>ขอเชิญคุณมาเป็นส่วนหนึ่งในวันสำคัญของเรา</p><p class="script-title dialog-names"><span data-groom lang="en">Somchai</span> &amp; <span data-bride lang="en">Phantira</span></p><p data-date-label>25 ตุลาคม 2569</p><p data-venue-address>ตำบลนางิ้ว อำเภอสังคม จังหวัดหนองคาย</p><section class="invitation-schedule" aria-labelledby="invitation-schedule-title"><h3 id="invitation-schedule-title">กำหนดการ</h3><ol id="invitation-schedule"><li><span class="invitation-schedule-time">06:00–06:30</span><span>ทำบุญเช้าเพื่อความเป็นสิริมงคล</span></li><li><span class="invitation-schedule-time">08:30–09:00</span><span>แห่ขันหมากรับตัวเจ้าสาว</span></li><li><span class="invitation-schedule-time">09:09–10:00</span><span>พิธีบายศรีสู่ขวัญคู่บ่าวสาว</span></li><li><span class="invitation-schedule-time">10:00–10:30</span><span>ผูกแขนและสมมาผู้ใหญ่</span></li><li><span class="invitation-schedule-time">10:30–11:00</span><span>ถ่ายภาพและรับคำอวยพร</span></li><li><span class="invitation-schedule-time">11:00–12:00</span><span>ร่วมรับประทานอาหารและส่งแขก</span></li></ol></section><a class="button" id="dialog-location" data-map-link href="https://maps.app.goo.gl/iWyshhVcmBTzDKYW7?g_st=ic" target="_blank" rel="noopener noreferrer">แผนที่สถานที่จัดงาน</a></div>
+    <div class="book-shell" data-dialog-scroll><div class="dialog-body paper-inside"><img class="dialog-logo" src="assets/images/sp-wedding-logo.png" width="1254" height="1254" alt="SP — Somchai &amp; Phantira"><p class="eyebrow" lang="en">WITH LOVE</p><h2 id="dialog-title" data-guest>ถึงคุณ คนสำคัญของเรา</h2><p class="invitation-message" id="invitation-message">ด้วยความยินดีของเราทั้งสองและครอบครัว<br>ขอเชิญคุณมาเป็นส่วนหนึ่งในวันสำคัญของเรา</p><p class="script-title dialog-names"><span data-groom lang="en">Somchai</span> &amp; <span data-bride lang="en">Phantira</span></p><p data-date-label>25 ตุลาคม 2569</p><p data-venue-address>ตำบลนางิ้ว อำเภอสังคม จังหวัดหนองคาย</p><section class="invitation-schedule" aria-labelledby="invitation-schedule-title"><h3 id="invitation-schedule-title">กำหนดการ</h3><ol id="invitation-schedule"><li><span class="invitation-schedule-time">06:00–06:30</span><span>ทำบุญเช้าเพื่อความเป็นสิริมงคล</span></li><li><span class="invitation-schedule-time">08:30–09:00</span><span>แห่ขันหมากรับตัวเจ้าสาว</span></li><li><span class="invitation-schedule-time">09:09–10:00</span><span>พิธีบายศรีสู่ขวัญคู่บ่าวสาว</span></li><li><span class="invitation-schedule-time">10:00–10:30</span><span>ผูกแขนและสมมาผู้ใหญ่</span></li><li><span class="invitation-schedule-time">10:30–11:00</span><span>ถ่ายภาพและรับคำอวยพร</span></li><li><span class="invitation-schedule-time">11:00–12:00</span><span>ร่วมรับประทานอาหารและส่งแขก</span></li></ol></section><a class="button" id="dialog-location" data-map-link href="https://maps.app.goo.gl/iWyshhVcmBTzDKYW7?g_st=ic" target="_blank" rel="noopener noreferrer">แผนที่สถานที่จัดงาน</a></div>
       <div class="book-cover" aria-hidden="true"><div class="book-cover-front"><p>ด้วยรัก และคำเชิญจากเรา</p><img src="assets/images/sp-wedding-logo.png" width="1254" height="1254" alt=""><p data-guest>ถึงคุณ คนสำคัญของเรา</p><span>วันสำคัญที่อยากมีคุณอยู่ด้วย</span></div></div>
     </div>
   </dialog>
   <dialog id="wish-photo-dialog" aria-labelledby="wish-photo-title"><div class="wish-photo-heading"><h2 id="wish-photo-title">การ์ดคำอวยพรของคุณ</h2><button type="button" id="close-wish-photo" aria-label="ปิดตัวอย่างการ์ด">×</button></div><img id="wish-photo-preview" alt="ภาพการ์ดคำอวยพรที่จัดทำจากข้อความหรือลายมือของคุณ"><div class="wish-photo-actions"><div class="wish-photo-buttonrow"><button type="button" class="button" id="share-wish-photo" hidden>แชร์ภาพการ์ด</button><a class="button button-outline" id="download-wish-photo" download="SP-Wedding-Wish.png">ดาวน์โหลด PNG</a></div><p class="subtle" id="wish-photo-share-status" aria-live="polite"></p><p class="subtle">PNG · 300 DPI — บันทึกหรือแชร์ภาพได้จากปุ่มด้านบน</p></div></dialog>
+  <dialog id="qr-dialog" aria-labelledby="qr-title"><div class="qr-heading"><h2 id="qr-title">Qr Code</h2><button type="button" id="close-qr" aria-label="ปิดรูป Qr Code">×</button></div><img id="qr-image" src="assets/images/qr-code.png" width="1152" height="2048" loading="lazy" alt="Qr Code สำหรับร่วมแสดงความยินดีกับบ่าวสาว"><div class="qr-actions"><button type="button" class="button" id="share-qr" hidden>แชร์รูป Qr Code</button><a class="button button-outline" id="download-qr" href="assets/images/qr-code.png" download="Qr Code.png">บันทึกรูป</a><p id="qr-status" class="subtle" role="status"></p></div></dialog>
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
   <div class="heart-particles" id="heart-particles" aria-hidden="true"></div>
   <noscript><div class="noscript-note">เปิด JavaScript เพื่อดูข้อมูลล่าสุด เปิดการ์ด และใช้ปุ่มต่าง ๆ ของเว็บไซต์</div></noscript>

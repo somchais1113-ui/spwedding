@@ -84,9 +84,9 @@
   const rsvpUrl = H.safeHttps(config.rsvpUrl);
   if (rsvpUrl) { $('#rsvp-link').href = rsvpUrl; $('#rsvp-link').hidden = false; }
 
-  const dialog = $('#invite-dialog'); let lastTrigger = null;
+  const dialog = $('#invite-dialog');
   all('[data-open-invite]').forEach(button => button.addEventListener('click', () => {
-    lastTrigger = button; dialog.showModal(); $('#close-dialog').focus();
+    window.WeddingDialogs.open(dialog, button, $('#close-dialog'));
   }));
   $('#close-dialog').addEventListener('click', () => dialog.close());
   dialog.addEventListener('click', event => {
@@ -94,7 +94,6 @@
     const rect = dialog.getBoundingClientRect();
     if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) dialog.close();
   });
-  dialog.addEventListener('close', () => { if (lastTrigger) lastTrigger.focus({ preventScroll: true }); });
   let toastTimer;
   function toast(message) { $('#toast').textContent = message; $('#toast').hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => { $('#toast').hidden = true; }, 5500); }
   async function copyText(text) {
