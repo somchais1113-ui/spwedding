@@ -14,7 +14,7 @@
       file=new File([blob], 'Qr Code.png', {type:'image/png'});
       try {share.hidden=!(window.isSecureContext && navigator.share && navigator.canShare && navigator.canShare({files:[file]}));}
       catch (_) {share.hidden=true;}
-    }).catch(()=>{preparation=null;status.textContent='สามารถบันทึกภาพต้นฉบับจากปุ่มบันทึกรูป หรือแตะค้างที่ภาพ';});
+    }).catch(()=>{preparation=null;status.textContent='แตะค้างที่ภาพ เพื่อบันทึกหรือแชร์จากเมนูของอุปกรณ์';});
     return preparation;
   }
   function open() {
@@ -36,7 +36,7 @@
     if(!file||sharing)return;
     sharing=true;share.disabled=true;status.textContent='';
     try {await navigator.share({files:[file],title:'Qr Code'});}
-    catch(error){if(error.name!=='AbortError')status.textContent='ยังแชร์ไม่ได้ กรุณาลองอีกครั้งหรือบันทึกรูป';}
+    catch(error){if(error.name!=='AbortError')status.textContent='ยังแชร์ไม่ได้ กรุณาลองอีกครั้ง หรือแตะค้างที่ภาพ';}
     finally {sharing=false;share.disabled=false;}
   });
 }());

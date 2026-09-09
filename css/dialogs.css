@@ -18,12 +18,15 @@ dialog:not([open]){display:none}
 #invite-dialog #close-dialog{width:44px;height:44px;right:8px;top:8px;outline-offset:-3px}
 #open-qr{cursor:pointer;touch-action:manipulation;outline-offset:-4px}
 #qr-dialog{width:440px;border-radius:12px;padding:0;background:#fff;margin:auto}
-#qr-dialog[open]{display:flex;flex-direction:column}
+#qr-dialog[open]{display:flex;flex-direction:column;overflow:hidden}
 .qr-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 12px 6px 18px;flex:none;background:#fff}
 .qr-heading h2{font:600 19px/1.5 var(--font-body)}
 .qr-heading button{width:44px;height:44px;border:0;background:#fff;color:var(--navy);font:30px/1 Georgia,serif;border-radius:50%;outline-offset:-3px}
-#qr-image{width:100%;height:auto;min-height:0;flex:1 1 auto;object-fit:contain;max-height:calc(100svh - 174px - env(safe-area-inset-top) - env(safe-area-inset-bottom))}
-.qr-actions{flex:none;display:flex;justify-content:center;gap:8px;flex-wrap:wrap;padding:10px 12px;background:#fff}
+/* The image is the only flexible row: it shrinks to whatever the dialog leaves,
+   and object-fit keeps the original QR proportions at every size. */
+#qr-image{width:100%;height:auto;min-height:0;flex:1 1 auto;object-fit:contain}
+.qr-actions{flex:none;display:flex;justify-content:center;gap:8px;flex-wrap:wrap;padding:0 12px;background:#fff}
+.qr-actions>*{margin-block:10px}
 .qr-actions .button{min-height:44px;flex:1;font-size:14px;padding:8px 14px}
 #qr-status{width:100%;font-size:13px;text-align:center;line-height:1.5}
 #qr-status:empty{display:none}
