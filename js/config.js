@@ -79,6 +79,16 @@ window.WEDDING_CONFIG = {
     // กรอกชื่อและเบอร์จริง ปุ่มโทรจะปรากฏเมื่อมีหมายเลขเท่านั้น
     name: '', phone: ''
   },
+  // เก็บคำอวยพรเป็น "ภาพการ์ด" ใน Google Drive ผ่าน Google Apps Script
+  // ดูวิธีติดตั้ง 6 ขั้นตอนใน docs/GUESTBOOK-DRIVE-TH.md
+  // ถ้า endpoint ว่าง เว็บจะกลับไปใช้ /api/wishes ของ server.mjs เหมือนเดิม
+  wishes: {
+    endpoint: '',           // URL ที่ลงท้ายด้วย /exec จากหน้า Deploy ของ Apps Script
+    token: '',              // ต้องตรงกับ SHARED_TOKEN ใน Code.gs
+    archiveFormat: 'portrait',  // 'portrait' (4:5) หรือ 'landscape' (16:9)
+    archiveLongEdge: 1500,  // ด้านยาวของภาพที่อัปโหลด ยิ่งเล็กยิ่งส่งเร็วบนเน็ตมือถือ
+    archiveFileType: 'jpeg' // 'jpeg' ไฟล์เล็กกว่า 6 ถึง 8 เท่า หรือ 'png' ถ้าต้องการไฟล์ไม่สูญเสียคุณภาพ
+  },
   // ถ้าต้องการปุ่มตอบรับ ไปยัง Google Form หรือแบบฟอร์มจริง ให้ใส่ URL HTTPS
   rsvpUrl: '',
   // ลิงก์เว็บจริงหลังอัปโหลด ใช้แชร์เมื่อเปิดจากไฟล์ในเครื่อง

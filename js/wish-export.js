@@ -59,15 +59,20 @@
     if(!inserted||!ended)throw new Error('invalid-png');
     return new Blob(parts,{type:'image/png'});
   }
-  async function render({format='portrait',mode='type',text='',name='',drawing}){
+  // longEdge (optional) renders the same composition at a smaller pixel size,
+  // for the copy that is uploaded to the guestbook. Omit it for the 300 DPI download.
+  async function render({format='portrait',mode='type',text='',name='',drawing,longEdge,type}){
     const spec=formats[format]||formats.portrait;
+    const limit=Number(longEdge),full=Math.max(spec.width,spec.height);
+    const ratio=Number.isFinite(limit)&&limit>0?Math.min(1,limit/full):1;
+    const outWidth=Math.max(1,Math.round(spec.width*ratio)),outHeight=Math.max(1,Math.round(spec.height*ratio));
     const [template,faces]=await Promise.all([loadImage(spec.template),document.fonts.load('400 40px "NotoSansTC"'),document.fonts.load('400 32px Prompt')]);
     if(!faces.length)throw new Error('font-unavailable');
-    const canvas=document.createElement('canvas');canvas.width=spec.width;canvas.height=spec.height;
+    const canvas=document.createElement('canvas');canvas.width=outWidth;canvas.height=outHeight;
     const ctx=canvas.getContext('2d');if(!ctx)throw new Error('canvas-unavailable');
     try{
       // Logical layout coordinates retain the composition; text is rasterized at export resolution.
-      ctx.scale(spec.width/spec.layoutWidth,spec.height/spec.layoutHeight);
+      ctx.scale(outWidth/spec.layoutWidth,outHeight/spec.layoutHeight);
       ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';
       ctx.drawImage(template,0,0,spec.layoutWidth,spec.layoutHeight);
       const box={x:spec.box.x*spec.layoutWidth,y:spec.box.y*spec.layoutHeight,w:spec.box.w*spec.layoutWidth,h:spec.box.h*spec.layoutHeight};
@@ -92,8 +97,11 @@
         ctx.font=`400 ${signature.size}px "NotoSansTC", Prompt, sans-serif`;ctx.fillStyle='#163e72';
         signature.lines.forEach((line,i)=>ctx.fillText(line,box.x,signatureY+34+i*signature.lineHeight));
       }
-      const raw=await new Promise((resolve,reject)=>canvas.toBlob(blob=>blob?resolve(blob):reject(new Error('export-failed')),'image/png'));
-      return {blob:await withDPI(raw,300),width:spec.width,height:spec.height,dpi:300};
+      // JPEG is offered for the upload copy only: same composition, a fraction of the bytes.
+      const mime=type==='image/jpeg'?'image/jpeg':'image/png';
+      const raw=await new Promise((resolve,reject)=>canvas.toBlob(blob=>blob?resolve(blob):reject(new Error('export-failed')),mime,mime==='image/jpeg'?.92:undefined));
+      const dpi=Math.max(1,Math.round(300*ratio));
+      return {blob:mime==='image/jpeg'?raw:await withDPI(raw,dpi),width:outWidth,height:outHeight,dpi,type:mime};
     }finally{canvas.width=canvas.height=1;}
   }
   const api={formats,wrapLines,fitText,withDPI,render};if(typeof module==='object'&&module.exports)module.exports=api;else root.WeddingWishExport=api;
