@@ -2,11 +2,13 @@ const {test}=require('node:test'),assert=require('node:assert/strict'),fs=requir
 const root=path.resolve(__dirname,'..'),web=fs.existsSync(path.join(root,'dist/index.html'))?path.join(root,'dist'):root;
 const c={window:{}};vm.runInNewContext(fs.readFileSync(path.join(web,'js/config.js'),'utf8'),c);const C=c.window.WEDDING_CONFIG;
 const H=require(path.join(web,'js/helpers.js')),E=require(path.join(web,'js/wish-export.js'));
-test('Ceremonies run continuously from 09:09 to noon, calendar and countdown agree',()=>{
- assert.equal(C.date.startAt,'2026-10-25T09:09:00+07:00');assert.equal(C.date.endAt,'2026-10-25T12:00:00+07:00');
- let end=9*60+9;for(const row of C.schedule){const times=[...row.time.matchAll(/(\d{2}):(\d{2})/g)].map(m=>+m[1]*60+ +m[2]);assert.equal(times[0],end);assert.ok(times[1]>times[0]);end=times[1];}assert.equal(end,720);
- const start=H.validDate(C.date.startAt);assert.equal(H.countdownParts(start,new Date('2026-10-25T02:08:59Z')).seconds,1);assert.deepEqual(H.countdownParts(start,start),{days:0,hours:0,minutes:0,seconds:0});
- const ics=H.makeCalendar(C).replace(/\r\n /g,'');assert.ok(ics.includes('DTSTART:20261025T020900Z'));assert.ok(ics.includes('DTEND:20261025T050000Z'));assert.ok(ics.includes('ตำบลนางิ้ว อำเภอสังคม จังหวัดหนองคาย'));
+test('Latest six ceremonies preserve supplied gaps; calendar/countdown start at 06:00 Bangkok',()=>{
+ assert.equal(C.date.startAt,'2026-10-25T06:00:00+07:00');assert.equal(C.date.endAt,'2026-10-25T12:00:00+07:00');assert.equal(C.scheduleConfirmed,true);
+ const expected=[["06:00–06:30", "ทำบุญเช้าเพื่อความเป็นสิริมงคล"], ["08:30–09:00", "แห่ขันหมากรับตัวเจ้าสาว"], ["09:09–10:00", "พิธีบายศรีสู่ขวัญคู่บ่าวสาว"], ["10:00–10:30", "ผูกแขนและสมมาผู้ใหญ่"], ["10:30–11:00", "ถ่ายภาพและรับคำอวยพร"], ["11:00–12:00", "ร่วมรับประทานอาหารและส่งแขก"]];
+ assert.deepEqual(Array.from(C.schedule,row=>[row.time,row.title]),expected);
+ const start=H.validDate(C.date.startAt);assert.equal(H.countdownParts(start,new Date('2026-10-24T22:59:59Z')).seconds,1);assert.deepEqual(H.countdownParts(start,start),{days:0,hours:0,minutes:0,seconds:0});
+ const ics=H.makeCalendar(C).replace(/\r\n /g,'');assert.ok(ics.includes('DTSTART:20261024T230000Z'));assert.ok(ics.includes('DTEND:20261025T050000Z'));assert.ok(ics.includes('ตำบลนางิ้ว อำเภอสังคม จังหวัดหนองคาย'));
+ const html=fs.readFileSync(path.join(web,'index.html'),'utf8');for(const [time,title] of expected){assert.ok(html.includes(time));assert.ok(html.includes(title));}assert.ok(!html.includes('เวลา 09:09–12:00'));assert.ok(!/\d น\./.test(html));assert.ok(!C.date.timeLabel.includes('น.'));
 });
 test('Both export ratios match supplied templates and safe text regions stay within canvas',()=>{
  for(const [id,f] of Object.entries(E.formats)){assert.ok(fs.existsSync(path.join(web,f.template)));assert.equal(f.width/f.height,id==='portrait'?4/5:16/9);assert.ok(f.box.x>=0&&f.box.y>=0&&f.box.x+f.box.w<=1&&f.box.y+f.box.h<f.signatureY&&f.signatureY<.85);}

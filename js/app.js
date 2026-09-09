@@ -48,9 +48,9 @@
     const content = document.createElement('div'); const title = document.createElement('h3'); title.textContent = item.title;
     if (item.time) { const time = document.createElement('span'); time.className = 'timeline-time'; time.textContent = item.time; title.append(time); }
     const description = document.createElement('p'); description.textContent = item.description;
-    content.append(title, description); row.append(number, content); schedule.append(row);
+    content.append(title); if (item.description) content.append(description); row.append(number, content); schedule.append(row);
   });
-  $('#schedule-note').textContent = config.scheduleConfirmed ? 'กำหนดการในวันงาน' : (config.scheduleNote || 'กำหนดการเบื้องต้น · เวลาอาจมีการเปลี่ยนแปลง');
+  $('#schedule-note').textContent = config.scheduleNote || (config.scheduleConfirmed ? 'กำหนดการในวันงาน' : 'กำหนดการเบื้องต้น · เวลาอาจมีการเปลี่ยนแปลง');
   if (!config.schedule.length) $('#schedule-note').textContent = 'กำหนดการจะแจ้งให้ทราบอีกครั้ง';
 
   const dresscodeSection = $('#dresscode');
