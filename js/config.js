@@ -25,7 +25,7 @@ window.WEDDING_CONFIG = {
     province: 'จังหวัดหนองคาย',
     address: 'ตำบลนางิ้ว อำเภอสังคม จังหวัดหนองคาย',
     // วางลิงก์แชร์หมุด Google Maps จริง ห้ามใช้หมุดใจกลางจังหวัดแทนบ้าน
-    mapUrl: 'https://maps.app.goo.gl/iWyshhVcmBTzDKYW7?g_st=ic',
+    mapUrl: 'https://maps.app.goo.gl/DUhbhavXCWh5exkH7',
     parking: 'รายละเอียดที่จอดรถจะแจ้งให้ทราบใกล้วันงาน',
     note: 'พิธีจัดภายในบ้าน แล้วมาร่วมรับประทานอาหารและใช้เวลาดี ๆ ด้วยกัน'
   },

@@ -148,9 +148,4 @@
     });
   });
 
-  $('#heart-button').addEventListener('click', () => {
-    $('#heart-note').textContent = 'เขียนคำอวยพรด้านล่าง แล้วกดส่งคำอวยพรให้เรานะครับ';
-    $('#wishes').scrollIntoView({behavior:prefersStill()?'auto':'smooth',block:'start'});
-    $('#wish-name').focus({preventScroll:true});
-  });
 })();

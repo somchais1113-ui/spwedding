@@ -14,7 +14,7 @@ window.WEDDING_TRAVEL_DATA = {
   "origin": {
     "nameTH": "สถานที่จัดงาน",
     "coordinates": null,
-    "googleMapsURL": "https://maps.app.goo.gl/iWyshhVcmBTzDKYW7?g_st=ic"
+    "googleMapsURL": "https://maps.app.goo.gl/DUhbhavXCWh5exkH7"
   },
   "modes": [
     {

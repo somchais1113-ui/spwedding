@@ -59,7 +59,7 @@
       </div>
       <p class="countdown-caption" id="welcome-countdown-note">นับถอยหลังถึงเวลาเริ่มงาน · เวลาไทย</p>
       <button class="button enter-button" id="enter-wedding" type="button">เปิดประตูสู่วันของเรา </button>
-      <div class="welcome-shortcuts"><a class="button welcome-secondary" data-map-link href="https://maps.app.goo.gl/iWyshhVcmBTzDKYW7?g_st=ic" target="_blank" rel="noopener noreferrer">แผนที่นำทาง</a><button class="button welcome-secondary" type="button" data-open-invite>ดูการ์ดเชิญ</button></div>
+      <div class="welcome-shortcuts"><button class="button welcome-secondary" type="button" data-open-qr aria-haspopup="dialog" aria-controls="qr-dialog">ร่วมแสดงความยินดี</button><button class="button welcome-secondary" type="button" data-open-invite>ดูการ์ดเชิญ</button></div>
     </div>
   </section>
   <div id="wedding-page">
@@ -137,7 +137,7 @@
           <p class="venue-address" id="venue-address">ตำบลนางิ้ว อำเภอสังคม จังหวัดหนองคาย</p>
           <div class="venue-rule"></div>
           <p class="venue-caption">การเดินทาง</p><p id="map-status">แตะปุ่มด้านล่าง เพื่อดูหมุดและเริ่มนำทาง</p>
-          <a class="button map-link" id="map-link" href="https://maps.app.goo.gl/iWyshhVcmBTzDKYW7?g_st=ic" target="_blank" rel="noopener noreferrer">เปิด Google Maps </a>
+          <a class="button map-link" id="map-link" href="https://maps.app.goo.gl/DUhbhavXCWh5exkH7" target="_blank" rel="noopener noreferrer">เปิด Google Maps </a>
           <p class="parking-note" data-parking>รายละเอียดที่จอดรถจะแจ้งให้ทราบใกล้วันงาน</p>
           <a class="text-button" id="contact-link" hidden></a>
         </div>
@@ -152,7 +152,6 @@
         <span class="card-small">ด้วยรัก และคำเชิญจากเรา</span><img class="card-logo" src="assets/images/sp-wedding-logo.png" width="1254" height="1254" alt="SP — Somchai &amp; Phantira"><span class="card-guest" data-guest>ถึงคุณ คนสำคัญของเรา</span><span class="card-open">แตะเพื่อเปิดการ์ด </span>
       </button>
       <a class="button" id="rsvp-link" hidden target="_blank" rel="noopener noreferrer">ตอบรับคำเชิญ</a>
-      <div class="love-note"><p>ฝากความยินดีไว้ให้เรา</p><button id="heart-button" class="heart-button" aria-label="เขียนคำอวยพรให้บ่าวสาว" aria-controls="wishes">ส่งความยินดี</button><p class="subtle" id="heart-note" aria-live="polite">ร่วมแสดงความยินดีกับเราสองคน</p></div>
     </section>
 
     <section class="wishes-section section-shell" id="wishes" aria-labelledby="wishes-title">
@@ -221,7 +220,7 @@
   </div>
   <dialog id="invite-dialog" aria-labelledby="dialog-title">
     <button class="dialog-close" id="close-dialog" aria-label="ปิดการ์ดเชิญ">×</button>
-    <div class="book-shell" data-dialog-scroll><div class="dialog-body paper-inside"><img class="dialog-logo" src="assets/images/sp-wedding-logo.png" width="1254" height="1254" alt="SP — Somchai &amp; Phantira"><p class="eyebrow" lang="en">WITH LOVE</p><h2 id="dialog-title" data-guest>ถึงคุณ คนสำคัญของเรา</h2><p class="invitation-message" id="invitation-message">ด้วยความยินดีของเราทั้งสองและครอบครัว<br>ขอเชิญคุณมาเป็นส่วนหนึ่งในวันสำคัญของเรา</p><p class="script-title dialog-names"><span data-groom lang="en">Somchai</span> &amp; <span data-bride lang="en">Phantira</span></p><p data-date-label>25 ตุลาคม 2569</p><p data-venue-address>ตำบลนางิ้ว อำเภอสังคม จังหวัดหนองคาย</p><section class="invitation-schedule" aria-labelledby="invitation-schedule-title"><h3 id="invitation-schedule-title">กำหนดการ</h3><ol id="invitation-schedule"><li><span class="invitation-schedule-time">06:00–06:30</span><span>ทำบุญเช้าเพื่อความเป็นสิริมงคล</span></li><li><span class="invitation-schedule-time">08:30–09:00</span><span>แห่ขันหมากรับตัวเจ้าสาว</span></li><li><span class="invitation-schedule-time">09:09–10:00</span><span>พิธีบายศรีสู่ขวัญคู่บ่าวสาว</span></li><li><span class="invitation-schedule-time">10:00–10:30</span><span>ผูกแขนและสมมาผู้ใหญ่</span></li><li><span class="invitation-schedule-time">10:30–11:00</span><span>ถ่ายภาพและรับคำอวยพร</span></li><li><span class="invitation-schedule-time">11:00–12:00</span><span>ร่วมรับประทานอาหารและส่งแขก</span></li></ol></section><a class="button" id="dialog-location" data-map-link href="https://maps.app.goo.gl/iWyshhVcmBTzDKYW7?g_st=ic" target="_blank" rel="noopener noreferrer">แผนที่สถานที่จัดงาน</a></div>
+    <div class="book-shell" data-dialog-scroll><div class="dialog-body paper-inside"><img class="dialog-logo" src="assets/images/sp-wedding-logo.png" width="1254" height="1254" alt="SP — Somchai &amp; Phantira"><p class="eyebrow" lang="en">WITH LOVE</p><h2 id="dialog-title" data-guest>ถึงคุณ คนสำคัญของเรา</h2><p class="invitation-message" id="invitation-message">ด้วยความยินดีของเราทั้งสองและครอบครัว<br>ขอเชิญคุณมาเป็นส่วนหนึ่งในวันสำคัญของเรา</p><p class="script-title dialog-names"><span data-groom lang="en">Somchai</span> &amp; <span data-bride lang="en">Phantira</span></p><p data-date-label>25 ตุลาคม 2569</p><p data-venue-address>ตำบลนางิ้ว อำเภอสังคม จังหวัดหนองคาย</p><section class="invitation-schedule" aria-labelledby="invitation-schedule-title"><h3 id="invitation-schedule-title">กำหนดการ</h3><ol id="invitation-schedule"><li><span class="invitation-schedule-time">06:00–06:30</span><span>ทำบุญเช้าเพื่อความเป็นสิริมงคล</span></li><li><span class="invitation-schedule-time">08:30–09:00</span><span>แห่ขันหมากรับตัวเจ้าสาว</span></li><li><span class="invitation-schedule-time">09:09–10:00</span><span>พิธีบายศรีสู่ขวัญคู่บ่าวสาว</span></li><li><span class="invitation-schedule-time">10:00–10:30</span><span>ผูกแขนและสมมาผู้ใหญ่</span></li><li><span class="invitation-schedule-time">10:30–11:00</span><span>ถ่ายภาพและรับคำอวยพร</span></li><li><span class="invitation-schedule-time">11:00–12:00</span><span>ร่วมรับประทานอาหารและส่งแขก</span></li></ol></section><a class="button" id="dialog-location" data-map-link href="https://maps.app.goo.gl/DUhbhavXCWh5exkH7" target="_blank" rel="noopener noreferrer">แผนที่สถานที่จัดงาน</a></div>
       <div class="book-cover" aria-hidden="true"><div class="book-cover-front"><p>ด้วยรัก และคำเชิญจากเรา</p><img src="assets/images/sp-wedding-logo.png" width="1254" height="1254" alt=""><p data-guest>ถึงคุณ คนสำคัญของเรา</p><span>วันสำคัญที่อยากมีคุณอยู่ด้วย</span></div></div>
     </div>
   </dialog>

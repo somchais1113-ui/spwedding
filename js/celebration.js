@@ -95,14 +95,6 @@
     return true;
   }
   // Export remains available independently of server delivery.
-  // Snapshot the active handwriting before any asynchronous image/font decoding.
-  function handwritingSnapshot(){
-    if(mode!=='draw')return null;
-    const snapshot=document.createElement('canvas');
-    snapshot.width=2400;snapshot.height=Math.round(2400*canvas.height/canvas.width);
-    const ink=snapshot.getContext('2d');strokes.forEach(stroke=>paintStroke(ink,stroke,snapshot.width,snapshot.height));
-    return snapshot;
-  }
   const exportButton=$('export-wish'), exportStatus=$('wish-export-status'), photoDialog=$('wish-photo-dialog');
   // Decode the selected template and local fonts before the export click.
   // Only warm when guests approach/interact with wishes, not during landing load.
@@ -124,7 +116,9 @@
     if(exporting||!validate())return;
     exporting=true;exportButton.disabled=true;exportButton.setAttribute('aria-busy','true');exportStatus.textContent='กำลังจัดคำอวยพรลงบนการ์ด…';
     const format=$('wish-export-format').value;
-    const snapshot=handwritingSnapshot();
+    // Snapshot the active handwriting before asynchronous image/font decoding.
+    const snapshot=mode==='draw'?document.createElement('canvas'):null;
+    if(snapshot){snapshot.width=2400;snapshot.height=Math.round(2400*canvas.height/canvas.width);const ink=snapshot.getContext('2d');strokes.forEach(stroke=>paintStroke(ink,stroke,snapshot.width,snapshot.height));}
     const options={format,mode,text:$('wish-text').value,name:$('wish-name').value,drawing:snapshot};
     try{
       const result=await window.WeddingWishExport.render(options);
@@ -150,31 +144,6 @@
   $('close-wish-photo').addEventListener('click',()=>photoDialog.close());
   photoDialog.addEventListener('click',event=>{if(event.target!==photoDialog)return;const rect=photoDialog.getBoundingClientRect();if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)photoDialog.close();});
   window.addEventListener('pagehide',()=>{if(photoURL)URL.revokeObjectURL(photoURL);});
-  // Guestbook destination. With a configured HTTPS endpoint the finished card image
-  // is archived in Google Drive; otherwise the bundled server.mjs API is used.
-  const wishSettings=(window.WEDDING_CONFIG&&window.WEDDING_CONFIG.wishes)||{};
-  const wishEndpoint=window.WeddingHelpers?window.WeddingHelpers.safeHttps(wishSettings.endpoint||''):'';
-  const archiveFormat=wishSettings.archiveFormat==='landscape'?'landscape':'portrait';
-  const archiveLongEdge=Number(wishSettings.archiveLongEdge)>0?Number(wishSettings.archiveLongEdge):1500;
-  const archiveType=wishSettings.archiveFileType==='png'?'image/png':'image/jpeg';
-  const dataURL=blob=>new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(String(reader.result));reader.onerror=()=>reject(new Error('read-failed'));reader.readAsDataURL(blob);});
-  async function sendToDrive(payload){
-    const snapshot=handwritingSnapshot();
-    let card;
-    try{card=await window.WeddingWishExport.render({format:archiveFormat,mode,text:$('wish-text').value,name:$('wish-name').value,drawing:snapshot,longEdge:archiveLongEdge,type:archiveType});}
-    finally{if(snapshot)snapshot.width=snapshot.height=1;}
-    // text/plain keeps this a simple request: Apps Script cannot answer a CORS preflight.
-    const response=await fetch(wishEndpoint,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},redirect:'follow',
-      body:JSON.stringify({token:wishSettings.token||'',name:payload.name,mode:payload.mode,text:payload.text,image:await dataURL(card.blob),width:card.width,height:card.height}),
-      signal:AbortSignal.timeout(60000)});
-    const result=await response.json();
-    if(!response.ok||result.saved!==true)throw new Error('send-failed');
-  }
-  async function sendToLocalServer(body){
-    const response=await fetch('/api/wishes',{method:'POST',headers:{'Content-Type':'application/json'},body,signal:AbortSignal.timeout(15000)});
-    const result=await response.json();
-    if(!response.ok||result.saved!==true)throw new Error('send-failed');
-  }
   const sendButton = $('save-wish'), sendLabel = $('send-wish-label');
   let sending = false, lastSent = '';
   function sendState(state, label) {
@@ -188,7 +157,7 @@
     const payload = {name:$('wish-name').value.trim(), mode, text:mode==='type'?$('wish-text').value.trim():'', image:mode==='draw'?canvas.toDataURL('image/png'):''};
     const body = JSON.stringify(payload);
     if (body === lastSent) { $('wish-status').textContent = 'คำอวยพรนี้ส่งถึงบ่าวสาวแล้ว ขอบคุณมากนะ'; return; }
-    if (!wishEndpoint && !/^https?:$/.test(location.protocol)) {
+    if (!/^https?:$/.test(location.protocol)) {
       sendState('idle', 'ส่งคำอวยพร');
       $('wish-status').textContent = 'หน้านี้เป็นไฟล์ตัวอย่าง ยังส่งคำอวยพรไม่ได้ กรุณาเปิดลิงก์เว็บไซต์งานแต่งเพื่อส่ง';
       return;
@@ -200,18 +169,15 @@
     sendState('sending', 'กำลังส่งคำอวยพร…');
     $('wish-status').textContent = 'กำลังส่งความรู้สึกดี ๆ ไปให้บ่าวสาว';
     try {
-      if (wishEndpoint) await sendToDrive(payload); else await sendToLocalServer(body);
+      const response = await fetch('/api/wishes', {method:'POST',headers:{'Content-Type':'application/json'},body,signal:AbortSignal.timeout(15000)});
+      const result = await response.json();
+      if (!response.ok || result.saved !== true) throw new Error('send-failed');
       lastSent = body;
       sendState('success', 'ส่งคำอวยพรแล้ว');
       $('wish-status').textContent = 'คำอวยพรถึงบ่าวสาวแล้ว ขอบคุณที่เติมความหมายให้วันของเรา';
-    } catch (error) {
+    } catch (_) {
       sendState('error', 'ลองส่งคำอวยพรอีกครั้ง');
-      const message = error && error.message === 'text-too-long'
-        ? 'ข้อความยาวเกินพื้นที่การ์ด ลองลดข้อความหรือจำนวนบรรทัดก่อนส่งนะครับ'
-        : error && error.name === 'SecurityError'
-        ? 'ไฟล์นี้เปิดจากเครื่องโดยตรง เบราว์เซอร์จึงสร้างภาพการ์ดไม่ได้ กรุณาเปิดผ่านลิงก์เว็บไซต์งานแต่ง'
-        : 'ยังส่งไม่สำเร็จ ข้อความและลายมือยังอยู่ กรุณาลองอีกครั้งเมื่อเชื่อมต่อได้';
-      $('wish-status').textContent = message;
+      $('wish-status').textContent = 'ยังส่งไม่สำเร็จ ข้อความและลายมือยังอยู่ กรุณาลองอีกครั้งเมื่อเชื่อมต่อได้';
     } finally {
       sending = false;
       controls.forEach(({element,disabled}) => {element.disabled = disabled;});
