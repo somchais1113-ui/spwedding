@@ -42,7 +42,8 @@
     modeNodes.forEach((b,id)=>b.setAttribute('aria-pressed',String(id===mode)));
     const matches=H.filter(places,mode), ids=new Set(matches.map(p=>p.id));
     pinNodes.forEach((b,id)=>{const active=ids.has(id);b.classList.toggle('is-muted',!active);b.classList.remove('is-route-stop','is-entering');b.disabled=!active;b.setAttribute('aria-hidden',String(!active));b.tabIndex=active?0:-1;b.setAttribute('aria-pressed','false');if(active){void b.offsetWidth;b.classList.add('is-entering');}});
-    const frag=document.createDocumentFragment();matches.forEach(p=>{const b=button('travel-result',null,()=>select(p.id,b));b.dataset.place=p.id;b.setAttribute('aria-pressed','false');b.append(el('span','',String(p.number).padStart(2,'0')),el('span','',p.nameTH));frag.append(b);});results.replaceChildren(frag);
+    const frag=document.createDocumentFragment(),placeholder=el('option','','เลือกสถานที่เพื่อดูรายละเอียด');placeholder.value='';frag.append(placeholder);
+    matches.forEach(p=>{const option=el('option','',String(p.number).padStart(2,'0')+' · '+p.nameTH);option.value=p.id;frag.append(option);});results.replaceChildren(frag);results.value='';results.disabled=!matches.length;
     q('.travel-results-count').textContent=`${matches.length} สถานที่และกิจกรรม · ${D.modes.find(m=>m.id===mode).nameTH}`;
     emptyDetail();buildRoute();center();
   }
@@ -79,15 +80,17 @@
   function select(id,trigger){
     const p=places.find(x=>x.id===id);if(!p)return;selected=id;
     pinNodes.forEach((b,key)=>b.setAttribute('aria-pressed',String(key===id)));
-    results.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.place===id)));
+    results.querySelectorAll('[data-route-extra]').forEach(option=>option.remove());
+    if(![...results.options].some(option=>option.value===id)){const option=el('option','',String(p.number).padStart(2,'0')+' · '+p.nameTH+' (เส้นทางแนะนำ)');option.value=id;option.dataset.routeExtra='true';results.append(option);}
+    results.value=id;
     detail.replaceChildren(destination(p,false));
     q('.travel-selection-status').textContent='เลือก '+p.nameTH+' แล้ว';
-    if(mobile.matches){savedFocus=trigger;q('.travel-sheet-content').replaceChildren(destination(p,true));sheet.setAttribute('aria-labelledby','travel-sheet-title');if(!sheet.open)sheet.showModal();sheet.scrollTop=0;q('.travel-sheet-close').focus({preventScroll:true});}
+    if(mobile.matches){savedFocus=trigger;q('.travel-sheet-content').replaceChildren(destination(p,true));sheet.setAttribute('aria-labelledby','travel-sheet-title');if(!sheet.open)window.WeddingDialogs.open(sheet,trigger,q('.travel-sheet-close'));sheet.scrollTop=0;}
     else{camera.x=viewport.clientWidth/2-p.mapPosition.x*camera.scale;camera.y=viewport.clientHeight/2-p.mapPosition.y*camera.scale;applyCamera();}
   }
+  results.addEventListener('change',()=>{if(results.value)select(results.value,results);});
   q('.travel-sheet-close').addEventListener('click',()=>sheet.close());
   sheet.addEventListener('click',e=>{if(e.target===sheet){const r=sheet.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)sheet.close();}});
-  sheet.addEventListener('close',()=>{if(savedFocus?.isConnected && !savedFocus.disabled)savedFocus.focus({preventScroll:true});});
   mobile.addEventListener('change',()=>{if(sheet.open)sheet.close();center();});
   const routeLine=q('.travel-route-line'),routeShadow=q('.travel-route-shadow');routeLine.setAttribute('pathLength','1');
   function buildRoute(){

@@ -1,5 +1,5 @@
 {
-  "version": "2.2.0",
+  "version": "2.8.0",
   "designDirection": "Pure white / navy / soft blue; original watercolor artwork and miniature journey module",
   "images": [
     {
@@ -21,6 +21,16 @@
       "origin": "user supplied original, unchanged bytes",
       "bytes": 625149,
       "sha256": "df71ad48773e4ce380d629a1c309ccb863fd5dd4bcda2c8a7b563a9f8f06edee"
+    },
+    {
+      "file": "assets/images/qr-code.png",
+      "width": 1152,
+      "height": 2048,
+      "format": "PNG",
+      "background": "white",
+      "origin": "user supplied original, unchanged bytes",
+      "bytes": 3079406,
+      "sha256": "4a2d32ab50bf0c305d96431f5feedb0195c55a703e7a73335c5e1aea52d363cc"
     },
     {
       "file": "assets/images/sp-wedding-logo.png",
@@ -139,11 +149,15 @@
       "format": "WEBP",
       "background": "white",
       "origin": "generated miniature illustrative asset, delivery format WebP; original PNG in design-source/travel",
-      "bytes": 266160,
-      "sha256": "db1d1b1838a2268270e0b914e9d6bac43383e5393443a54a2c633bb6a0b5803a"
+      "bytes": 394032,
+      "sha256": "913bad318cddef64e9af87220137f5866a2b8c086db2b6cfa466dec46c1e212e"
     }
   ],
   "fonts": [
+    {
+      "file": "assets/fonts/NotoSansTC-VariableFont_wght.ttf",
+      "bytes": 11917560
+    },
     {
       "file": "assets/fonts/OrangeAvenueDEMO-Regular.otf",
       "bytes": 42152
@@ -151,10 +165,6 @@
     {
       "file": "assets/fonts/OrangeAvenueOutlineDEMO-Regular.otf",
       "bytes": 70664
-    },
-    {
-      "file": "assets/fonts/PKF-rayraiDEMO.ttf",
-      "bytes": 140392
     },
     {
       "file": "assets/fonts/prompt-medium.ttf",

@@ -10,12 +10,10 @@
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
   const mobile = matchMedia('(max-width: 600px)');
-  const toggle = document.getElementById('motion-toggle');
   const scenes = [...document.querySelectorAll('.art-scene')].map(element => ({ element, entrance: element.querySelector('.art-entrance'), image: element.querySelector('img'), active: false, introduced: false, x: 0, y: 0, tx: 0, ty: 0, sy: 0, tsy: 0 }));
   const seen = new WeakSet();
   const animations = new Set();
-  let paused = false, enabled = false, scrollFrame = 0, pointerFrame = 0, scrollTweenFrame = 0, scrollTime = 0, pointerTime = 0, observer = null;
-  try { paused = localStorage.getItem('sp-wedding-motion-paused') === '1'; } catch (_) { /* Storage is optional in private/file mode. */ }
+  let enabled = false, scrollFrame = 0, pointerFrame = 0, scrollTweenFrame = 0, scrollTime = 0, pointerTime = 0, observer = null;
   root.style.setProperty('--motion-duration', duration + 'ms');
   root.style.setProperty('--drift-distance', (-6 * strength).toFixed(2) + 'px');
   root.style.setProperty('--drift-angle', (.16 * strength).toFixed(3) + 'deg');
@@ -113,13 +111,9 @@
     scene.element.addEventListener('pointerleave', () => { scene.tx = scene.ty = 0; if (enabled) requestPointer(); });
   });
   function applyPreference() {
-    enabled = !!settings.enabled && !paused && !reduced.matches;
+    enabled = !!settings.enabled && !reduced.matches;
     root.classList.toggle('motion-enabled', enabled);
     root.classList.toggle('motion-paused', !enabled);
-    toggle.hidden = !settings.enabled || reduced.matches;
-    toggle.textContent = paused ? 'เล่นภาพ' : 'พักภาพ';
-    toggle.setAttribute('aria-pressed', String(paused));
-    toggle.setAttribute('aria-label', paused ? 'เปิดภาพเคลื่อนไหว' : 'พักภาพเคลื่อนไหว');
     if (!enabled) {
       cancelAnimationFrame(scrollFrame); cancelAnimationFrame(pointerFrame); cancelAnimationFrame(scrollTweenFrame); scrollFrame = pointerFrame = scrollTweenFrame = scrollTime = pointerTime = 0;
       animations.forEach(animation => animation.cancel()); animations.clear();
@@ -129,11 +123,6 @@
       scenes.forEach(introduce); requestScroll();
     }
   }
-  toggle.addEventListener('click', () => {
-    paused = !paused;
-    try { localStorage.setItem('sp-wedding-motion-paused', paused ? '1' : '0'); } catch (_) { /* Still works for this visit. */ }
-    applyPreference();
-  });
   const onMediaChange = (query, callback) => {
     if (query.addEventListener) query.addEventListener('change', callback);
     else query.addListener(callback);

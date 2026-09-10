@@ -15,3 +15,8 @@ Metadata ในสองไฟล์ระบุ DEMO / PERSONAL USE ONLY พร
 ## 2.2 — PKF-Rayrai สำหรับภาพส่งออก
 
 ใช้ไฟล์ PKF-rayraiDEMO.ttf จาก ZIP ฟอนต์ที่เจ้าของงานแนบไว้ ลงทะเบียนเป็น PKF-Rayrai ผ่าน @font-face และฝังใน Preview ใช้เฉพาะข้อความคำอวยพร/ชื่อบนการ์ดภาษาไทยและอังกฤษ ลายมือที่แขกเขียนไม่ถูกแทนด้วยฟอนต์ UI ไทยคง Prompt เดิม English display คง Orange Avenue แต่เพิ่ม font-weight:600 และเปิด font-synthesis:weight เนื่องจากไม่มีไฟล์ Bold แนบมา
+
+
+## 2.3 — ใช้ Noto Sans TC แทน PKF-Rayrai
+
+@font-face NotoSansTC ใช้ไฟล์แนบ NotoSansTC-VariableFont_wght.ttf ฉบับเต็มที่ assets/fonts/ รองรับน้ำหนัก 100–900 ไม่มีอักษรไทยใน cmap จึงคง Prompt สำหรับภาษาไทยบนการ์ด ใช้เฉพาะระบบส่งออก ไม่เปลี่ยน Orange Avenue ของ Wedding UI รายละเอียด 2.3 ใช้แทนบันทึกฟอนต์การ์ด 2.2 ข้างต้น

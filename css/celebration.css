@@ -169,3 +169,24 @@
 [lang="en"],.eyebrow,.script-title,.hero h1,.footer-names,.dialog-names,.ampersand,.countdown>div>span:first-child,.dresscode-name{font-weight:600;font-synthesis:weight}
 .hero h1 .ampersand{font-family:var(--font-serif);font-weight:600}
 .wish-photo-actions p{font-size:14px;line-height:1.6}
+
+/* Landing shortcuts keep the main entry visually dominant. */
+.welcome-shortcuts{display:flex;justify-content:center;gap:12px;margin:18px auto 0;max-width:420px}
+.welcome-shortcuts .welcome-secondary{flex:1;min-width:0;min-height:48px;padding:10px 14px;background:#e9f1fa;color:var(--accent-dark);border:1px solid #c5d6eb;font:500 15px/1.6 Prompt,Tahoma,sans-serif}
+.welcome-shortcuts .welcome-secondary:hover{background:#dce9f7;color:var(--accent-dark)}
+.invitation-schedule{margin:28px 0 12px;text-align:left;border-block:1px solid var(--line);padding:20px 0}
+.invitation-schedule h3{font:500 18px/1.7 Prompt,Tahoma,sans-serif;margin:0 0 12px}
+#invitation-schedule{padding:0;margin:0;list-style:none}
+#invitation-schedule li{display:grid;grid-template-columns:112px minmax(0,1fr);gap:8px 14px;padding:10px 0;font:400 15px/1.8 Prompt,Tahoma,sans-serif}
+#invitation-schedule li+li{border-top:1px solid #e8eff7}
+.invitation-schedule-time{font-weight:500;white-space:nowrap;color:var(--accent-dark)}
+#export-wish.memory-export-cta{background:var(--accent-dark);border-color:var(--accent-dark);color:#fff;min-height:52px;font:500 16px/1.7 Prompt,Tahoma,sans-serif}
+#export-wish.memory-export-cta:hover{background:#224e83;border-color:#224e83;color:#fff}
+.site-footer{position:relative;isolation:isolate;overflow:hidden;background:#fff}
+.site-footer>.footer-mesh{position:absolute;inset:-15%;z-index:-1;pointer-events:none;overflow:hidden}
+.footer-mesh i{position:absolute;width:75%;height:130%;left:-20%;top:-20%;background:radial-gradient(ellipse,#d5e7f780,transparent 68%);animation:mesh-flow-one 30s ease-in-out infinite alternate;animation-play-state:paused}
+.footer-mesh i:nth-child(2){left:auto;right:-25%;top:10%;background:radial-gradient(ellipse,#b8cee84d,transparent 68%);animation-name:mesh-flow-two;animation-duration:36s}
+.footer-motion-active .footer-mesh i{animation-play-state:running}
+.motion-background .footer-mesh i,.motion-paused .footer-mesh i{animation-play-state:paused!important}
+@media(max-width:380px){#invitation-schedule li{grid-template-columns:1fr;gap:2px}.welcome-shortcuts{gap:8px}.welcome-shortcuts .welcome-secondary{padding-inline:10px;font-size:14px}}
+@media(prefers-reduced-motion:reduce){.footer-mesh i{animation:none}}

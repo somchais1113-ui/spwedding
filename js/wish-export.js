@@ -5,12 +5,21 @@
     portrait:{width:2400,height:3000,layoutWidth:1080,layoutHeight:1350,template:'assets/templates/wish-portrait.png',box:{x:.12,y:.25,w:.72,h:.16},signatureY:.46},
     landscape:{width:3200,height:1800,layoutWidth:1920,layoutHeight:1080,template:'assets/templates/wish-landscape.png',box:{x:.12,y:.35,w:.39,h:.32},signatureY:.77}
   };
-  const segment=(text,granularity)=>typeof Intl.Segmenter==='function'?[...new Intl.Segmenter('th',{granularity}).segment(text)].map(s=>s.segment):Array.from(text);
+  const segmenters=new Map();
+  const segment=(text,granularity)=>{
+    if(typeof Intl.Segmenter!=='function')return Array.from(text);
+    if(!segmenters.has(granularity))segmenters.set(granularity,new Intl.Segmenter('th',{granularity}));
+    return [...segmenters.get(granularity).segment(text)].map(s=>s.segment);
+  };
+  const paragraphs=text=>text.replace(/\r\n?/g,'\n').split('\n').map(p=>segment(p,'word'));
   function wrapLines(text,measure,maxWidth){
+    return wrapParagraphs(paragraphs(text),measure,maxWidth);
+  }
+  function wrapParagraphs(tokens,measure,maxWidth){
     const lines=[];
-    for(const paragraph of text.replace(/\r\n?/g,'\n').split('\n')){
+    for(const words of tokens){
       let line='';
-      for(const word of segment(paragraph,'word')){
+      for(const word of words){
         if(measure(line+word)<=maxWidth){line+=word;continue;}
         if(line.trim()){lines.push(line.trimEnd());line='';}
         const trimmed=word.trimStart();
@@ -22,9 +31,12 @@
     return lines;
   }
   function fitText(context,text,box,maxSize=42,minSize=17){
+    const tokens=paragraphs(text);
     for(let size=maxSize;size>=minSize;size--){
-      context.font=`400 ${size}px "PKF-Rayrai", Prompt, Tahoma, sans-serif`;
-      const lines=wrapLines(text,t=>context.measureText(t).width,box.w),lineHeight=size*1.65;
+      context.font=`400 ${size}px "NotoSansTC", Prompt, Tahoma, sans-serif`;
+      const widths=new Map();
+      const measure=t=>{if(!widths.has(t))widths.set(t,context.measureText(t).width);return widths.get(t);};
+      const lines=wrapParagraphs(tokens,measure,box.w),lineHeight=size*1.65;
       if(lines.length*lineHeight<=box.h)return {size,lines,lineHeight};
     }
     throw new Error('text-too-long');
@@ -33,6 +45,14 @@
   function loadImage(src){
     if(!cache.has(src))cache.set(src,new Promise((resolve,reject)=>{const image=new Image(),timer=setTimeout(()=>reject(new Error('template-unavailable')),20000);image.onload=()=>{clearTimeout(timer);resolve(image);};image.onerror=()=>{clearTimeout(timer);reject(new Error('template-unavailable'));};image.src=src;}).catch(error=>{cache.delete(src);throw error;}));
     return cache.get(src);
+  }
+  let fontReady=null,lastResult=null;
+  function prepare(format='portrait'){
+    const spec=formats[format]||formats.portrait;
+    if(!fontReady)fontReady=Promise.all([document.fonts.load('400 40px "NotoSansTC"'),document.fonts.load('400 32px Prompt')]).then(faces=>{
+      if(!faces[0].length||!faces[1].length)throw new Error('font-unavailable');
+    }).catch(error=>{fontReady=null;throw error;});
+    return Promise.all([loadImage(spec.template),fontReady]).then(([template])=>template);
   }
   // PNG pHYs uses integer pixels per metre: 300 / 0.0254 = 11811.
   // Preserve every image-data chunk; replace only density metadata, with valid CRC.
@@ -61,8 +81,9 @@
   }
   async function render({format='portrait',mode='type',text='',name='',drawing}){
     const spec=formats[format]||formats.portrait;
-    const [template,faces]=await Promise.all([loadImage(spec.template),document.fonts.load('400 40px "PKF-Rayrai"'),document.fonts.load('400 32px Prompt')]);
-    if(!faces.length)throw new Error('font-unavailable');
+    const key=mode==='type'?JSON.stringify([format,text,name]):null;
+    if(key&&lastResult?.key===key)return lastResult.result;
+    const template=await prepare(format);
     const canvas=document.createElement('canvas');canvas.width=spec.width;canvas.height=spec.height;
     const ctx=canvas.getContext('2d');if(!ctx)throw new Error('canvas-unavailable');
     try{
@@ -77,7 +98,7 @@
         const scale=Math.min(box.w/drawing.width,box.h/drawing.height),w=drawing.width*scale,h=drawing.height*scale;
         ctx.drawImage(drawing,box.x,box.y,w,h);contentBottom=box.y+h;
       }else{
-        const fitted=fitText(ctx,text.trim(),box,format==='landscape'?54:50,22);
+        const fitted=fitText(ctx,text.trim(),box,format==='landscape'?44:40,18);
         fitted.lines.forEach((line,i)=>ctx.fillText(line,box.x,box.y+i*fitted.lineHeight));
         contentBottom=box.y+fitted.lines.length*fitted.lineHeight;
       }
@@ -85,16 +106,19 @@
         const signatureY=Math.max(box.y+110,contentBottom+24),signatureWidth=Math.min(box.w,spec.layoutWidth*.36);
         // The narrow left signature column stays clear of the bouquet and the arch.
         const signatureBottom=spec.layoutHeight*(format==='landscape'?.83:.55);
-        const nameBox={w:signatureWidth,h:signatureBottom-signatureY-38};
-        const signature=fitText(ctx,name.trim(),nameBox,36,22);
+        const nameBox={w:signatureWidth,h:signatureBottom-signatureY-34};
+        const signature=fitText(ctx,name.trim(),nameBox,30,18);
         ctx.beginPath();ctx.strokeStyle='#c3d1e2';ctx.lineWidth=1;ctx.moveTo(box.x,signatureY-12);ctx.lineTo(box.x+46,signatureY-12);ctx.stroke();
-        ctx.font='400 28px "PKF-Rayrai", Prompt, sans-serif';ctx.fillStyle='#5b6e87';ctx.fillText('ด้วยความยินดี',box.x,signatureY);
-        ctx.font=`400 ${signature.size}px "PKF-Rayrai", Prompt, sans-serif`;ctx.fillStyle='#163e72';
-        signature.lines.forEach((line,i)=>ctx.fillText(line,box.x,signatureY+38+i*signature.lineHeight));
+        ctx.font='400 24px "NotoSansTC", Prompt, sans-serif';ctx.fillStyle='#5b6e87';ctx.fillText('ด้วยความยินดี',box.x,signatureY);
+        ctx.font=`400 ${signature.size}px "NotoSansTC", Prompt, sans-serif`;ctx.fillStyle='#163e72';
+        signature.lines.forEach((line,i)=>ctx.fillText(line,box.x,signatureY+34+i*signature.lineHeight));
       }
       const raw=await new Promise((resolve,reject)=>canvas.toBlob(blob=>blob?resolve(blob):reject(new Error('export-failed')),'image/png'));
-      return {blob:await withDPI(raw,300),width:spec.width,height:spec.height,dpi:300};
+      const result={blob:await withDPI(raw,300),width:spec.width,height:spec.height,dpi:300};
+      // Keep at most one completed typed card; never reuse a changed drawing.
+      lastResult=key?{key,result}:null;
+      return result;
     }finally{canvas.width=canvas.height=1;}
   }
-  const api={formats,wrapLines,fitText,withDPI,render};if(typeof module==='object'&&module.exports)module.exports=api;else root.WeddingWishExport=api;
+  const api={formats,wrapLines,fitText,withDPI,prepare,render};if(typeof module==='object'&&module.exports)module.exports=api;else root.WeddingWishExport=api;
 })(typeof window==='undefined'?globalThis:window);

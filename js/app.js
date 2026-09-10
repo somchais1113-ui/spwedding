@@ -22,6 +22,7 @@
   fill('[data-time-label]', config.date.timeLabel);
   fill('[data-province]', config.venue.province);
   fill('[data-venue-name]', config.venue.name);
+  fill('[data-venue-address]', config.venue.address);
   fill('[data-venue-note]', config.venue.note);
   fill('[data-parking]', config.venue.parking);
   fill('#invitation-message', config.invitation);
@@ -47,9 +48,12 @@
     const content = document.createElement('div'); const title = document.createElement('h3'); title.textContent = item.title;
     if (item.time) { const time = document.createElement('span'); time.className = 'timeline-time'; time.textContent = item.time; title.append(time); }
     const description = document.createElement('p'); description.textContent = item.description;
-    content.append(title, description); row.append(number, content); schedule.append(row);
+    content.append(title); if (item.description) content.append(description); row.append(number, content); schedule.append(row);
   });
-  $('#schedule-note').textContent = config.scheduleConfirmed ? 'กำหนดการในวันงาน' : (config.scheduleNote || 'กำหนดการเบื้องต้น · เวลาอาจมีการเปลี่ยนแปลง');
+  const invitationSchedule=$('#invitation-schedule');
+  invitationSchedule.replaceChildren();
+  config.schedule.forEach(item=>{const row=document.createElement('li'),time=document.createElement('span'),title=document.createElement('span');time.className='invitation-schedule-time';time.textContent=item.time;title.textContent=item.title;row.append(time,title);invitationSchedule.append(row);});
+  $('#schedule-note').textContent = config.scheduleNote || (config.scheduleConfirmed ? 'กำหนดการในวันงาน' : 'กำหนดการเบื้องต้น · เวลาอาจมีการเปลี่ยนแปลง');
   if (!config.schedule.length) $('#schedule-note').textContent = 'กำหนดการจะแจ้งให้ทราบอีกครั้ง';
 
   const dresscodeSection = $('#dresscode');
@@ -69,6 +73,7 @@
   }
 
   const mapUrl = H.safeHttps(config.venue.mapUrl);
+  all('[data-map-link]').forEach(link=>{if(mapUrl)link.href=mapUrl;else link.hidden=true;});
   if (mapUrl && !config.venue.address.trim()) $('#venue-address').textContent = 'ดูสถานที่จัดงานและเส้นทางได้จากหมุด Google Maps ด้านล่าง';
   if (config.venue.address.trim()) { $('#venue-address').textContent = config.venue.address; }
   if (mapUrl) { $('#map-link').href = mapUrl; $('#map-link').hidden = false; $('#map-status').textContent = 'แตะปุ่มด้านล่าง เพื่อดูหมุดและเริ่มนำทาง'; }
@@ -79,9 +84,9 @@
   const rsvpUrl = H.safeHttps(config.rsvpUrl);
   if (rsvpUrl) { $('#rsvp-link').href = rsvpUrl; $('#rsvp-link').hidden = false; }
 
-  const dialog = $('#invite-dialog'); let lastTrigger = null;
+  const dialog = $('#invite-dialog');
   all('[data-open-invite]').forEach(button => button.addEventListener('click', () => {
-    lastTrigger = button; dialog.showModal(); $('#close-dialog').focus();
+    window.WeddingDialogs.open(dialog, button, $('#close-dialog'));
   }));
   $('#close-dialog').addEventListener('click', () => dialog.close());
   dialog.addEventListener('click', event => {
@@ -89,14 +94,6 @@
     const rect = dialog.getBoundingClientRect();
     if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) dialog.close();
   });
-  dialog.addEventListener('close', () => { if (lastTrigger) lastTrigger.focus({ preventScroll: true }); });
-  $('#dialog-location').addEventListener('click', () => {
-    lastTrigger = null;
-    dialog.close();
-    $('#location').scrollIntoView({ behavior: prefersStill() ? 'instant' : 'smooth' });
-    const heading = $('#location-title'); heading.tabIndex = -1; heading.focus({ preventScroll: true });
-  });
-
   let toastTimer;
   function toast(message) { $('#toast').textContent = message; $('#toast').hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => { $('#toast').hidden = true; }, 5500); }
   async function copyText(text) {
@@ -152,6 +149,8 @@
   });
 
   $('#heart-button').addEventListener('click', () => {
-    $('#heart-note').textContent = 'ขอบคุณสำหรับความยินดี แล้วพบกันในวันของเรา';
+    $('#heart-note').textContent = 'เขียนคำอวยพรด้านล่าง แล้วกดส่งคำอวยพรให้เรานะครับ';
+    $('#wishes').scrollIntoView({behavior:prefersStill()?'auto':'smooth',block:'start'});
+    $('#wish-name').focus({preventScroll:true});
   });
 })();
