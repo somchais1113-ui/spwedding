@@ -13,9 +13,11 @@
   <link rel="stylesheet" href="css/celebration.css">
   <link rel="stylesheet" href="css/travel/travel.css">
   <link rel="stylesheet" href="css/dialogs.css">
+  <link rel="stylesheet" href="css/rsvp.css">
   <script src="js/config.js" defer></script>
   <script src="js/helpers.js" defer></script>
   <script src="js/dialogs.js" defer></script>
+  <script src="js/rsvp.js" defer></script>
   <script src="js/app.js" defer></script>
   <script src="js/qr-share.js" defer></script>
   <script src="js/motion.js" defer></script>
@@ -57,7 +59,8 @@
       <div class="welcome-countdown countdown" role="timer" aria-label="นับถอยหลังถึงเวลาเริ่มงาน ตามเวลาไทย">
         <div><span data-count="days">00</span><span>วัน</span></div><div><span data-count="hours">00</span><span>ชั่วโมง</span></div><div><span data-count="minutes">00</span><span>นาที</span></div><div><span data-count="seconds">00</span><span>วินาที</span></div>
       </div>
-      <p class="countdown-caption" id="welcome-countdown-note">นับถอยหลังถึงเวลาเริ่มงาน · เวลาไทย</p>
+      <p class="sr-only" id="welcome-countdown-note">นับถอยหลังถึงเวลาเริ่มงาน · เวลาไทย</p>
+      <button class="button rsvp-trigger" type="button" data-open-rsvp aria-haspopup="dialog" aria-controls="rsvp-dialog">ยืนยันการเข้าร่วมงาน</button>
       <button class="button enter-button" id="enter-wedding" type="button">เปิดประตูสู่วันของเรา </button>
       <div class="welcome-shortcuts"><button class="button welcome-secondary" type="button" data-open-qr aria-haspopup="dialog" aria-controls="qr-dialog">ร่วมแสดงความยินดี</button><button class="button welcome-secondary" type="button" data-open-invite>ดูการ์ดเชิญ</button></div>
     </div>
@@ -100,6 +103,7 @@
       <div class="countdown" id="countdown" role="timer" aria-label="เวลาที่เหลือก่อนวันงาน">
         <div><span id="days">00</span><span>วัน</span></div><div><span id="hours">00</span><span>ชั่วโมง</span></div><div><span id="minutes">00</span><span>นาที</span></div><div><span id="seconds">00</span><span>วินาที</span></div>
       </div>
+      <button class="button rsvp-trigger" type="button" data-open-rsvp aria-haspopup="dialog" aria-controls="rsvp-dialog">ยืนยันการเข้าร่วมงาน</button>
       <button class="text-button" data-calendar disabled>บันทึกวันสำคัญลงปฏิทิน </button>
     </section>
 
@@ -228,6 +232,26 @@
   <dialog id="qr-dialog" aria-labelledby="qr-title"><div class="qr-heading"><h2 id="qr-title">Qr Code</h2><button type="button" id="close-qr" aria-label="ปิดรูป Qr Code">×</button></div><img id="qr-image" src="assets/images/qr-code.png" width="1152" height="2048" loading="lazy" alt="Qr Code สำหรับร่วมแสดงความยินดีกับบ่าวสาว"><div class="qr-actions"><button type="button" class="button" id="share-qr" hidden>แชร์รูป Qr Code</button><p id="qr-status" class="subtle" role="status"></p></div></dialog>
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
   <div class="heart-particles" id="heart-particles" aria-hidden="true"></div>
+
+  <dialog id="rsvp-dialog" aria-labelledby="rsvp-title">
+    <div class="rsvp-heading"><h2 id="rsvp-title">ยืนยันการเข้าร่วมงาน</h2><button class="rsvp-close" id="close-rsvp" type="button" aria-label="ปิดแบบตอบรับ">×</button></div>
+    <form id="rsvp-form" class="rsvp-form" novalidate>
+      <fieldset id="rsvp-fields">
+        <label for="rsvp-name">ชื่อผู้ตอบ</label><input id="rsvp-name" name="name" type="text" maxlength="80" autocomplete="name" required>
+        <fieldset class="rsvp-count-field"><legend>จำนวนผู้ร่วมงาน</legend>
+          <div class="rsvp-count-options"><label><input type="radio" name="partySize" value="1" checked><span>1</span></label><label><input type="radio" name="partySize" value="2"><span>2</span></label><label><input type="radio" name="partySize" value="3"><span>3</span></label><label><input type="radio" name="partySize" value="4"><span>4</span></label><label><input type="radio" name="partySize" value="5"><span>5</span></label><label><input type="radio" name="partySize" value="6+"><span>6+</span></label></div>
+          <p class="rsvp-helper">นับรวมตัวคุณด้วยนะครับ</p>
+          <div id="rsvp-exact-wrap" class="rsvp-exact" hidden><label for="rsvp-exact">จำนวนทั้งหมด</label><input id="rsvp-exact" type="number" min="6" max="999" step="1" inputmode="numeric" required></div>
+        </fieldset>
+        <div hidden aria-hidden="true"><label for="rsvp-website">Website</label><input id="rsvp-website" name="website" tabindex="-1" autocomplete="off"></div>
+        <button id="rsvp-confirm" class="button rsvp-confirm" type="submit" value="attending">ยืนยัน</button>
+        <button class="rsvp-decline" type="submit" value="declined">ไม่สะดวกมาร่วมงาน</button>
+      </fieldset>
+      <div class="rsvp-success" id="rsvp-success" hidden><p id="rsvp-receipt"></p><button class="button" type="button" id="rsvp-edit">แก้ไขคำตอบ</button></div>
+      <p id="rsvp-status" class="rsvp-status" role="status" aria-live="polite"></p>
+    </form>
+  </dialog>
+
   <noscript><div class="noscript-note">เปิด JavaScript เพื่อดูข้อมูลล่าสุด เปิดการ์ด และใช้ปุ่มต่าง ๆ ของเว็บไซต์</div></noscript>
 </body>
 </html>

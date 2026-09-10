@@ -1,0 +1,30 @@
+/* RSVP reuses the wedding palette and shared modal lifecycle. */
+.rsvp-trigger{display:flex;width:min(100%,320px);margin:16px auto 8px;min-height:48px}
+#rsvp-dialog{width:460px;max-width:calc(100% - 24px);max-height:calc(100svh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom));margin:auto;padding:0;border:1px solid var(--line);border-radius:20px;background:#fff;overflow:auto;overscroll-behavior:contain;touch-action:pan-y pinch-zoom;isolation:isolate}
+#rsvp-dialog[open]{position:fixed;inset:0;transform:none;animation:none;contain:layout;min-width:0}
+.rsvp-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:20px 20px 8px}
+.rsvp-heading h2{font:500 21px/1.6 Prompt,Tahoma,sans-serif;margin:0}
+.rsvp-close{border:0;background:#fff;color:var(--ink);width:44px;height:44px;flex:none;border-radius:50%;font:30px/1 Georgia;outline-offset:-3px}
+.rsvp-form{padding:12px 24px 24px;text-align:left;font:400 16px/1.7 Prompt,Tahoma,sans-serif}
+.rsvp-form fieldset{border:0;padding:0;margin:0;min-width:0}
+.rsvp-form label,.rsvp-form legend{display:block;font-weight:500;margin-bottom:8px}
+.rsvp-form input[type=text],.rsvp-form input[type=number]{width:100%;min-height:48px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);font:400 16px/1.5 Prompt,Tahoma,sans-serif;padding:12px}
+.rsvp-form .rsvp-count-field{margin-top:20px}
+.rsvp-count-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.rsvp-count-options label{position:relative;margin:0;cursor:pointer}
+.rsvp-count-options input{position:absolute;opacity:0;width:1px;height:1px}
+.rsvp-count-options span{display:grid;place-items:center;min-height:48px;border:1px solid var(--line);border-radius:12px;background:var(--wash);color:var(--ink);font:500 18px/1.5 Prompt,Tahoma,sans-serif;transition:background .2s,color .2s}
+.rsvp-count-options input:checked+span{background:var(--accent);color:#fff;border-color:var(--accent)}
+.rsvp-count-options input:focus-visible+span{outline:2px solid var(--ink);outline-offset:3px}
+.rsvp-form .rsvp-exact{margin-top:14px}
+.rsvp-helper{font-size:14px;color:var(--muted);margin:8px 0 0}
+.rsvp-confirm{width:100%;margin-top:22px;font:500 16px/1.7 Prompt,Tahoma,sans-serif}
+.rsvp-decline{display:block;margin:10px auto 0;min-height:44px;padding:8px 12px;border:0;background:transparent;color:var(--muted);font:400 15px/1.7 Prompt,Tahoma,sans-serif;text-decoration:underline;text-underline-offset:4px}
+.rsvp-status{font-size:14px;line-height:1.7;margin-top:14px;overflow-wrap:anywhere}
+.rsvp-status:empty{display:none}
+.rsvp-status[data-state=error]{color:#9b283d}
+.rsvp-success{padding:12px 0;text-align:left}
+.rsvp-success p{margin-bottom:14px}
+.rsvp-success button{width:100%}
+@media(max-width:360px){.rsvp-heading{padding:12px 14px 4px}.rsvp-heading h2{font-size:19px}.rsvp-form{padding:10px 16px 18px}}
+@media(prefers-reduced-motion:reduce){.rsvp-count-options span{transition:none}}

@@ -1,5 +1,6 @@
 /** Optional central guestbook. Node.js 20+; no packages required. */
 import http from 'node:http';
+import rsvp from './lib/rsvp.cjs';
 import { readFile, mkdir, writeFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -15,6 +16,7 @@ export function createWeddingServer({webRoot=defaultWeb,dataDir=process.env.WISH
     const json=(code,data)=>{res.writeHead(code,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});res.end(JSON.stringify(data));};
     try {
       const url=new URL(req.url,'http://localhost');
+      if(url.pathname==='/api/rsvp')return await rsvp.handler(req,res);
       if(url.pathname==='/api/guestbook-status'&&req.method==='GET')return json(200,{service:'sp-wedding-guestbook-v1'});
       if(url.pathname==='/api/wishes'&&req.method==='POST') {
         if(req.headers.origin && new URL(req.headers.origin).host!==req.headers.host)return json(403,{error:'origin'});
