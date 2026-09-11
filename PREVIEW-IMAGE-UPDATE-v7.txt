@@ -1,0 +1,8 @@
+SP Wedding Preview Update v7
+
+Updated the social preview/thumbnail image to the newly approved artwork supplied by the user.
+New OG image file: assets/images/sp-wedding-rich-preview-v7.jpg
+Updated OG and Twitter image URLs in the main HTML files.
+
+After deploying on Vercel, test with a fresh URL such as:
+https://spwedding-teal.vercel.app/?i=3
