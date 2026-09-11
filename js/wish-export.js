@@ -5,12 +5,21 @@
     portrait:{width:2400,height:3000,layoutWidth:1080,layoutHeight:1350,template:'assets/templates/wish-portrait.png',box:{x:.12,y:.25,w:.72,h:.16},signatureY:.46},
     landscape:{width:3200,height:1800,layoutWidth:1920,layoutHeight:1080,template:'assets/templates/wish-landscape.png',box:{x:.12,y:.35,w:.39,h:.32},signatureY:.77}
   };
-  const segment=(text,granularity)=>typeof Intl.Segmenter==='function'?[...new Intl.Segmenter('th',{granularity}).segment(text)].map(s=>s.segment):Array.from(text);
+  const segmenters=new Map();
+  const segment=(text,granularity)=>{
+    if(typeof Intl.Segmenter!=='function')return Array.from(text);
+    if(!segmenters.has(granularity))segmenters.set(granularity,new Intl.Segmenter('th',{granularity}));
+    return [...segmenters.get(granularity).segment(text)].map(s=>s.segment);
+  };
+  const paragraphs=text=>text.replace(/\r\n?/g,'\n').split('\n').map(p=>segment(p,'word'));
   function wrapLines(text,measure,maxWidth){
+    return wrapParagraphs(paragraphs(text),measure,maxWidth);
+  }
+  function wrapParagraphs(tokens,measure,maxWidth){
     const lines=[];
-    for(const paragraph of text.replace(/\r\n?/g,'\n').split('\n')){
+    for(const words of tokens){
       let line='';
-      for(const word of segment(paragraph,'word')){
+      for(const word of words){
         if(measure(line+word)<=maxWidth){line+=word;continue;}
         if(line.trim()){lines.push(line.trimEnd());line='';}
         const trimmed=word.trimStart();
@@ -22,9 +31,12 @@
     return lines;
   }
   function fitText(context,text,box,maxSize=42,minSize=17){
+    const tokens=paragraphs(text);
     for(let size=maxSize;size>=minSize;size--){
       context.font=`400 ${size}px "NotoSansTC", Prompt, Tahoma, sans-serif`;
-      const lines=wrapLines(text,t=>context.measureText(t).width,box.w),lineHeight=size*1.65;
+      const widths=new Map();
+      const measure=t=>{if(!widths.has(t))widths.set(t,context.measureText(t).width);return widths.get(t);};
+      const lines=wrapParagraphs(tokens,measure,box.w),lineHeight=size*1.65;
       if(lines.length*lineHeight<=box.h)return {size,lines,lineHeight};
     }
     throw new Error('text-too-long');
@@ -33,6 +45,14 @@
   function loadImage(src){
     if(!cache.has(src))cache.set(src,new Promise((resolve,reject)=>{const image=new Image(),timer=setTimeout(()=>reject(new Error('template-unavailable')),20000);image.onload=()=>{clearTimeout(timer);resolve(image);};image.onerror=()=>{clearTimeout(timer);reject(new Error('template-unavailable'));};image.src=src;}).catch(error=>{cache.delete(src);throw error;}));
     return cache.get(src);
+  }
+  let fontReady=null,lastResult=null;
+  function prepare(format='portrait'){
+    const spec=formats[format]||formats.portrait;
+    if(!fontReady)fontReady=Promise.all([document.fonts.load('400 40px "NotoSansTC"'),document.fonts.load('400 32px Prompt')]).then(faces=>{
+      if(!faces[0].length||!faces[1].length)throw new Error('font-unavailable');
+    }).catch(error=>{fontReady=null;throw error;});
+    return Promise.all([loadImage(spec.template),fontReady]).then(([template])=>template);
   }
   // PNG pHYs uses integer pixels per metre: 300 / 0.0254 = 11811.
   // Preserve every image-data chunk; replace only density metadata, with valid CRC.
@@ -59,20 +79,16 @@
     if(!inserted||!ended)throw new Error('invalid-png');
     return new Blob(parts,{type:'image/png'});
   }
-  // longEdge (optional) renders the same composition at a smaller pixel size,
-  // for the copy that is uploaded to the guestbook. Omit it for the 300 DPI download.
-  async function render({format='portrait',mode='type',text='',name='',drawing,longEdge,type}){
+  async function render({format='portrait',mode='type',text='',name='',drawing}){
     const spec=formats[format]||formats.portrait;
-    const limit=Number(longEdge),full=Math.max(spec.width,spec.height);
-    const ratio=Number.isFinite(limit)&&limit>0?Math.min(1,limit/full):1;
-    const outWidth=Math.max(1,Math.round(spec.width*ratio)),outHeight=Math.max(1,Math.round(spec.height*ratio));
-    const [template,faces]=await Promise.all([loadImage(spec.template),document.fonts.load('400 40px "NotoSansTC"'),document.fonts.load('400 32px Prompt')]);
-    if(!faces.length)throw new Error('font-unavailable');
-    const canvas=document.createElement('canvas');canvas.width=outWidth;canvas.height=outHeight;
+    const key=mode==='type'?JSON.stringify([format,text,name]):null;
+    if(key&&lastResult?.key===key)return lastResult.result;
+    const template=await prepare(format);
+    const canvas=document.createElement('canvas');canvas.width=spec.width;canvas.height=spec.height;
     const ctx=canvas.getContext('2d');if(!ctx)throw new Error('canvas-unavailable');
     try{
       // Logical layout coordinates retain the composition; text is rasterized at export resolution.
-      ctx.scale(outWidth/spec.layoutWidth,outHeight/spec.layoutHeight);
+      ctx.scale(spec.width/spec.layoutWidth,spec.height/spec.layoutHeight);
       ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';
       ctx.drawImage(template,0,0,spec.layoutWidth,spec.layoutHeight);
       const box={x:spec.box.x*spec.layoutWidth,y:spec.box.y*spec.layoutHeight,w:spec.box.w*spec.layoutWidth,h:spec.box.h*spec.layoutHeight};
@@ -97,12 +113,12 @@
         ctx.font=`400 ${signature.size}px "NotoSansTC", Prompt, sans-serif`;ctx.fillStyle='#163e72';
         signature.lines.forEach((line,i)=>ctx.fillText(line,box.x,signatureY+34+i*signature.lineHeight));
       }
-      // JPEG is offered for the upload copy only: same composition, a fraction of the bytes.
-      const mime=type==='image/jpeg'?'image/jpeg':'image/png';
-      const raw=await new Promise((resolve,reject)=>canvas.toBlob(blob=>blob?resolve(blob):reject(new Error('export-failed')),mime,mime==='image/jpeg'?.92:undefined));
-      const dpi=Math.max(1,Math.round(300*ratio));
-      return {blob:mime==='image/jpeg'?raw:await withDPI(raw,dpi),width:outWidth,height:outHeight,dpi,type:mime};
+      const raw=await new Promise((resolve,reject)=>canvas.toBlob(blob=>blob?resolve(blob):reject(new Error('export-failed')),'image/png'));
+      const result={blob:await withDPI(raw,300),width:spec.width,height:spec.height,dpi:300};
+      // Keep at most one completed typed card; never reuse a changed drawing.
+      lastResult=key?{key,result}:null;
+      return result;
     }finally{canvas.width=canvas.height=1;}
   }
-  const api={formats,wrapLines,fitText,withDPI,render};if(typeof module==='object'&&module.exports)module.exports=api;else root.WeddingWishExport=api;
+  const api={formats,wrapLines,fitText,withDPI,prepare,render};if(typeof module==='object'&&module.exports)module.exports=api;else root.WeddingWishExport=api;
 })(typeof window==='undefined'?globalThis:window);

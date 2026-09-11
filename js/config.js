@@ -25,7 +25,7 @@ window.WEDDING_CONFIG = {
     province: 'จังหวัดหนองคาย',
     address: 'ตำบลนางิ้ว อำเภอสังคม จังหวัดหนองคาย',
     // วางลิงก์แชร์หมุด Google Maps จริง ห้ามใช้หมุดใจกลางจังหวัดแทนบ้าน
-    mapUrl: 'https://maps.app.goo.gl/iWyshhVcmBTzDKYW7?g_st=ic',
+    mapUrl: 'https://maps.app.goo.gl/DUhbhavXCWh5exkH7',
     parking: 'รายละเอียดที่จอดรถจะแจ้งให้ทราบใกล้วันงาน',
     note: 'พิธีจัดภายในบ้าน แล้วมาร่วมรับประทานอาหารและใช้เวลาดี ๆ ด้วยกัน'
   },
@@ -37,7 +37,6 @@ window.WEDDING_CONFIG = {
       { name: 'ชมพูบานเย็น', hex: '#EC4899' },
       { name: 'เหลืองทอง', hex: '#FBBF24' },
       { name: 'เขียวมรกต', hex: '#10B981' },
-      { name: 'น้ำเงิน', hex: '#224E83' }
     ]
   },
   // กำหนดการตามที่เจ้าของงานส่งให้ล่าสุด 9 กันยายน 2569
@@ -78,16 +77,6 @@ window.WEDDING_CONFIG = {
   contact: {
     // กรอกชื่อและเบอร์จริง ปุ่มโทรจะปรากฏเมื่อมีหมายเลขเท่านั้น
     name: '', phone: ''
-  },
-  // เก็บคำอวยพรเป็น "ภาพการ์ด" ใน Google Drive ผ่าน Google Apps Script
-  // ดูวิธีติดตั้ง 6 ขั้นตอนใน docs/GUESTBOOK-DRIVE-TH.md
-  // ถ้า endpoint ว่าง เว็บจะกลับไปใช้ /api/wishes ของ server.mjs เหมือนเดิม
-  wishes: {
-    endpoint: '',           // URL ที่ลงท้ายด้วย /exec จากหน้า Deploy ของ Apps Script
-    token: '',              // ต้องตรงกับ SHARED_TOKEN ใน Code.gs
-    archiveFormat: 'portrait',  // 'portrait' (4:5) หรือ 'landscape' (16:9)
-    archiveLongEdge: 1500,  // ด้านยาวของภาพที่อัปโหลด ยิ่งเล็กยิ่งส่งเร็วบนเน็ตมือถือ
-    archiveFileType: 'jpeg' // 'jpeg' ไฟล์เล็กกว่า 6 ถึง 8 เท่า หรือ 'png' ถ้าต้องการไฟล์ไม่สูญเสียคุณภาพ
   },
   // ถ้าต้องการปุ่มตอบรับ ไปยัง Google Form หรือแบบฟอร์มจริง ให้ใส่ URL HTTPS
   rsvpUrl: '',
