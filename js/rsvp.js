@@ -17,17 +17,68 @@
   const homeButton=document.getElementById('rsvp-home');
   const storageKey='sp-wedding-rsvp-id-2026-10-25';
   const teamLabels={team_cap:'ทีมน้องแค้ป',team_bird:'ทีมพี่เบิร์ด'};
-  let busy=false, submissionId, processingTimer=0, processingStep=0;
+  let busy=false, submissionId, processingTimer=0, processingStep=0, processingAnimation=null;
   const processingMessages=['กำลังตรวจสอบข้อมูลของคุณ…','กำลังส่งคำตอบอย่างปลอดภัย…','กำลังบันทึกลงรายชื่อแขก…','อีกนิดเดียวครับ…'];
-  function stopProcessingMessages(){clearInterval(processingTimer);processingTimer=0;processingStep=0;processingMessage.classList.remove('is-changing');}
+
+  function stopProcessingMessages(){
+    clearTimeout(processingTimer);
+    processingTimer=0;
+    processingStep=0;
+    if(processingAnimation){processingAnimation.cancel();processingAnimation=null;}
+    processingMessage.classList.remove('is-changing');
+    processingMessage.style.removeProperty('opacity');
+    processingMessage.style.removeProperty('transform');
+    processingMessage.style.removeProperty('filter');
+  }
+
+  function animateProcessingMessage(nextText){
+    const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduced||!processingMessage.animate){
+      processingMessage.textContent=nextText;
+      return Promise.resolve();
+    }
+
+    if(processingAnimation)processingAnimation.cancel();
+    processingAnimation=processingMessage.animate(
+      [
+        {opacity:1,transform:'translateY(0)',filter:'blur(0px)'},
+        {opacity:0,transform:'translateY(-5px)',filter:'blur(2px)'}
+      ],
+      {duration:220,easing:'cubic-bezier(.4,0,.2,1)',fill:'forwards'}
+    );
+
+    return processingAnimation.finished.catch(()=>{}).then(()=>{
+      processingMessage.textContent=nextText;
+      processingAnimation=processingMessage.animate(
+        [
+          {opacity:0,transform:'translateY(6px)',filter:'blur(2px)'},
+          {opacity:1,transform:'translateY(0)',filter:'blur(0px)'}
+        ],
+        {duration:340,easing:'cubic-bezier(.16,1,.3,1)',fill:'forwards'}
+      );
+      return processingAnimation.finished.catch(()=>{});
+    });
+  }
+
+  function scheduleProcessingMessage(){
+    processingTimer=setTimeout(async()=>{
+      processingStep=(processingStep+1)%processingMessages.length;
+      await animateProcessingMessage(processingMessages[processingStep]);
+      scheduleProcessingMessage();
+    },1050);
+  }
+
   function startProcessingMessages(){
     stopProcessingMessages();
     processingMessage.textContent=processingMessages[0];
-    processingTimer=setInterval(()=>{
-      processingStep=(processingStep+1)%processingMessages.length;
-      processingMessage.classList.add('is-changing');
-      setTimeout(()=>{processingMessage.textContent=processingMessages[processingStep];processingMessage.classList.remove('is-changing');},120);
-    },850);
+    processingMessage.animate?.(
+      [
+        {opacity:0,transform:'translateY(5px)',filter:'blur(2px)'},
+        {opacity:1,transform:'translateY(0)',filter:'blur(0px)'}
+      ],
+      {duration:360,easing:'cubic-bezier(.16,1,.3,1)'}
+    );
+    scheduleProcessingMessage();
   }
   try{submissionId=localStorage.getItem(storageKey);}catch{}
   if(!/^[a-f0-9-]{36}$/.test(submissionId||'')){

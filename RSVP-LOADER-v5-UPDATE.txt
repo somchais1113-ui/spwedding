@@ -1,5 +1,0 @@
-SP Wedding RSVP Loader v5 — Smooth Message Transition
-
-UI-only update: smooth fade + slide + subtle blur between waiting messages.
-No Code.gs, Apps Script, Google Sheet schema, or Environment Variable changes are required.
-Deploy this website package to Vercel.
