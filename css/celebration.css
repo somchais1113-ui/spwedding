@@ -192,3 +192,14 @@
 .motion-background .footer-mesh i,.motion-paused .footer-mesh i{animation-play-state:paused!important}
 @media(max-width:380px){#invitation-schedule li{grid-template-columns:1fr;gap:2px}.welcome-shortcuts{gap:8px}.welcome-shortcuts .welcome-secondary{padding-inline:10px;font-size:14px}}
 @media(prefers-reduced-motion:reduce){.footer-mesh i{animation:none}}
+
+
+/* Landing button refinements for clearer hierarchy and tap targets. */
+.welcome-primary-button,.welcome-main-button{width:min(100%,420px);min-height:60px;padding:14px 28px;font:600 18px/1.5 Prompt,Tahoma,sans-serif;border-radius:999px;box-shadow:0 10px 24px rgba(18,54,94,.12)}
+.welcome-primary-button{margin-top:18px}
+.welcome-main-button{margin-top:12px}
+.welcome-shortcuts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:16px auto 0;max-width:420px}
+.welcome-shortcuts .welcome-secondary{width:100%;min-height:54px;padding:12px 16px;border-radius:999px;font:600 16px/1.5 Prompt,Tahoma,sans-serif;background:#edf4fb;color:var(--accent-dark);border:1px solid #c5d6eb}
+.welcome-wish-button{background:#f3f7fc}
+@media(max-width:600px){.welcome-primary-button,.welcome-main-button{min-height:58px;font-size:17px}.welcome-shortcuts{gap:10px}.welcome-shortcuts .welcome-secondary{min-height:52px;font-size:15px}}
+@media(max-width:380px){.welcome-primary-button,.welcome-main-button{font-size:16px;padding-inline:18px}.welcome-shortcuts{grid-template-columns:1fr 1fr;gap:8px}.welcome-shortcuts .welcome-secondary{padding-inline:10px;font-size:14px}}

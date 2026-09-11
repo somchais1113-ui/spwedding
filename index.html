@@ -60,9 +60,9 @@
         <div><span data-count="days">00</span><span>วัน</span></div><div><span data-count="hours">00</span><span>ชั่วโมง</span></div><div><span data-count="minutes">00</span><span>นาที</span></div><div><span data-count="seconds">00</span><span>วินาที</span></div>
       </div>
       <p class="sr-only" id="welcome-countdown-note">นับถอยหลังถึงเวลาเริ่มงาน · เวลาไทย</p>
-      <button class="button rsvp-trigger" type="button" data-open-rsvp aria-haspopup="dialog" aria-controls="rsvp-dialog">ยืนยันการเข้าร่วมงาน</button>
-      <button class="button enter-button" id="enter-wedding" type="button">เปิดประตูสู่วันของเรา </button>
-      <div class="welcome-shortcuts"><button class="button welcome-secondary" type="button" data-open-qr aria-haspopup="dialog" aria-controls="qr-dialog">ร่วมแสดงความยินดี</button><button class="button welcome-secondary" type="button" data-open-invite>ดูการ์ดเชิญ</button></div>
+      <button class="button rsvp-trigger welcome-primary-button" type="button" data-open-rsvp aria-haspopup="dialog" aria-controls="rsvp-dialog">ยืนยันการเข้าร่วมงาน</button>
+      <button class="button enter-button welcome-main-button" id="enter-wedding" type="button">เข้าสู่รายละเอียดงาน</button>
+      <div class="welcome-shortcuts"><button class="button welcome-secondary" type="button" data-open-invite>ดูการ์ดเชิญ</button><button class="button welcome-secondary welcome-wish-button" type="button" id="welcome-wishes">ส่งคำอวยพร</button></div>
     </div>
   </section>
   <div id="wedding-page">
@@ -238,6 +238,10 @@
     <form id="rsvp-form" class="rsvp-form" novalidate>
       <fieldset id="rsvp-fields">
         <label for="rsvp-name">ชื่อผู้ตอบ</label><input id="rsvp-name" name="name" type="text" maxlength="80" autocomplete="name" required>
+        <fieldset class="rsvp-team-field"><legend>ทีมของคุณ</legend>
+          <div class="rsvp-team-options"><label class="team-option team-cap"><input type="radio" name="team" value="team_cap" required><span>ทีมน้องแค้ป</span></label><label class="team-option team-bird"><input type="radio" name="team" value="team_bird" required><span>ทีมพี่เบิร์ด</span></label></div>
+          <p class="rsvp-helper">เลือกทีมที่เชิญคุณ เพื่อให้เราจัดการรายชื่อได้ง่ายขึ้น</p>
+        </fieldset>
         <fieldset class="rsvp-count-field"><legend>จำนวนผู้ร่วมงาน</legend>
           <div class="rsvp-count-options"><label><input type="radio" name="partySize" value="1" checked><span>1</span></label><label><input type="radio" name="partySize" value="2"><span>2</span></label><label><input type="radio" name="partySize" value="3"><span>3</span></label><label><input type="radio" name="partySize" value="4"><span>4</span></label><label><input type="radio" name="partySize" value="5"><span>5</span></label><label><input type="radio" name="partySize" value="6+"><span>6+</span></label></div>
           <p class="rsvp-helper">นับรวมตัวคุณด้วยนะครับ</p>
@@ -247,7 +251,7 @@
         <button id="rsvp-confirm" class="button rsvp-confirm" type="submit" value="attending">ยืนยัน</button>
         <button class="rsvp-decline" type="submit" value="declined">ไม่สะดวกมาร่วมงาน</button>
       </fieldset>
-      <div class="rsvp-success" id="rsvp-success" hidden><p id="rsvp-receipt"></p><button class="button" type="button" id="rsvp-edit">แก้ไขคำตอบ</button></div>
+      <div class="rsvp-success" id="rsvp-success" hidden><p id="rsvp-receipt"></p><div class="rsvp-success-actions"><button class="button" type="button" id="rsvp-edit">แก้ไขคำตอบ</button><button class="button button-outline" type="button" id="rsvp-home">เข้าสู่หน้าหลัก</button></div></div>
       <p id="rsvp-status" class="rsvp-status" role="status" aria-live="polite"></p>
     </form>
   </dialog>

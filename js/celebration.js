@@ -5,6 +5,34 @@
   page.hidden = true;
   let entering = false;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  function finishEntry(target){
+    welcome.hidden = true;
+    page.hidden = false;
+    window.scrollTo(0,0);
+    if(target && target !== '#home'){
+      requestAnimationFrame(()=>document.querySelector(target)?.scrollIntoView({behavior:'smooth',block:'start'}));
+    }
+    $('couple-title').focus({ preventScroll:true });
+    window.dispatchEvent(new Event('resize'));
+  }
+  function openWedding(target='#home'){
+    if(!welcome.hidden && !entering){
+      entering = true;
+      welcome.classList.add('exiting');
+      const done = () => finishEntry(target);
+      setTimeout(done, reduced.matches || document.documentElement.classList.contains('motion-paused') ? 0 : 660);
+      return;
+    }
+    if(!page.hidden){
+      if(target === '#home'){
+        window.scrollTo({top:0,behavior:'smooth'});
+      }else{
+        document.querySelector(target)?.scrollIntoView({behavior:'smooth',block:'start'});
+      }
+      $('couple-title').focus({ preventScroll:true });
+    }
+  }
+  window.WeddingEntrance = { open: openWedding };
   // Begin only after the exact source image has decoded, including offline preview.
   const botanicalLogo = $('botanical-logo');
   const botanicalAsset = document.getElementById('botanical-artwork');
@@ -21,13 +49,9 @@
     preload.src = botanicalAsset.getAttribute('href');
     if (preload.complete) revealLogo();
   }
-  document.querySelector('.skip-link').addEventListener('click', event => { event.preventDefault(); $('enter-wedding').click(); });
-  $('enter-wedding').addEventListener('click', () => {
-    if (entering) return; entering = true;
-    welcome.classList.add('exiting');
-    const finish = () => { welcome.hidden = true; page.hidden = false; window.scrollTo(0,0); $('couple-title').focus({ preventScroll:true }); window.dispatchEvent(new Event('resize')); };
-    setTimeout(finish, reduced.matches || document.documentElement.classList.contains('motion-paused') ? 0 : 660);
-  });
+  document.querySelector('.skip-link').addEventListener('click', event => { event.preventDefault(); openWedding('#home'); });
+  $('enter-wedding').addEventListener('click', () => openWedding('#home'));
+  $('welcome-wishes')?.addEventListener('click', () => openWedding('#wishes'));
   const footer=document.querySelector('.site-footer');
   if('IntersectionObserver' in window)new IntersectionObserver(entries=>{entries.forEach(entry=>footer.classList.toggle('footer-motion-active',entry.isIntersecting));}).observe(footer);
   else footer.classList.add('footer-motion-active');
