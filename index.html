@@ -251,6 +251,11 @@
         <button id="rsvp-confirm" class="button rsvp-confirm" type="submit" value="attending">ยืนยัน</button>
         <button class="rsvp-decline" type="submit" value="declined">ไม่สะดวกมาร่วมงาน</button>
       </fieldset>
+      <div class="rsvp-processing" id="rsvp-processing" hidden role="status" aria-live="polite" aria-atomic="true">
+        <div class="loader" aria-hidden="true"></div>
+        <p class="rsvp-processing-title">กำลังยืนยันการเข้าร่วมงาน</p>
+        <p class="rsvp-processing-message" id="rsvp-processing-message">กำลังตรวจสอบข้อมูลของคุณ…</p>
+      </div>
       <div class="rsvp-success" id="rsvp-success" hidden><p id="rsvp-receipt"></p><div class="rsvp-success-actions"><button class="button" type="button" id="rsvp-edit">แก้ไขคำตอบ</button><button class="button button-outline" type="button" id="rsvp-home">เข้าสู่หน้าหลัก</button></div></div>
       <p id="rsvp-status" class="rsvp-status" role="status" aria-live="polite"></p>
     </form>
