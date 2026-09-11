@@ -68,6 +68,17 @@ function setupRsvp(){
   }
 }
 
+function getLiveRsvpSheet_(){
+  const book=SpreadsheetApp.openById(RSVP_SHEET_ID);
+  const sheet=book.getSheetByName(RSVP_TAB);
+  if(!sheet||sheet.getLastRow()===0)return rsvpSheet_();
+  const current7=sheet.getLastColumn()>=7 ? sheet.getRange(1,1,1,7).getValues()[0] : [];
+  if(JSON.stringify(current7)===JSON.stringify(RSVP_HEADERS))return sheet;
+  const current6=sheet.getRange(1,1,1,6).getValues()[0];
+  if(JSON.stringify(current6)===JSON.stringify(RSVP_HEADERS_V1))return rsvpSheet_();
+  throw new Error('RSVP headers differ');
+}
+
 function doPost(event){
   const json=data=>ContentService.createTextOutput(JSON.stringify(data))
     .setMimeType(ContentService.MimeType.JSON);
@@ -102,7 +113,7 @@ function doPost(event){
     lock=LockService.getScriptLock();
     if(!lock.tryLock(8000))return json({saved:false});
 
-    const sheet=rsvpSheet_();
+    const sheet=getLiveRsvpSheet_();
     const last=sheet.getLastRow();
     const found=last>1
       ? sheet.getRange(2,1,last-1,1).createTextFinder(submissionId).matchEntireCell(true).findNext()
@@ -126,7 +137,6 @@ function doPost(event){
     ]]);
     sheet.getRange(row,2,1,2).setNumberFormat('dd/MM/yyyy HH:mm');
     sheet.getRange(row,7).setNumberFormat('0');
-    SpreadsheetApp.flush();
 
     return json({saved:true,id:submissionId});
   }catch(error){

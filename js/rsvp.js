@@ -55,14 +55,14 @@
       status.dataset.state='error';status.textContent='ตัวอย่างในเครื่องยังส่งคำตอบไม่ได้ กรุณาเปิดลิงก์เว็บไซต์งานแต่งเพื่อยืนยัน';return;
     }
     busy=true;fields.disabled=true;form.setAttribute('aria-busy','true');
-    status.dataset.state='pending';status.textContent='กำลังบันทึกคำตอบของคุณ…';confirm.textContent='กำลังบันทึก…';
+    status.dataset.state='pending';status.textContent='กำลังตรวจสอบและบันทึกคำตอบของคุณ ใช้เวลาสั้น ๆ ประมาณ 1–2 วินาที';confirm.textContent='กำลังยืนยัน…';
     try{
       const response=await fetch('/api/rsvp',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({submissionId,name:name.value,team,attendance,partySize,website:form.elements.website.value}),signal:AbortSignal.timeout(25000)});
       const result=await response.json();
       if(!response.ok||result.saved!==true||result.id!==submissionId)throw new Error(result.error||'save_failed');
       status.textContent='';fields.hidden=true;success.hidden=false;
-      const teamSuffix=` (${teamLabels[team]})`;
-      document.getElementById('rsvp-receipt').textContent=attendance==='attending'?`บันทึกคำตอบแล้ว ขอบคุณคุณ${name.value}${teamSuffix} แล้วพบกันทั้งหมด ${partySize} คนในวันของเราครับ`:`บันทึกแล้วว่าคุณ${name.value}${teamSuffix} ไม่สะดวกมาร่วมงาน ขอบคุณที่แจ้งให้เราทราบครับ`;
+      const teamName=teamLabels[team];
+      document.getElementById('rsvp-receipt').textContent=attendance==='attending'?`บันทึกคำตอบแล้ว ขอบคุณคุณ${name.value} • ${teamName} รวมทั้งหมด ${partySize} คน หากต้องการเปลี่ยนข้อมูลภายหลัง สามารถกดแก้ไขคำตอบได้จากอุปกรณ์นี้ครับ`:`บันทึกแล้วว่าคุณ${name.value} • ${teamName} ไม่สะดวกมาร่วมงาน ขอบคุณที่แจ้งให้เราทราบครับ`;
       if(dialog.open)editButton.focus({preventScroll:true});
     }catch(error){
       status.dataset.state='error';

@@ -1,5 +1,5 @@
 dialog#rsvp-dialog{width:min(calc(100% - 32px),560px);padding:0;background:#fff}
-.rsvp-trigger{display:flex;width:min(100%,360px);margin:16px auto 8px;min-height:56px;font:500 17px/1.6 Prompt,Tahoma,sans-serif}
+.rsvp-trigger{display:flex;width:min(100%,420px);margin:16px auto 8px;min-height:60px;font:600 18px/1.5 Prompt,Tahoma,sans-serif}
 .rsvp-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:20px 20px 8px}
 .rsvp-heading h2{font:600 21px/1.6 Prompt,Tahoma,sans-serif;margin:0}
 .rsvp-close{border:0;background:#fff;color:var(--ink);width:44px;height:44px;flex:none;border-radius:50%;font:30px/1 Georgia;outline-offset:-3px}
