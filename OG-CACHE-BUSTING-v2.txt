@@ -1,0 +1,10 @@
+SP Wedding OG Thumbnail Cache-Busting v2
+
+Changes:
+- New social preview asset: assets/images/share-preview-og-v2.jpg
+- og:image / og:image:url / og:image:secure_url now point to a new versioned URL
+- twitter:image uses the same versioned image URL
+- Added query version ?v=20260911-2 to force social crawlers to treat the image as a new asset
+
+No Code.gs or Vercel Environment Variable changes are required.
+Redeploy this package to Production on Vercel.
