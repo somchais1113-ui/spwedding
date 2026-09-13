@@ -2,5 +2,23 @@
   "framework": null,
   "buildCommand": "node tools/build-web.cjs",
   "outputDirectory": "public",
-  "functions": {"api/rsvp.js": {"maxDuration": 30}}
+  "functions": {
+    "api/rsvp.js": {
+      "maxDuration": 30
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/card",
+      "destination": "/share.html"
+    },
+    {
+      "source": "/share",
+      "destination": "/share.html"
+    },
+    {
+      "source": "/share/",
+      "destination": "/share.html"
+    }
+  ]
 }

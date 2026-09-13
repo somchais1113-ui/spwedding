@@ -1,0 +1,12 @@
+SP Wedding — OG Preview Image Update v6
+
+What changed:
+- Replaced the social preview image with the new approved design from the user.
+- New image file: assets/images/sp-wedding-rich-preview-v6.jpg
+- Updated OG/Twitter image references in index.html, share.html, share/index.html, and invite/index.html.
+- Kept legacy image filenames updated too for compatibility.
+
+After deploy:
+1) Open https://spwedding-teal.vercel.app/?i=2 or another fresh query in browser.
+2) Send the same fresh URL in LINE/Facebook to bypass old cache.
+3) If needed, use Facebook Sharing Debugger -> Scrape Again for the root URL.

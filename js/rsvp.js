@@ -10,13 +10,87 @@
   const exactWrap=document.getElementById('rsvp-exact-wrap');
   const status=document.getElementById('rsvp-status');
   const success=document.getElementById('rsvp-success');
+  const processing=document.getElementById('rsvp-processing');
+  const processingMessage=document.getElementById('rsvp-processing-message');
   const confirm=document.getElementById('rsvp-confirm');
+  const editButton=document.getElementById('rsvp-edit');
+  const homeButton=document.getElementById('rsvp-home');
   const storageKey='sp-wedding-rsvp-id-2026-10-25';
-  let busy=false, submissionId;
+  const teamLabels={team_cap:'ทีมน้องแค้ป',team_bird:'ทีมพี่เบิร์ด'};
+  let busy=false, submissionId, processingTimer=0, processingStep=0, processingAnimation=null;
+  const processingMessages=['กำลังตรวจสอบข้อมูลของคุณ…','กำลังส่งคำตอบอย่างปลอดภัย…','กำลังบันทึกลงรายชื่อแขก…','อีกนิดเดียวครับ…'];
+
+  function stopProcessingMessages(){
+    clearTimeout(processingTimer);
+    processingTimer=0;
+    processingStep=0;
+    if(processingAnimation){processingAnimation.cancel();processingAnimation=null;}
+    processingMessage.classList.remove('is-changing');
+    processingMessage.style.removeProperty('opacity');
+    processingMessage.style.removeProperty('transform');
+    processingMessage.style.removeProperty('filter');
+  }
+
+  function animateProcessingMessage(nextText){
+    const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduced||!processingMessage.animate){
+      processingMessage.textContent=nextText;
+      return Promise.resolve();
+    }
+
+    if(processingAnimation)processingAnimation.cancel();
+    processingAnimation=processingMessage.animate(
+      [
+        {opacity:1,transform:'translateY(0)',filter:'blur(0px)'},
+        {opacity:0,transform:'translateY(-5px)',filter:'blur(2px)'}
+      ],
+      {duration:220,easing:'cubic-bezier(.4,0,.2,1)',fill:'forwards'}
+    );
+
+    return processingAnimation.finished.catch(()=>{}).then(()=>{
+      processingMessage.textContent=nextText;
+      processingAnimation=processingMessage.animate(
+        [
+          {opacity:0,transform:'translateY(6px)',filter:'blur(2px)'},
+          {opacity:1,transform:'translateY(0)',filter:'blur(0px)'}
+        ],
+        {duration:340,easing:'cubic-bezier(.16,1,.3,1)',fill:'forwards'}
+      );
+      return processingAnimation.finished.catch(()=>{});
+    });
+  }
+
+  function scheduleProcessingMessage(){
+    processingTimer=setTimeout(async()=>{
+      processingStep=(processingStep+1)%processingMessages.length;
+      await animateProcessingMessage(processingMessages[processingStep]);
+      scheduleProcessingMessage();
+    },1050);
+  }
+
+  function startProcessingMessages(){
+    stopProcessingMessages();
+    processingMessage.textContent=processingMessages[0];
+    processingMessage.animate?.(
+      [
+        {opacity:0,transform:'translateY(5px)',filter:'blur(2px)'},
+        {opacity:1,transform:'translateY(0)',filter:'blur(0px)'}
+      ],
+      {duration:360,easing:'cubic-bezier(.16,1,.3,1)'}
+    );
+    scheduleProcessingMessage();
+  }
   try{submissionId=localStorage.getItem(storageKey);}catch{}
   if(!/^[a-f0-9-]{36}$/.test(submissionId||'')){
     submissionId=crypto.randomUUID ? crypto.randomUUID() : '10000000-1000-4000-8000-100000000000'.replace(/[018]/g,c=>(c^crypto.getRandomValues(new Uint8Array(1))[0]&15>>c/4).toString(16));
     try{localStorage.setItem(storageKey,submissionId);}catch{}
+  }
+  function openMainPage(target='#home'){
+    if(dialog.open)dialog.close();
+    const go=window.WeddingEntrance&&typeof window.WeddingEntrance.open==='function'
+      ? ()=>window.WeddingEntrance.open(target)
+      : ()=>{location.hash=target;document.querySelector(target)?.scrollIntoView({behavior:'smooth',block:'start'});};
+    go();
   }
   document.querySelectorAll('[data-open-rsvp]').forEach(button=>button.addEventListener('click',()=>window.WeddingDialogs.open(dialog,button,close)));
   close.addEventListener('click',()=>dialog.close());
@@ -24,12 +98,19 @@
     exactWrap.hidden=form.elements.partySize.value!=='6+';
     status.textContent='';
   });
-  document.getElementById('rsvp-edit').addEventListener('click',()=>{
-    success.hidden=true;fields.hidden=false;status.textContent='';name.focus({preventScroll:true});
+  editButton.addEventListener('click',()=>{
+    stopProcessingMessages();processing.hidden=true;success.hidden=true;fields.hidden=false;status.textContent='';name.focus({preventScroll:true});
   });
+  homeButton.addEventListener('click',()=>openMainPage('#home'));
   form.addEventListener('submit',async event=>{
     event.preventDefault();if(busy)return;
     name.value=name.value.trim();if(!name.reportValidity())return;
+    const team=form.elements.team.value;
+    if(!teamLabels[team]){
+      status.dataset.state='error';status.textContent='กรุณาเลือกทีมของคุณก่อนยืนยัน';
+      form.querySelector('input[name="team"]')?.focus({preventScroll:true});
+      return;
+    }
     const attendance=event.submitter?.value==='declined'?'declined':'attending';
     const choice=form.elements.partySize.value;
     if(attendance==='attending'&&choice==='6+'&&!exact.reportValidity())return;
@@ -38,15 +119,17 @@
       status.dataset.state='error';status.textContent='ตัวอย่างในเครื่องยังส่งคำตอบไม่ได้ กรุณาเปิดลิงก์เว็บไซต์งานแต่งเพื่อยืนยัน';return;
     }
     busy=true;fields.disabled=true;form.setAttribute('aria-busy','true');
-    status.dataset.state='pending';status.textContent='กำลังบันทึกคำตอบของคุณ…';confirm.textContent='กำลังบันทึก…';
+    status.textContent='';success.hidden=true;fields.hidden=true;processing.hidden=false;startProcessingMessages();
     try{
-      const response=await fetch('/api/rsvp',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({submissionId,name:name.value,attendance,partySize,website:form.elements.website.value}),signal:AbortSignal.timeout(25000)});
+      const response=await fetch('/api/rsvp',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({submissionId,name:name.value,team,attendance,partySize,website:form.elements.website.value}),signal:AbortSignal.timeout(25000)});
       const result=await response.json();
       if(!response.ok||result.saved!==true||result.id!==submissionId)throw new Error(result.error||'save_failed');
-      status.textContent='';fields.hidden=true;success.hidden=false;
-      document.getElementById('rsvp-receipt').textContent=attendance==='attending'?`บันทึกคำตอบแล้ว ขอบคุณคุณ${name.value} แล้วพบกันทั้งหมด ${partySize} คนในวันของเราครับ`:`บันทึกแล้วว่าคุณ${name.value}ไม่สะดวกมาร่วมงาน ขอบคุณที่แจ้งให้เราทราบครับ`;
-      if(dialog.open)document.getElementById('rsvp-edit').focus({preventScroll:true});
+      stopProcessingMessages();processing.hidden=true;status.textContent='';success.hidden=false;
+      const teamName=teamLabels[team];
+      document.getElementById('rsvp-receipt').textContent=attendance==='attending'?`บันทึกคำตอบแล้ว ขอบคุณคุณ${name.value} • ${teamName} รวมทั้งหมด ${partySize} คน หากต้องการเปลี่ยนข้อมูลภายหลัง สามารถกดแก้ไขคำตอบได้จากอุปกรณ์นี้ครับ`:`บันทึกแล้วว่าคุณ${name.value} • ${teamName} ไม่สะดวกมาร่วมงาน ขอบคุณที่แจ้งให้เราทราบครับ`;
+      if(dialog.open)editButton.focus({preventScroll:true});
     }catch(error){
+      stopProcessingMessages();processing.hidden=true;fields.hidden=false;
       status.dataset.state='error';
       status.textContent=error.message==='not_configured'?'ระบบรับคำตอบยังไม่เปิดใช้งาน กรุณาลองอีกครั้งภายหลัง':error.message==='rate_limit'?'ส่งคำตอบถี่เกินไป กรุณารอสักครู่แล้วลองใหม่':'ยังยืนยันผลการบันทึกไม่ได้ กรุณากดยืนยันอีกครั้ง ระบบจะใช้คำตอบเดิมเพื่อป้องกันรายการซ้ำ';
     }finally{busy=false;fields.disabled=false;form.removeAttribute('aria-busy');confirm.textContent='ยืนยัน';}
