@@ -40,19 +40,11 @@
     botanicalLogo.classList.add('logo-loading');
     const preload = new Image();
     let revealed = false;
-    // Longest variant (bloom): 1840ms delay + 1600ms gleam. Settle just after that.
-    const SEQUENCE_MS = 3600;
     const revealLogo = () => {
       if (revealed) return; revealed = true;
-      clearTimeout(safety);
       botanicalLogo.classList.remove('logo-loading');
       botanicalLogo.classList.add('logo-ready');
-      // Drop the will-change hints once the entrance is over so the compositor
-      // layers are released instead of being held for the whole session.
-      setTimeout(() => botanicalLogo.classList.add('logo-settled'), SEQUENCE_MS);
     };
-    // The mark must never stay hidden if the artwork request stalls or is blocked.
-    const safety = setTimeout(revealLogo, 2600);
     preload.onload = revealLogo; preload.onerror = revealLogo;
     preload.src = botanicalAsset.getAttribute('href');
     if (preload.complete) revealLogo();
