@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="th" class="motion-enabled">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SP Wedding — เปรียบเทียบ Animation โลโก้ PS (v14)</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/motion.css">
+<link rel="stylesheet" href="css/celebration.css">
+<style>
+  body{margin:0;background:#fbfdff;font:400 15px/1.8 Prompt,Tahoma,sans-serif;color:#102e59}
+  .preview-head{max-width:1140px;margin:0 auto;padding:38px 24px 8px}
+  .preview-head h1{font-size:22px;font-weight:500;margin:0 0 6px}
+  .preview-head p{margin:0;color:#63799a;font-size:14px}
+  .preview-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;max-width:1140px;margin:0 auto;padding:18px 24px 28px}
+  .preview-card{margin:0;padding:20px;border:1px solid #dbe6f4;border-radius:14px;background:#fff;text-align:center}
+  .preview-card h2{font-size:13px;letter-spacing:.08em;font-weight:600;margin:0 0 6px;color:#224e83;text-align:left}
+  .preview-card figcaption p{font-size:13px;line-height:1.75;color:#63799a;margin:0 0 10px;min-height:88px;text-align:left}
+  .preview-stage{display:grid;place-items:center;min-height:300px;padding:78px 0 14px;background:radial-gradient(ellipse at 30% 20%,#eaf2fc,transparent 60%),#fff;border-radius:10px;overflow:hidden}
+  .preview-stage .botanical-logo{width:250px;margin:0}
+  .preview-replay{margin-top:14px;min-height:44px;padding:9px 22px;border-radius:999px;border:1px solid #c5d6eb;background:#eef4fb;color:#224e83;font:600 14px/1.5 Prompt,Tahoma,sans-serif;cursor:pointer}
+  .preview-replay:hover{background:#dfeaf7}
+  .preview-all{display:block;margin:0 auto;min-height:48px;padding:11px 30px;border-radius:999px;border:0;background:#102e59;color:#fff;font:600 15px/1.5 Prompt,Tahoma,sans-serif;cursor:pointer}
+  .preview-note{max-width:1140px;margin:0 auto;padding:26px 24px 60px;font-size:13px;line-height:1.9;color:#63799a}
+  .preview-note code{background:#eef4fb;padding:2px 6px;border-radius:4px;font-size:12px}
+</style>
+</head>
+<body>
+  <header class="preview-head">
+    <h1>เปรียบเทียบ Animation โลโก้ PS — v14</h1>
+    <p>กด “เล่นซ้ำ” เพื่อดูจังหวะของแต่ละแบบ เลือกแบบที่ต้องการแล้วแจ้งกลับได้เลย</p>
+  </header>
+  <div class="preview-grid">
+    <figure class="preview-card">
+      <figcaption>
+        <h2>A · INK RISE (ค่าเริ่มต้น)</h2>
+        <p>หมึกไล่ขึ้นจากล่างสู่บนหลังขอบนุ่ม ดอกไม้คลี่ตามจังหวะหมึก ลายเซ็นเขียนจากซ้ายไปขวา ปิดท้ายด้วยแสงกวาดแบบฟอยล์หนึ่งครั้ง</p>
+      </figcaption>
+      <div class="preview-stage">
+        <div class="welcome-logo botanical-logo" data-logo-motion="ink" data-preview="ink" role="img" aria-label="SP monogram — ink">
+          <svg viewBox="0 0 1254 1254" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <image id="botanical-artwork-ink" href="assets/images/sp-wedding-logo.png" width="1254" height="1254"/>
+            <clipPath id="botanical-letters-ink"><path clip-rule="evenodd" d="M 0 0 H 1254 V 960 H 0 Z M 648 488 L 687 464 L 755 444 L 824 430 L 890 438 L 932 470 L 987 500 L 1130 500 L 1130 150 L 683 150 L 683 291 L 580 280 L 586 365 L 624 430 L 669 450 Z"/></clipPath>
+            <clipPath id="botanical-flowers-ink"><path d="M 648 488 L 687 464 L 755 444 L 824 430 L 890 438 L 932 470 L 987 500 L 1130 500 L 1130 150 L 683 150 L 683 291 L 580 280 L 586 365 L 624 430 L 669 450 Z"/></clipPath>
+            <clipPath id="botanical-signature-ink"><rect x="0" y="960" width="1254" height="294"/></clipPath>
+            <radialGradient id="botanical-feather-ink"><stop offset="0.78" stop-color="white"/><stop offset="1" stop-color="white" stop-opacity="0"/></radialGradient>
+            <mask id="botanical-growth-ink" maskUnits="userSpaceOnUse" x="0" y="0" width="1254" height="1254" style="mask-type:alpha">
+              <circle class="botanical-growth-front" cx="650" cy="475" r="900" fill="url(#botanical-feather-ink)"/>
+            </mask>
+
+            <!-- v14 motion system. Soft-edged wipe bands: the only animated property
+                 is a transform, so no blur filter has to be re-rasterised per frame.
+                 At rest (transform:none) every band covers its region in solid white,
+                 so the mark is fully visible with JS off or motion disabled. -->
+            <linearGradient id="sp-rise-grad-ink" x1="0" y1="1" x2="0" y2="0">
+              <stop offset="0" stop-color="#fff"/>
+              <stop offset="0.70" stop-color="#fff"/>
+              <stop offset="0.867" stop-color="#fff" stop-opacity="0"/>
+            </linearGradient>
+            <mask id="sp-rise-letters-ink" maskUnits="userSpaceOnUse" x="-30" y="-30" width="1314" height="1030" style="mask-type:alpha">
+              <rect class="sp-band sp-band-rise" x="-30" y="-500" width="1314" height="1500" fill="url(#sp-rise-grad-ink)"/>
+            </mask>
+            <mask id="sp-rise-flowers-ink" maskUnits="userSpaceOnUse" x="-30" y="-30" width="1314" height="1030" style="mask-type:alpha">
+              <rect class="sp-band sp-band-rise-flowers" x="-30" y="-500" width="1314" height="1500" fill="url(#sp-rise-grad-ink)"/>
+            </mask>
+            <linearGradient id="sp-sign-grad-ink" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#fff"/>
+              <stop offset="0.882" stop-color="#fff"/>
+              <stop offset="0.941" stop-color="#fff" stop-opacity="0"/>
+            </linearGradient>
+            <mask id="sp-sign-wipe-ink" maskUnits="userSpaceOnUse" x="-30" y="940" width="1314" height="344" style="mask-type:alpha">
+              <rect class="sp-band sp-band-sign" x="-1700" y="940" width="3400" height="344" fill="url(#sp-sign-grad-ink)"/>
+            </mask>
+            <!-- The artwork's own alpha channel confines the closing gleam to inked pixels. -->
+            <mask id="sp-art-alpha-ink" maskUnits="userSpaceOnUse" x="0" y="0" width="1254" height="1254" style="mask-type:alpha">
+              <use href="#botanical-artwork-ink"/>
+            </mask>
+            <linearGradient id="sp-sheen-grad-ink" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#ffffff" stop-opacity="0"/>
+              <stop offset="0.38" stop-color="#dceaff" stop-opacity="0.16"/>
+              <stop offset="0.5" stop-color="#ffffff" stop-opacity="0.8"/>
+              <stop offset="0.62" stop-color="#dceaff" stop-opacity="0.16"/>
+              <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <g class="botanical-letters" clip-path="url(#botanical-letters-ink)" mask="url(#sp-rise-letters-ink)"><use href="#botanical-artwork-ink"/></g>
+          <g class="botanical-flowers" clip-path="url(#botanical-flowers-ink)" mask="url(#sp-rise-flowers-ink)"><g mask="url(#botanical-growth-ink)"><use href="#botanical-artwork-ink"/></g></g>
+          <g class="botanical-signature" clip-path="url(#botanical-signature-ink)" mask="url(#sp-sign-wipe-ink)"><use href="#botanical-artwork-ink"/></g>
+          <g class="sp-sheen" mask="url(#sp-art-alpha-ink)"><rect x="-190" y="-500" width="380" height="2254" fill="url(#sp-sheen-grad-ink)" transform="rotate(15 0 627)"/></g>
+        </svg>
+        </div>
+      </div>
+      <button class="preview-replay" type="button" data-replay="ink">เล่นซ้ำ</button>
+    </figure>
+    <figure class="preview-card">
+      <figcaption>
+        <h2>B · BLOOM FIRST</h2>
+        <p>ดอกไม้บานนำก่อน แล้วตัวอักษร PS จึงไล่ขึ้นตาม ให้อารมณ์เล่าเรื่องเชิงพฤกษศาสตร์ชัดกว่าแบบ A</p>
+      </figcaption>
+      <div class="preview-stage">
+        <div class="welcome-logo botanical-logo" data-logo-motion="bloom" data-preview="bloom" role="img" aria-label="SP monogram — bloom">
+          <svg viewBox="0 0 1254 1254" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <image id="botanical-artwork-bloom" href="assets/images/sp-wedding-logo.png" width="1254" height="1254"/>
+            <clipPath id="botanical-letters-bloom"><path clip-rule="evenodd" d="M 0 0 H 1254 V 960 H 0 Z M 648 488 L 687 464 L 755 444 L 824 430 L 890 438 L 932 470 L 987 500 L 1130 500 L 1130 150 L 683 150 L 683 291 L 580 280 L 586 365 L 624 430 L 669 450 Z"/></clipPath>
+            <clipPath id="botanical-flowers-bloom"><path d="M 648 488 L 687 464 L 755 444 L 824 430 L 890 438 L 932 470 L 987 500 L 1130 500 L 1130 150 L 683 150 L 683 291 L 580 280 L 586 365 L 624 430 L 669 450 Z"/></clipPath>
+            <clipPath id="botanical-signature-bloom"><rect x="0" y="960" width="1254" height="294"/></clipPath>
+            <radialGradient id="botanical-feather-bloom"><stop offset="0.78" stop-color="white"/><stop offset="1" stop-color="white" stop-opacity="0"/></radialGradient>
+            <mask id="botanical-growth-bloom" maskUnits="userSpaceOnUse" x="0" y="0" width="1254" height="1254" style="mask-type:alpha">
+              <circle class="botanical-growth-front" cx="650" cy="475" r="900" fill="url(#botanical-feather-bloom)"/>
+            </mask>
+
+            <!-- v14 motion system. Soft-edged wipe bands: the only animated property
+                 is a transform, so no blur filter has to be re-rasterised per frame.
+                 At rest (transform:none) every band covers its region in solid white,
+                 so the mark is fully visible with JS off or motion disabled. -->
+            <linearGradient id="sp-rise-grad-bloom" x1="0" y1="1" x2="0" y2="0">
+              <stop offset="0" stop-color="#fff"/>
+              <stop offset="0.70" stop-color="#fff"/>
+              <stop offset="0.867" stop-color="#fff" stop-opacity="0"/>
+            </linearGradient>
+            <mask id="sp-rise-letters-bloom" maskUnits="userSpaceOnUse" x="-30" y="-30" width="1314" height="1030" style="mask-type:alpha">
+              <rect class="sp-band sp-band-rise" x="-30" y="-500" width="1314" height="1500" fill="url(#sp-rise-grad-bloom)"/>
+            </mask>
+            <mask id="sp-rise-flowers-bloom" maskUnits="userSpaceOnUse" x="-30" y="-30" width="1314" height="1030" style="mask-type:alpha">
+              <rect class="sp-band sp-band-rise-flowers" x="-30" y="-500" width="1314" height="1500" fill="url(#sp-rise-grad-bloom)"/>
+            </mask>
+            <linearGradient id="sp-sign-grad-bloom" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#fff"/>
+              <stop offset="0.882" stop-color="#fff"/>
+              <stop offset="0.941" stop-color="#fff" stop-opacity="0"/>
+            </linearGradient>
+            <mask id="sp-sign-wipe-bloom" maskUnits="userSpaceOnUse" x="-30" y="940" width="1314" height="344" style="mask-type:alpha">
+              <rect class="sp-band sp-band-sign" x="-1700" y="940" width="3400" height="344" fill="url(#sp-sign-grad-bloom)"/>
+            </mask>
+            <!-- The artwork's own alpha channel confines the closing gleam to inked pixels. -->
+            <mask id="sp-art-alpha-bloom" maskUnits="userSpaceOnUse" x="0" y="0" width="1254" height="1254" style="mask-type:alpha">
+              <use href="#botanical-artwork-bloom"/>
+            </mask>
+            <linearGradient id="sp-sheen-grad-bloom" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#ffffff" stop-opacity="0"/>
+              <stop offset="0.38" stop-color="#dceaff" stop-opacity="0.16"/>
+              <stop offset="0.5" stop-color="#ffffff" stop-opacity="0.8"/>
+              <stop offset="0.62" stop-color="#dceaff" stop-opacity="0.16"/>
+              <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <g class="botanical-letters" clip-path="url(#botanical-letters-bloom)" mask="url(#sp-rise-letters-bloom)"><use href="#botanical-artwork-bloom"/></g>
+          <g class="botanical-flowers" clip-path="url(#botanical-flowers-bloom)" mask="url(#sp-rise-flowers-bloom)"><g mask="url(#botanical-growth-bloom)"><use href="#botanical-artwork-bloom"/></g></g>
+          <g class="botanical-signature" clip-path="url(#botanical-signature-bloom)" mask="url(#sp-sign-wipe-bloom)"><use href="#botanical-artwork-bloom"/></g>
+          <g class="sp-sheen" mask="url(#sp-art-alpha-bloom)"><rect x="-190" y="-500" width="380" height="2254" fill="url(#sp-sheen-grad-bloom)" transform="rotate(15 0 627)"/></g>
+        </svg>
+        </div>
+      </div>
+      <button class="preview-replay" type="button" data-replay="bloom">เล่นซ้ำ</button>
+    </figure>
+    <figure class="preview-card">
+      <figcaption>
+        <h2>C · CALM</h2>
+        <p>ลำดับเดียวกับ A แต่สั้นลงและตัดแสงฟอยล์ออก เรียบและสงบที่สุด เหมาะกับโทนพิธีเช้า</p>
+      </figcaption>
+      <div class="preview-stage">
+        <div class="welcome-logo botanical-logo" data-logo-motion="calm" data-preview="calm" role="img" aria-label="SP monogram — calm">
+          <svg viewBox="0 0 1254 1254" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <image id="botanical-artwork-calm" href="assets/images/sp-wedding-logo.png" width="1254" height="1254"/>
+            <clipPath id="botanical-letters-calm"><path clip-rule="evenodd" d="M 0 0 H 1254 V 960 H 0 Z M 648 488 L 687 464 L 755 444 L 824 430 L 890 438 L 932 470 L 987 500 L 1130 500 L 1130 150 L 683 150 L 683 291 L 580 280 L 586 365 L 624 430 L 669 450 Z"/></clipPath>
+            <clipPath id="botanical-flowers-calm"><path d="M 648 488 L 687 464 L 755 444 L 824 430 L 890 438 L 932 470 L 987 500 L 1130 500 L 1130 150 L 683 150 L 683 291 L 580 280 L 586 365 L 624 430 L 669 450 Z"/></clipPath>
+            <clipPath id="botanical-signature-calm"><rect x="0" y="960" width="1254" height="294"/></clipPath>
+            <radialGradient id="botanical-feather-calm"><stop offset="0.78" stop-color="white"/><stop offset="1" stop-color="white" stop-opacity="0"/></radialGradient>
+            <mask id="botanical-growth-calm" maskUnits="userSpaceOnUse" x="0" y="0" width="1254" height="1254" style="mask-type:alpha">
+              <circle class="botanical-growth-front" cx="650" cy="475" r="900" fill="url(#botanical-feather-calm)"/>
+            </mask>
+
+            <!-- v14 motion system. Soft-edged wipe bands: the only animated property
+                 is a transform, so no blur filter has to be re-rasterised per frame.
+                 At rest (transform:none) every band covers its region in solid white,
+                 so the mark is fully visible with JS off or motion disabled. -->
+            <linearGradient id="sp-rise-grad-calm" x1="0" y1="1" x2="0" y2="0">
+              <stop offset="0" stop-color="#fff"/>
+              <stop offset="0.70" stop-color="#fff"/>
+              <stop offset="0.867" stop-color="#fff" stop-opacity="0"/>
+            </linearGradient>
+            <mask id="sp-rise-letters-calm" maskUnits="userSpaceOnUse" x="-30" y="-30" width="1314" height="1030" style="mask-type:alpha">
+              <rect class="sp-band sp-band-rise" x="-30" y="-500" width="1314" height="1500" fill="url(#sp-rise-grad-calm)"/>
+            </mask>
+            <mask id="sp-rise-flowers-calm" maskUnits="userSpaceOnUse" x="-30" y="-30" width="1314" height="1030" style="mask-type:alpha">
+              <rect class="sp-band sp-band-rise-flowers" x="-30" y="-500" width="1314" height="1500" fill="url(#sp-rise-grad-calm)"/>
+            </mask>
+            <linearGradient id="sp-sign-grad-calm" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#fff"/>
+              <stop offset="0.882" stop-color="#fff"/>
+              <stop offset="0.941" stop-color="#fff" stop-opacity="0"/>
+            </linearGradient>
+            <mask id="sp-sign-wipe-calm" maskUnits="userSpaceOnUse" x="-30" y="940" width="1314" height="344" style="mask-type:alpha">
+              <rect class="sp-band sp-band-sign" x="-1700" y="940" width="3400" height="344" fill="url(#sp-sign-grad-calm)"/>
+            </mask>
+            <!-- The artwork's own alpha channel confines the closing gleam to inked pixels. -->
+            <mask id="sp-art-alpha-calm" maskUnits="userSpaceOnUse" x="0" y="0" width="1254" height="1254" style="mask-type:alpha">
+              <use href="#botanical-artwork-calm"/>
+            </mask>
+            <linearGradient id="sp-sheen-grad-calm" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#ffffff" stop-opacity="0"/>
+              <stop offset="0.38" stop-color="#dceaff" stop-opacity="0.16"/>
+              <stop offset="0.5" stop-color="#ffffff" stop-opacity="0.8"/>
+              <stop offset="0.62" stop-color="#dceaff" stop-opacity="0.16"/>
+              <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <g class="botanical-letters" clip-path="url(#botanical-letters-calm)" mask="url(#sp-rise-letters-calm)"><use href="#botanical-artwork-calm"/></g>
+          <g class="botanical-flowers" clip-path="url(#botanical-flowers-calm)" mask="url(#sp-rise-flowers-calm)"><g mask="url(#botanical-growth-calm)"><use href="#botanical-artwork-calm"/></g></g>
+          <g class="botanical-signature" clip-path="url(#botanical-signature-calm)" mask="url(#sp-sign-wipe-calm)"><use href="#botanical-artwork-calm"/></g>
+          <g class="sp-sheen" mask="url(#sp-art-alpha-calm)"><rect x="-190" y="-500" width="380" height="2254" fill="url(#sp-sheen-grad-calm)" transform="rotate(15 0 627)"/></g>
+        </svg>
+        </div>
+      </div>
+      <button class="preview-replay" type="button" data-replay="calm">เล่นซ้ำ</button>
+    </figure>
+  </div>
+  <button class="preview-all" type="button" id="replay-all">เล่นซ้ำทั้งหมดพร้อมกัน</button>
+  <p class="preview-note">หน้านี้เรียกใช้ <code>css/celebration.css</code> ไฟล์เดียวกับหน้าจริง จังหวะที่เห็นจึงตรงกับเว็บที่ deploy ทุกประการ<br>
+  การสลับแบบ ทำได้โดยแก้ค่า <code>data-logo-motion</code> บน <code>&lt;div id="botanical-logo"&gt;</code> ใน <code>index.html</code> เป็น <code>ink</code> / <code>bloom</code> / <code>calm</code> เท่านั้น ไม่ต้องแก้ CSS<br>
+  ไฟล์นี้เป็นเครื่องมือภายในสำหรับรีวิว ใส่ <code>noindex</code> ไว้แล้ว จะลบออกก่อน deploy จริงก็ได้</p>
+<script>
+  var stages = [].slice.call(document.querySelectorAll('[data-preview]'));
+  function play(node){
+    node.classList.remove('logo-ready','logo-settled');
+    void node.offsetWidth;   // force reflow so the sequence restarts from frame zero
+    node.classList.add('logo-ready');
+  }
+  document.querySelectorAll('[data-replay]').forEach(function(button){
+    button.addEventListener('click', function(){
+      play(document.querySelector('[data-preview="' + button.dataset.replay + '"]'));
+    });
+  });
+  document.getElementById('replay-all').addEventListener('click', function(){ stages.forEach(play); });
+  stages.forEach(play);
+</script>
+</body>
+</html>

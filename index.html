@@ -13,9 +13,9 @@
   <meta property="og:title" content="Somchai &amp; Phantira — Wedding Invitation">
   <meta property="og:description" content="ขอเชิญร่วมเป็นส่วนหนึ่งในวันสำคัญของเรา 25 ตุลาคม 2569 ณ จังหวัดหนองคาย">
   <meta property="og:url" content="https://spwedding-teal.vercel.app/">
-  <meta property="og:image" content="https://spwedding-teal.vercel.app/assets/images/sp-wedding-rich-preview-v8.jpg?v=20260911-8">
-  <meta property="og:image:url" content="https://spwedding-teal.vercel.app/assets/images/sp-wedding-rich-preview-v8.jpg?v=20260911-8">
-  <meta property="og:image:secure_url" content="https://spwedding-teal.vercel.app/assets/images/sp-wedding-rich-preview-v8.jpg?v=20260911-8">
+  <meta property="og:image" content="https://spwedding-teal.vercel.app/assets/images/sp-wedding-rich-preview-v10.jpg?v=20260913-logo-ps-01">
+  <meta property="og:image:url" content="https://spwedding-teal.vercel.app/assets/images/sp-wedding-rich-preview-v10.jpg?v=20260913-logo-ps-01">
+  <meta property="og:image:secure_url" content="https://spwedding-teal.vercel.app/assets/images/sp-wedding-rich-preview-v10.jpg?v=20260913-logo-ps-01">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="2048">
   <meta property="og:image:height" content="1431">
@@ -23,7 +23,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Somchai &amp; Phantira — Wedding Invitation">
   <meta name="twitter:description" content="ขอเชิญร่วมเป็นส่วนหนึ่งในวันสำคัญของเรา 25 ตุลาคม 2569 ณ จังหวัดหนองคาย">
-  <meta name="twitter:image" content="https://spwedding-teal.vercel.app/assets/images/sp-wedding-rich-preview-v8.jpg?v=20260911-8">
+  <meta name="twitter:image" content="https://spwedding-teal.vercel.app/assets/images/sp-wedding-rich-preview-v10.jpg?v=20260913-logo-ps-01">
   <meta name="twitter:url" content="https://spwedding-teal.vercel.app/">
   <link rel="preload" href="assets/fonts/prompt-regular.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="preload" href="assets/fonts/OrangeAvenueDEMO-Regular.otf" as="font" type="font/otf" crossorigin>
@@ -55,7 +55,7 @@
     
     <div class="welcome-content">
       <p class="eyebrow welcome-eyebrow" lang="en">THE WEDDING OF</p>
-      <div class="welcome-logo botanical-logo" id="botanical-logo" role="img" aria-label="SP — Somchai &amp; Phantira — Together Always">
+      <div class="welcome-logo botanical-logo" id="botanical-logo" data-logo-motion="ink" role="img" aria-label="SP — Somchai &amp; Phantira — Together Always">
         <svg viewBox="0 0 1254 1254" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <image id="botanical-artwork" href="assets/images/sp-wedding-logo.png" width="1254" height="1254"/>
@@ -66,10 +66,46 @@
             <mask id="botanical-growth" maskUnits="userSpaceOnUse" x="0" y="0" width="1254" height="1254" style="mask-type:alpha">
               <circle class="botanical-growth-front" cx="650" cy="475" r="900" fill="url(#botanical-feather)"/>
             </mask>
+
+            <!-- v14 motion system. Soft-edged wipe bands: the only animated property
+                 is a transform, so no blur filter has to be re-rasterised per frame.
+                 At rest (transform:none) every band covers its region in solid white,
+                 so the mark is fully visible with JS off or motion disabled. -->
+            <linearGradient id="sp-rise-grad" x1="0" y1="1" x2="0" y2="0">
+              <stop offset="0" stop-color="#fff"/>
+              <stop offset="0.70" stop-color="#fff"/>
+              <stop offset="0.867" stop-color="#fff" stop-opacity="0"/>
+            </linearGradient>
+            <mask id="sp-rise-letters" maskUnits="userSpaceOnUse" x="-30" y="-30" width="1314" height="1030" style="mask-type:alpha">
+              <rect class="sp-band sp-band-rise" x="-30" y="-500" width="1314" height="1500" fill="url(#sp-rise-grad)"/>
+            </mask>
+            <mask id="sp-rise-flowers" maskUnits="userSpaceOnUse" x="-30" y="-30" width="1314" height="1030" style="mask-type:alpha">
+              <rect class="sp-band sp-band-rise-flowers" x="-30" y="-500" width="1314" height="1500" fill="url(#sp-rise-grad)"/>
+            </mask>
+            <linearGradient id="sp-sign-grad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#fff"/>
+              <stop offset="0.882" stop-color="#fff"/>
+              <stop offset="0.941" stop-color="#fff" stop-opacity="0"/>
+            </linearGradient>
+            <mask id="sp-sign-wipe" maskUnits="userSpaceOnUse" x="-30" y="940" width="1314" height="344" style="mask-type:alpha">
+              <rect class="sp-band sp-band-sign" x="-1700" y="940" width="3400" height="344" fill="url(#sp-sign-grad)"/>
+            </mask>
+            <!-- The artwork's own alpha channel confines the closing gleam to inked pixels. -->
+            <mask id="sp-art-alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="1254" height="1254" style="mask-type:alpha">
+              <use href="#botanical-artwork"/>
+            </mask>
+            <linearGradient id="sp-sheen-grad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#ffffff" stop-opacity="0"/>
+              <stop offset="0.38" stop-color="#dceaff" stop-opacity="0.16"/>
+              <stop offset="0.5" stop-color="#ffffff" stop-opacity="0.8"/>
+              <stop offset="0.62" stop-color="#dceaff" stop-opacity="0.16"/>
+              <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+            </linearGradient>
           </defs>
-          <g class="botanical-letters" clip-path="url(#botanical-letters)"><use href="#botanical-artwork"/></g>
-          <g clip-path="url(#botanical-flowers)"><g mask="url(#botanical-growth)"><use href="#botanical-artwork"/></g></g>
-          <g class="botanical-signature" clip-path="url(#botanical-signature)"><use href="#botanical-artwork"/></g>
+          <g class="botanical-letters" clip-path="url(#botanical-letters)" mask="url(#sp-rise-letters)"><use href="#botanical-artwork"/></g>
+          <g class="botanical-flowers" clip-path="url(#botanical-flowers)" mask="url(#sp-rise-flowers)"><g mask="url(#botanical-growth)"><use href="#botanical-artwork"/></g></g>
+          <g class="botanical-signature" clip-path="url(#botanical-signature)" mask="url(#sp-sign-wipe)"><use href="#botanical-artwork"/></g>
+          <g class="sp-sheen" mask="url(#sp-art-alpha)"><rect x="-190" y="-500" width="380" height="2254" fill="url(#sp-sheen-grad)" transform="rotate(15 0 627)"/></g>
         </svg>
       </div>
       <h1 id="welcome-title" class="welcome-date" data-date-label>25 ตุลาคม 2569</h1>

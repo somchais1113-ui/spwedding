@@ -23,24 +23,86 @@
 .chair-art img{aspect-ratio:1213/1296}
 .heart-button{width:auto;min-width:160px;height:auto;min-height:48px;padding:10px 24px;border-radius:30px;font:14px/1.7 var(--font-body)}
 
-/* Botanical logo entrance: same PNG, three complementary display masks.
-   SP first; a soft growth front follows the branch; signature resolves last. */
-.botanical-logo{animation:none;position:relative;aspect-ratio:1;contain:layout style}
-.botanical-logo svg{display:block;width:100%;height:auto;overflow:visible}
-.botanical-letters,.botanical-signature{opacity:1;transform:none}
-.botanical-growth-front{transform-box:view-box;transform-origin:650px 475px;transform:scale(1)}
-.motion-enabled .logo-ready .botanical-letters{animation:sp-ink-arrival 1450ms cubic-bezier(.22,1,.36,1) both}
-.motion-enabled .logo-ready .botanical-growth-front{animation:sp-flower-growth 2700ms 650ms cubic-bezier(.3,0,.2,1) both}
-.motion-enabled .logo-ready .botanical-signature{animation:sp-signature-arrival 1400ms 2200ms cubic-bezier(.22,1,.36,1) both}
-.motion-enabled .logo-ready{animation:sp-logo-breathe 8500ms 3700ms ease-in-out infinite}
+/* ── Monogram (PS) motion system — v14 ───────────────────────────────────────
+   Design intent: the mark is "printed", not faded in. Ink rises through the
+   monogram behind a soft-edged wipe, the botanical accent unfurls as the ink
+   reaches it, the signature is written left to right, and a single foil-like
+   gleam passes over the artwork to close the sequence.
+
+   Engineering intent: every animated property is a transform or opacity.
+   The previous build animated filter:blur() on a full-size masked SVG, which
+   forces the entire mark to be re-rasterised on every frame — that, not the
+   timing, was the root cause of the stutter.
+
+   Rest state (JS off, motion off, reduced motion) = fully revealed artwork. */
+.botanical-logo{
+  animation:none;position:relative;aspect-ratio:1;contain:layout style;
+  transform-origin:50% 32%;backface-visibility:hidden;
+  --sp-rise-from:1290px;            /* wipe band start offset, in SVG user units */
+  --sp-sign-from:-1520px;
+  --sp-ease-reveal:cubic-bezier(.16,1,.3,1);   /* expo-out: quick commit, long settle */
+  --sp-ease-wipe:cubic-bezier(.26,.78,.24,1);  /* the wipe front stays readable end to end */
+  --sp-ease-bloom:cubic-bezier(.18,.98,.28,1)
+}
+.botanical-logo svg{display:block;width:100%;height:auto;overflow:visible;transform:translate3d(-18px,-92px,0) scale(.8);transform-origin:center top;backface-visibility:hidden}
+.botanical-letters,.botanical-flowers,.botanical-signature{opacity:1;transform:none;filter:none}
+.sp-band{transform-box:view-box;transform:none}
+.sp-sheen{transform-box:view-box;opacity:0}
+.botanical-growth-front{transform-box:view-box;transform-origin:650px 475px;transform:scale(1);opacity:1;filter:none}
+
+/* Variant A — "ink" (default): ink rise → unfurl → signature → gleam. */
 .motion-enabled .botanical-logo.logo-loading{opacity:0}
+.motion-enabled .logo-ready{animation:sp-logo-settle 1250ms var(--sp-ease-reveal) both}
+.motion-enabled .logo-ready .sp-band-rise{animation:sp-rise 1220ms 60ms var(--sp-ease-wipe) both}
+.motion-enabled .logo-ready .sp-band-rise-flowers{animation:sp-rise 1300ms 190ms var(--sp-ease-wipe) both}
+.motion-enabled .logo-ready .botanical-growth-front{animation:sp-unfurl 1300ms 470ms var(--sp-ease-bloom) both}
+.motion-enabled .logo-ready .botanical-signature{animation:sp-sign-lift 940ms 1080ms var(--sp-ease-reveal) both}
+.motion-enabled .logo-ready .sp-band-sign{animation:sp-sign-wipe 1020ms 1080ms cubic-bezier(.25,.86,.28,1) both}
+.motion-enabled .logo-ready .sp-sheen{animation:sp-gleam 1600ms 1520ms cubic-bezier(.42,.03,.2,1) both}
+
+/* Variant B — "bloom": the botanical accent leads and the monogram follows. */
+.motion-enabled [data-logo-motion="bloom"].logo-ready .sp-band-rise{animation:sp-rise 1240ms 430ms var(--sp-ease-wipe) both}
+.motion-enabled [data-logo-motion="bloom"].logo-ready .sp-band-rise-flowers{animation:none;transform:none}
+.motion-enabled [data-logo-motion="bloom"].logo-ready .botanical-growth-front{animation:sp-unfurl-wide 1400ms 80ms cubic-bezier(.2,1.02,.3,1) both}
+.motion-enabled [data-logo-motion="bloom"].logo-ready .botanical-signature{animation-delay:1340ms}
+.motion-enabled [data-logo-motion="bloom"].logo-ready .sp-band-sign{animation-delay:1340ms}
+.motion-enabled [data-logo-motion="bloom"].logo-ready .sp-sheen{animation-delay:1840ms}
+
+/* Variant C — "calm": same choreography, shorter, no gleam. */
+.motion-enabled [data-logo-motion="calm"].logo-ready .sp-sheen{animation:none;opacity:0}
+.motion-enabled [data-logo-motion="calm"].logo-ready .sp-band-rise{animation-duration:950ms}
+.motion-enabled [data-logo-motion="calm"].logo-ready .sp-band-rise-flowers{animation-duration:1020ms;animation-delay:130ms}
+.motion-enabled [data-logo-motion="calm"].logo-ready .botanical-growth-front{animation-duration:1000ms;animation-delay:300ms}
+.motion-enabled [data-logo-motion="calm"].logo-ready .botanical-signature,
+.motion-enabled [data-logo-motion="calm"].logo-ready .sp-band-sign{animation-delay:820ms}
+
+/* Compositor hints only while the sequence is actually running. */
+.motion-enabled .logo-ready:not(.logo-settled) .sp-band,
+.motion-enabled .logo-ready:not(.logo-settled) .sp-sheen,
+.motion-enabled .logo-ready:not(.logo-settled) .botanical-growth-front{will-change:transform,opacity}
+.logo-settled .sp-band,.logo-settled .sp-sheen,.logo-settled .botanical-growth-front{will-change:auto}
+
+@keyframes sp-logo-settle{0%{opacity:0;transform:scale(.958)}26%{opacity:1}100%{opacity:1;transform:none}}
+@keyframes sp-rise{from{transform:translateY(var(--sp-rise-from))}to{transform:translateY(0)}}
+@keyframes sp-unfurl{0%{transform:translate(9px,15px) scale(.52)}100%{transform:none}}
+@keyframes sp-unfurl-wide{0%{transform:translate(14px,22px) scale(.16)}100%{transform:none}}
+@keyframes sp-sign-lift{from{transform:translateY(9px)}to{transform:translateY(0)}}
+@keyframes sp-sign-wipe{from{transform:translateX(var(--sp-sign-from))}to{transform:translateX(0)}}
+@keyframes sp-gleam{0%{opacity:0;transform:translateX(-560px)}14%{opacity:.9}72%{opacity:.9}100%{opacity:0;transform:translateX(1900px)}}
+
+/* Guards. Note these deliberately do NOT reset the transform on .botanical-logo svg:
+   that transform carries the v13 composition offset, and clearing it made the mark
+   jump out of position whenever motion was switched off. */
 .motion-background .botanical-logo,.motion-background .botanical-logo *{animation-play-state:paused!important}
-@keyframes sp-ink-arrival{from{opacity:0}to{opacity:1}}
-@keyframes sp-flower-growth{0%{transform:scale(0)}100%{transform:scale(1)}}
-@keyframes sp-signature-arrival{from{opacity:0}to{opacity:1}}
-@keyframes sp-logo-breathe{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
-.motion-paused .botanical-logo,.motion-paused .botanical-logo *{animation:none!important;opacity:1!important;transform:none!important}
-@media(prefers-reduced-motion:reduce){.botanical-logo,.botanical-logo *{animation:none!important;opacity:1!important;transform:none!important}}
+.motion-paused .botanical-logo{animation:none!important;opacity:1!important;transform:none!important}
+.motion-paused .botanical-letters,.motion-paused .botanical-flowers,.motion-paused .botanical-signature,
+.motion-paused .sp-band,.motion-paused .botanical-growth-front{animation:none!important;opacity:1!important;transform:none!important}
+.motion-paused .sp-sheen{animation:none!important;opacity:0!important}
+@media(prefers-reduced-motion:reduce){
+  .botanical-logo{animation:none!important;opacity:1!important;transform:none!important}
+  .botanical-letters,.botanical-flowers,.botanical-signature,.sp-band,.botanical-growth-front{animation:none!important;opacity:1!important;transform:none!important}
+  .sp-sheen{animation:none!important;opacity:0!important}
+}
 
 /* Navy cover opens around its left spine, revealing a textured white insert. */
 .invitation-card,.motion-enabled .invitation-card{background:#102e59;color:white;border:1px solid #214979;box-shadow:0 14px 36px #102e5920;transform:none;transition:box-shadow .35s,border-color .35s}
@@ -203,3 +265,6 @@
 .welcome-wish-button{background:#f3f7fc}
 @media(max-width:600px){.welcome-primary-button,.welcome-main-button{min-height:58px;font-size:17px}.welcome-shortcuts{gap:10px}.welcome-shortcuts .welcome-secondary{min-height:52px;font-size:15px}}
 @media(max-width:380px){.welcome-primary-button,.welcome-main-button{font-size:16px;padding-inline:18px}.welcome-shortcuts{grid-template-columns:1fr 1fr;gap:8px}.welcome-shortcuts .welcome-secondary{padding-inline:10px;font-size:14px}}
+
+/* v13: align welcome monogram position closer to the new approved logo composition */
+@media(max-width:600px){.botanical-logo svg{transform:translate3d(-12px,-58px,0) scale(.84);transform-origin:center top}}
