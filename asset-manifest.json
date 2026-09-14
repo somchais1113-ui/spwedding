@@ -34,14 +34,13 @@
     },
     {
       "file": "assets/images/sp-wedding-logo.png",
-    "assets/images/sp-wedding-logo-v10.png",
-      "width": 1254,
-      "height": 1254,
+      "width": 1526,
+      "height": 1541,
       "format": "PNG",
       "background": "transparent",
       "origin": "user supplied original, unchanged bytes",
-      "bytes": 609204,
-      "sha256": "c5be2e5c36e632c3a23ca18aa2161cd20c257b3002bddacec161f8d8f43754b2"
+      "bytes": 1227711,
+      "sha256": "f3728ac3bc57a0e65174ab0ead52bcee6185c032cb9ca3246e907986995fb4e2"
     },
     {
       "file": "assets/templates/wish-landscape.png",
@@ -331,5 +330,6 @@
       "packagedFile": null,
       "delivery": "remote"
     }
-  ]
+  ],
+  "motionRevision": "15"
 }

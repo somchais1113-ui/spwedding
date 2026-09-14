@@ -3,10 +3,10 @@ window.WEDDING_CONFIG = {
   // Motion direction: slow watercolor reveal, subtle depth, no fast bouncing.
   motion: {
     enabled: true,
-    intensity: 0.65, // 0–1: ความแรงของการลอยและ parallax
+    intensity: 0.4, // 0–1: ความแรงของการลอยและ parallax
     ambient: true, // ภาพลอยช้ามาก เฉพาะเมื่ออยู่บนหน้าจอ
-    scroll: true,
-    pointer: true, // ทำงานกับเมาส์เท่านั้น ไม่จับการลากนิ้วบนมือถือ
+    scroll: false,
+    pointer: false, // ทำงานกับเมาส์เท่านั้น ไม่จับการลากนิ้วบนมือถือ
     revealDuration: 1500 // milliseconds
   },
   couple: { groom: 'Somchai', bride: 'Phantira', monogram: 'SP' },

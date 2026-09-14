@@ -40,15 +40,23 @@
     botanicalLogo.classList.add('logo-loading');
     const preload = new Image();
     let revealed = false;
-    const revealLogo = () => {
+    const revealLogo = async () => {
       if (revealed) return; revealed = true;
-      botanicalLogo.classList.remove('logo-loading');
-      botanicalLogo.classList.add('logo-ready');
+      try { await preload.decode(); } catch (_) { /* Static image fallback. */ }
+      clearTimeout(safety);
+      requestAnimationFrame(() => {
+        botanicalLogo.classList.remove('logo-loading');
+        botanicalLogo.classList.add('logo-ready');
+      });
     };
+    const safety = setTimeout(() => {
+      botanicalLogo.classList.remove('logo-loading');
+    }, 2600);
     preload.onload = revealLogo; preload.onerror = revealLogo;
     preload.src = botanicalAsset.getAttribute('href');
     if (preload.complete) revealLogo();
   }
+
   document.querySelector('.skip-link').addEventListener('click', event => { event.preventDefault(); openWedding('#home'); });
   $('enter-wedding').addEventListener('click', () => openWedding('#home'));
   $('welcome-wishes')?.addEventListener('click', () => openWedding('#wishes'));

@@ -9,9 +9,9 @@
 .motion-enabled .art-tilt{transform:translate3d(var(--pointer-x,0px),var(--pointer-y,0px),0) rotateX(var(--rotate-x,0deg)) rotateY(var(--rotate-y,0deg))}
 .motion-enabled .scene-active .art-tilt{will-change:transform}
 .motion-enabled .art-entrance.is-entering{animation:watercolor-arrival var(--motion-duration) var(--motion-ease) both}
-.motion-enabled .ambient-on .art-drift{animation:watercolor-drift 13s ease-in-out infinite;animation-play-state:paused}
+.motion-enabled .ambient-on .art-drift{animation:watercolor-drift 20s ease-in-out infinite;animation-play-state:paused}
 .motion-enabled .ambient-on.scene-active .art-drift{animation-play-state:running}
-.motion-enabled [data-scene="chair"].ambient-on .art-drift{animation-duration:15s;animation-delay:-4s}
+.motion-enabled [data-scene="chair"].ambient-on .art-drift{animation-duration:24s;animation-delay:0s}
 .motion-background .art-drift{animation-play-state:paused!important}
 .motion-enabled .invitation-card{overflow:hidden;transition:transform 650ms var(--motion-ease),box-shadow 650ms var(--motion-ease),border-color 650ms ease}
 .motion-enabled .invitation-card:hover{transform:none;box-shadow:0 22px 54px #152d5018;border-color:#9cb7db}
@@ -24,7 +24,7 @@
 .motion-toggle{min-width:58px;min-height:44px;padding:8px 11px;border:1px solid var(--line);border-radius:24px;background:transparent;color:var(--muted);font:400 12px/1.7 var(--font-body);white-space:nowrap}
 .motion-toggle:hover{border-color:var(--accent);color:var(--accent-dark)}
 .motion-toggle[aria-pressed="true"]{background:var(--wash)}
-@keyframes watercolor-arrival{from{opacity:0;transform:translate3d(0,18px,0) scale(.972)}to{opacity:1;transform:translate3d(0,0,0) scale(1)}}
+@keyframes watercolor-arrival{from{opacity:0;transform:translate3d(0,8px,0)}to{opacity:1;transform:translate3d(0,0,0) scale(1)}}
 @keyframes watercolor-drift{0%,100%{transform:translate3d(0,0,0) rotate(0deg)}50%{transform:translate3d(0,var(--drift-distance),0) rotate(var(--drift-angle))}}
 @keyframes paper-light{0%{opacity:0;transform:translateX(-70%) rotate(5deg)}20%{opacity:.48}100%{opacity:0;transform:translateX(70%) rotate(5deg)}}
 @keyframes invitation-unfold{from{opacity:0;transform:translateY(14px) scale(.965)}to{opacity:1;transform:translateY(0) scale(1)}}

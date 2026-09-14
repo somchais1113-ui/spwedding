@@ -2,6 +2,7 @@
 <html lang="th">
 <head>
   <meta charset="utf-8">
+  <link rel="preload" as="image" href="assets/images/sp-wedding-logo.png">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#224e83">
   <meta name="description" content="คำเชิญงานแต่งงานของ Somchai และ Phantira ดูกำหนดการและข้อมูลการเดินทางไปงานที่จังหวัดหนองคาย">
@@ -55,21 +56,17 @@
     
     <div class="welcome-content">
       <p class="eyebrow welcome-eyebrow" lang="en">THE WEDDING OF</p>
-      <div class="welcome-logo botanical-logo" id="botanical-logo" role="img" aria-label="SP — Somchai &amp; Phantira — Together Always">
-        <svg viewBox="0 0 1254 1254" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+      <div class="welcome-logo botanical-logo logo-loading" id="botanical-logo" data-logo-motion="signature" role="img" aria-label="PS — Phantira &amp; Somchai — Together Always">
+        <svg viewBox="0 0 1526 1541" width="1526" height="1541" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <image id="botanical-artwork" href="assets/images/sp-wedding-logo.png" width="1254" height="1254"/>
-            <clipPath id="botanical-letters"><path clip-rule="evenodd" d="M 0 0 H 1254 V 960 H 0 Z M 648 488 L 687 464 L 755 444 L 824 430 L 890 438 L 932 470 L 987 500 L 1130 500 L 1130 150 L 683 150 L 683 291 L 580 280 L 586 365 L 624 430 L 669 450 Z"/></clipPath>
-            <clipPath id="botanical-flowers"><path d="M 648 488 L 687 464 L 755 444 L 824 430 L 890 438 L 932 470 L 987 500 L 1130 500 L 1130 150 L 683 150 L 683 291 L 580 280 L 586 365 L 624 430 L 669 450 Z"/></clipPath>
-            <clipPath id="botanical-signature"><rect x="0" y="960" width="1254" height="294"/></clipPath>
-            <radialGradient id="botanical-feather"><stop offset="0.78" stop-color="white"/><stop offset="1" stop-color="white" stop-opacity="0"/></radialGradient>
-            <mask id="botanical-growth" maskUnits="userSpaceOnUse" x="0" y="0" width="1254" height="1254" style="mask-type:alpha">
-              <circle class="botanical-growth-front" cx="650" cy="475" r="900" fill="url(#botanical-feather)"/>
-            </mask>
+            <image id="botanical-artwork" href="assets/images/sp-wedding-logo.png" width="1526" height="1541"/>
+            <!-- Disjoint, static regions in the clear space between artwork and names.
+                 Both reuse the original pixels at their original coordinates. -->
+            <clipPath id="logo-mark-region"><rect width="1526" height="1210"/></clipPath>
+            <clipPath id="logo-name-region"><rect y="1210" width="1526" height="331"/></clipPath>
           </defs>
-          <g class="botanical-letters" clip-path="url(#botanical-letters)"><use href="#botanical-artwork"/></g>
-          <g clip-path="url(#botanical-flowers)"><g mask="url(#botanical-growth)"><use href="#botanical-artwork"/></g></g>
-          <g class="botanical-signature" clip-path="url(#botanical-signature)"><use href="#botanical-artwork"/></g>
+          <g class="logo-mark" clip-path="url(#logo-mark-region)"><use href="#botanical-artwork"/></g>
+          <g class="logo-signature" clip-path="url(#logo-name-region)"><use href="#botanical-artwork"/></g>
         </svg>
       </div>
       <h1 id="welcome-title" class="welcome-date" data-date-label>25 ตุลาคม 2569</h1>
@@ -99,9 +96,6 @@
       <div class="hero-art art-scene hero-story" data-scene="hero">
         <div class="art-scroll" id="open-qr" role="button" tabindex="0" aria-label="เปิดรูป Qr Code" aria-haspopup="dialog" aria-controls="qr-dialog"><div class="art-tilt"><div class="art-drift"><div class="art-entrance"><div class="story-camera">
           <img class="story-master" data-art="hero" src="assets/images/hero-couple.jpeg" width="1448" height="1086" alt="ภาพสีน้ำคู่บ่าวสาวใต้ซุ้มดอกไม้สีชมพูและขาว" fetchpriority="high">
-          <div class="story-setting story-layer" aria-hidden="true"><img src="assets/images/hero-couple.jpeg" width="1448" height="1086" alt=""></div>
-          <div class="story-couple story-layer" aria-hidden="true"><img src="assets/images/hero-couple.jpeg" width="1448" height="1086" alt=""></div>
-          <div class="story-light" aria-hidden="true"></div>
         </div></div></div></div></div>
         <p class="hero-story-caption"><span class="story-line story-line-one" aria-hidden="true">จากวันธรรมดาที่เราได้พบกัน</span><span class="story-line story-line-two">สู่วันสำคัญที่เราจะมีกันและกัน</span></p>
       </div>

@@ -5,12 +5,12 @@
 .monogram{padding:0}.monogram img{width:64px;height:64px;object-fit:contain}.card-logo{width:180px;height:auto;margin:12px auto}.dialog-logo{width:140px;height:auto;margin:0 auto 18px}.site-header nav{gap:22px}.motion-toggle{font-size:14px}
 .welcome{position:relative;isolation:isolate;min-height:100svh;display:grid;place-items:center;overflow:hidden;padding:44px 24px;background:radial-gradient(ellipse at 18% 8%,#e0ebf9 0,transparent 47%),radial-gradient(ellipse at 92% 95%,#dbe8f8 0,transparent 48%),#fbfdff;text-align:center}
 .welcome:before{content:'';position:absolute;z-index:-1;inset:-50%;background:conic-gradient(from 25deg,transparent 0 25%,#cbdcf44d 35%,transparent 45% 75%,#ffffffb0 85%,transparent 95%);animation:welcome-light 30s linear infinite;pointer-events:none}
-.welcome-frame{position:absolute;inset:22px;border:1px solid #b9cce4;pointer-events:none}.welcome-frame:after{content:'';position:absolute;inset:6px;border:1px solid #dfe8f5}.welcome-content{width:min(100%,680px);display:flex;flex-direction:column;align-items:center}
-.welcome-eyebrow{color:var(--blue);font-size:12px;letter-spacing:.3em;margin:0 0 20px}.welcome-logo{width:clamp(250px,34vh,360px);height:auto;margin:0 auto 22px;animation:logo-arrive 1500ms cubic-bezier(.2,.8,.2,1) both}
+.welcome-frame{position:absolute;inset:22px;border:1px solid #b9cce4;pointer-events:none}.welcome-frame:after{content:'';position:absolute;inset:6px;border:1px solid #dfe8f5}.welcome-content{width:min(100%,640px)}
+.welcome-eyebrow{color:var(--blue);font-size:12px;letter-spacing:.3em;margin-top:8px}.welcome-logo{width:clamp(220px,31vh,335px);height:auto;margin:12px auto 16px;animation:logo-arrive 1500ms cubic-bezier(.2,.8,.2,1) both}
 .welcome-date{font-size:clamp(24px,4vw,32px);font-weight:400;line-height:1.6;color:var(--navy);letter-spacing:.02em}.welcome-time{font-size:14px;color:var(--muted);margin-top:5px}.welcome-place{font-size:14px;color:var(--muted);margin-top:4px}.welcome-countdown{gap:30px;margin:18px 0 5px}.welcome-countdown>div{min-width:60px}.welcome-countdown>div>span:first-child{font-size:42px;line-height:1.25}.welcome-countdown>div>span:last-child{font-size:13px}.countdown-caption{font-size:12px;color:var(--muted);margin-bottom:20px}.enter-button{position:relative;overflow:hidden;min-width:min(255px,100%);padding:14px 26px;background:var(--navy);border-color:var(--navy);box-shadow:0 8px 24px #12365e1a}.enter-button:after{content:'';position:absolute;inset:-100% -50%;background:linear-gradient(110deg,transparent 40%,#ffffff40 50%,transparent 60%);transform:translateX(-100%);animation:button-light 7s 1.4s ease-in-out infinite;pointer-events:none}.enter-button span{transition:transform .35s}.enter-button:hover span{transform:translateX(5px)}.welcome-footnote{font-size:12px;color:var(--muted);margin-top:18px}.welcome-motion{position:absolute;right:42px;top:36px;background:#ffffffb0;z-index:2}
 .welcome-content>:not(.welcome-logo){animation:welcome-arrive 1100ms .25s both}.welcome.exiting .welcome-content{animation:welcome-exit 650ms cubic-bezier(.6,0,.4,1) both}.welcome.exiting .welcome-frame{transition:opacity .5s;opacity:0}
 .wishes-section{padding-block:70px 90px;border-top:1px solid var(--line)}.wishes-heading{text-align:center;margin-bottom:30px}.wishes-heading .subtle{margin-top:8px}.wish-form{max-width:700px;margin:auto;padding:34px;border:1px solid var(--line);background:linear-gradient(155deg,#fff,#f5f9fe);box-shadow:0 16px 45px #16396408}.wish-form label{display:block;font-size:14px;margin-bottom:8px}.wish-form input,.wish-form textarea,.wish-form select{font:16px/1.8 var(--font-body);color:var(--ink);border:1px solid var(--silver);background:#fff;border-radius:4px;padding:11px 14px;max-width:100%}.wish-form input,.wish-form textarea{width:100%}.wish-form textarea{resize:vertical;min-height:190px}.wish-tabs{display:flex;gap:4px;background:#eaf1fa;padding:5px;border-radius:8px;margin:22px 0 18px}.wish-tabs button{flex:1;border:0;border-radius:5px;background:transparent;color:var(--muted);padding:11px 8px;font-size:14px;min-height:48px}.wish-tabs [aria-selected="true"]{background:var(--navy);color:white;box-shadow:0 3px 9px #17375e12}.wish-counter{text-align:right;color:var(--muted);font-size:12px}.drawing-sheet{position:relative;margin-top:12px;background:white;border:1px solid var(--silver);border-radius:4px;overflow:hidden}.drawing-sheet canvas{width:100%;height:auto;aspect-ratio:5/3;display:block;touch-action:none;cursor:crosshair}.drawing-sheet>span{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;color:#8299b6;font-size:14px}.drawing-tools{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:10px}.drawing-tools label{margin:0}.drawing-tools select{padding:5px 8px;font-size:14px}.drawing-tools .text-button{margin-left:auto}.drawing-tools .text-button+.text-button{margin-left:0}.wish-storage-note{margin-top:22px}.wish-status{margin-top:10px;font-size:14px;color:var(--navy);white-space:pre-line;overflow-wrap:anywhere}.wish-status:empty{display:none}.wish-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-@keyframes logo-arrive{from{opacity:0;transform:translateY(12px) scale(.95);filter:blur(3px)}to{opacity:1;transform:none;filter:none}}@keyframes welcome-arrive{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}@keyframes welcome-exit{to{opacity:0;transform:translateY(-24px) scale(1.035)}}@keyframes welcome-light{to{transform:rotate(360deg)}}@keyframes button-light{0%,55%{transform:translateX(-100%)}80%,100%{transform:translateX(100%)}}
+@keyframes logo-arrive{from{opacity:0;transform:translateY(12px) scale(.95);filter:blur(3px)}to{opacity:1;transform:none;filter:none}}@keyframes welcome-arrive{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}@keyframes welcome-exit{to{opacity:0;transform:translate3d(0,-6px,0)}}@keyframes welcome-light{to{transform:rotate(360deg)}}@keyframes button-light{0%,55%{transform:translateX(-100%)}80%,100%{transform:translateX(100%)}}
 @media(max-width:600px){.welcome{padding:70px 24px 36px}.welcome-frame{inset:12px}.welcome-motion{right:27px;top:25px;padding:6px 10px;min-height:36px}.welcome-logo{width:min(64vw,270px);margin:10px auto 14px}.welcome-countdown{gap:16px}.welcome-countdown>div{min-width:49px}.welcome-countdown>div>span:first-child{font-size:36px}.welcome-date{font-size:25px}.welcome-time{font-size:14px}.welcome-footnote{margin-top:14px}.site-header nav{gap:12px}.site-header nav a{font-size:13px}.monogram img{width:48px;height:48px}.site-header{gap:8px}.motion-toggle{font-size:12px}.wish-form{padding:20px 16px}.wishes-section{padding-block:50px}.wish-actions .button{width:100%}.drawing-tools{gap:9px}.wishes-heading .subtle{max-width:290px;margin:10px auto 0}.drawing-tools label{font-size:13px}.welcome-content{max-width:100%}}
 @media(max-width:360px){.site-header nav{gap:8px}.site-header .motion-toggle{min-width:42px;padding-inline:4px}.welcome-countdown{gap:12px}.welcome-date{font-size:23px}}
 @media print{.welcome,.wish-form{display:none!important}#wedding-page[hidden]{display:block!important}}
@@ -23,26 +23,18 @@
 .chair-art img{aspect-ratio:1213/1296}
 .heart-button{width:auto;min-width:160px;height:auto;min-height:48px;padding:10px 24px;border-radius:30px;font:14px/1.7 var(--font-body)}
 
-/* Botanical logo entrance: refined for a smoother, more premium first impression.
-   The logo now eases in with softer opacity/blur transitions and a gentler bloom reveal.
-   We also remove the continuous breathing loop so the mark feels calmer and more elegant. */
-.botanical-logo{animation:none;position:relative;aspect-ratio:1;contain:layout style;transform:translateZ(0);will-change:transform,opacity}
-.botanical-logo svg{display:block;width:100%;height:auto;overflow:visible;transform:none;transform-origin:center center;backface-visibility:hidden}
-.botanical-logo svg *{backface-visibility:hidden;will-change:transform,opacity,filter}
-.botanical-letters,.botanical-signature{opacity:1;transform:none;filter:none}
-.botanical-growth-front{transform-box:view-box;transform-origin:650px 475px;transform:scale(1);opacity:1;filter:none}
-.motion-enabled .botanical-logo.logo-loading{opacity:0;transform:translateY(8px)}
-.motion-enabled .logo-ready{animation:sp-logo-settle 560ms cubic-bezier(.22,.8,.24,1) both}
-.motion-enabled .logo-ready .botanical-letters{animation:sp-letters-soft-in 2400ms 120ms cubic-bezier(.18,.88,.2,1) both}
-.motion-enabled .logo-ready .botanical-growth-front{animation:sp-bloom-reveal 2150ms 360ms cubic-bezier(.22,.72,.2,1) both}
-.motion-enabled .logo-ready .botanical-signature{animation:sp-signature-soft-in 1200ms 1280ms cubic-bezier(.2,.9,.25,1) both}
-.motion-background .botanical-logo,.motion-background .botanical-logo *{animation-play-state:paused!important}
-@keyframes sp-logo-settle{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-@keyframes sp-letters-soft-in{0%{opacity:0;transform:translateY(18px) scale(.982);filter:blur(7px)}65%{opacity:1;filter:blur(1.6px)}100%{opacity:1;transform:none;filter:none}}
-@keyframes sp-bloom-reveal{0%{transform:translate3d(12px,14px,0) scale(.18);opacity:.5;filter:blur(10px)}58%{opacity:1;filter:blur(2px)}100%{transform:none;opacity:1;filter:none}}
-@keyframes sp-signature-soft-in{0%{opacity:0;transform:translateY(12px);filter:blur(5px)}100%{opacity:1;transform:none;filter:none}}
-.motion-paused .botanical-logo,.motion-paused .botanical-logo *{animation:none!important;opacity:1!important;transform:none!important;filter:none!important}
-@media(prefers-reduced-motion:reduce){.botanical-logo,.botanical-logo *{animation:none!important;opacity:1!important;transform:none!important;filter:none!important}}
+/* v15: artwork and signature share one untransformed coordinate system.
+   The reserved box includes the full original image; no negative offsets. */
+.botanical-logo{position:relative;animation:none;aspect-ratio:1526/1541;contain:layout style;isolation:isolate}
+.botanical-logo svg{display:block;width:100%;height:auto;overflow:hidden}
+.logo-mark,.logo-signature{opacity:1}
+.motion-enabled .botanical-logo.logo-loading{opacity:0}
+.motion-enabled .logo-ready .logo-mark{animation:logo-ink-arrival 1800ms cubic-bezier(.22,.61,.36,1) both}
+.motion-enabled .logo-ready .logo-signature{animation:logo-ink-arrival 1400ms 550ms cubic-bezier(.22,.61,.36,1) both}
+@keyframes logo-ink-arrival{from{opacity:0}to{opacity:1}}
+.motion-background .botanical-logo *{animation-play-state:paused!important}
+.motion-paused .botanical-logo,.motion-paused .logo-mark,.motion-paused .logo-signature{animation:none!important;opacity:1!important}
+@media(prefers-reduced-motion:reduce){.botanical-logo,.logo-mark,.logo-signature{animation:none!important;opacity:1!important}}
 
 /* Navy cover opens around its left spine, revealing a textured white insert. */
 .invitation-card,.motion-enabled .invitation-card{background:#102e59;color:white;border:1px solid #214979;box-shadow:0 14px 36px #102e5920;transform:none;transition:box-shadow .35s,border-color .35s}
@@ -86,42 +78,23 @@
 .script-title{font-size:clamp(36px,4.6vw,55px);line-height:1.2;margin:14px 0 16px;font-synthesis:none}
 .footer-names{font-size:36px}.dialog-names,.paper-inside .dialog-names{font-size:34px;line-height:1.25}
 .countdown>div>span:first-child{font-size:42px;line-height:1.45}.welcome-countdown>div>span:first-child{font-size:40px}
-/* Cinematic story using complementary soft masks over the original photo.
-   The unmasked master resolves last, retaining every original pixel. */
+/* A single original image: no stacked masked copies or late master swap. */
 .hero-story{margin-bottom:12px}
-.story-camera{position:relative;isolation:isolate;transform-origin:50% 65%}
-.story-master{position:relative;z-index:3}
-.story-layer{position:absolute;inset:0;display:none;pointer-events:none}
-.story-layer img{width:100%;height:100%;object-fit:contain}
-.story-setting{-webkit-mask-image:radial-gradient(ellipse 36% 54% at 49% 66%,transparent 57%,#000 84%);mask-image:radial-gradient(ellipse 36% 54% at 49% 66%,transparent 57%,#000 84%)}
-.story-couple{-webkit-mask-image:radial-gradient(ellipse 36% 54% at 49% 66%,#000 57%,transparent 84%);mask-image:radial-gradient(ellipse 36% 54% at 49% 66%,#000 57%,transparent 84%)}
-.story-light{display:none;position:absolute;inset:0;z-index:4;pointer-events:none;background:linear-gradient(110deg,transparent 25%,#fff6 45%,transparent 62%);opacity:0}
-.hero-story-caption{position:relative;display:grid;place-items:center;min-height:44px;margin:0 12px 8px;font-family:Prompt,Tahoma,sans-serif;font-size:15px;line-height:1.9;color:var(--muted)}
-.story-line{grid-area:1/1;text-align:center}.story-line-one,.story-line-two{display:none}
+.story-camera{position:relative;isolation:isolate}
+.story-master{position:relative;display:block}
+.story-layer,.story-light{display:none!important}
+.hero-story-caption{position:relative;display:grid;place-items:center;min-height:44px;margin:0 12px 8px;font:15px/1.9 Prompt,Tahoma,sans-serif;color:var(--muted)}
+.story-line{grid-area:1/1;text-align:center}.story-line-one{display:none}
 .motion-enabled .hero-story .art-tilt{transform:none}
-.motion-enabled .hero-story .art-drift{animation:story-breathes 18s ease-in-out infinite;animation-play-state:paused}
+.motion-enabled .hero-story .art-drift{animation:story-breathes 20s ease-in-out infinite;animation-play-state:paused}
 .motion-enabled .hero-story.scene-active .art-drift{animation-play-state:running}
-.motion-enabled .story-started .story-layer{display:block}
-.motion-enabled .story-started .story-setting{animation:story-garden-arrives 3000ms cubic-bezier(.25,.1,.25,1) both}
-.motion-enabled .story-started .story-couple{animation:story-couple-arrives 3200ms 800ms cubic-bezier(.25,.1,.25,1) both}
-.motion-enabled .story-started .story-master{animation:story-whole-memory 4400ms ease both}
-.motion-enabled .story-started .story-camera{animation:story-camera-settles 6500ms cubic-bezier(.25,.1,.25,1) both}
-.motion-enabled .story-started .story-light{display:block;animation:story-morning-light 3800ms 2800ms ease-in-out both}
-.motion-enabled .story-started .story-line-one{display:block;animation:story-caption-passing 2700ms ease both}
-.motion-enabled .story-started .story-line-two{display:block;animation:story-caption-passing 2900ms 2700ms ease both}
-.motion-enabled .story-started .story-line-three{animation:story-caption-final 1500ms 5600ms ease both}
+.motion-enabled .story-started .story-camera{animation:story-arrival 1800ms cubic-bezier(.22,.61,.36,1) both}
+.motion-enabled .story-started .story-line-two{animation:welcome-arrive 1000ms 550ms cubic-bezier(.22,.61,.36,1) both}
 .motion-background .hero-story *,.motion-enabled .hero-story:not(.scene-active) *{animation-play-state:paused!important}
-@keyframes story-garden-arrives{from{opacity:0}to{opacity:1}}
-@keyframes story-couple-arrives{from{opacity:0}to{opacity:1}}
-@keyframes story-whole-memory{0%,68%{opacity:0}100%{opacity:1}}
-@keyframes story-camera-settles{0%{transform:scale(1.014)}100%{transform:scale(1)}}
-@keyframes story-morning-light{0%{opacity:0;transform:translateX(-22%)}40%{opacity:.24}100%{opacity:0;transform:translateX(22%)}}
-@keyframes story-caption-passing{0%{opacity:0;transform:translateY(5px)}20%,73%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-4px)}}
-@keyframes story-caption-final{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
-.motion-paused .hero-story .story-layer,.motion-paused .hero-story .story-light,.motion-paused .hero-story .story-line-one,.motion-paused .hero-story .story-line-two{display:none}
-.motion-paused .hero-story .story-master,.motion-paused .hero-story .story-line-three{opacity:1!important;transform:none!important}
+@keyframes story-arrival{from{opacity:0;transform:translate3d(0,8px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+.motion-paused .story-camera,.motion-paused .story-line-two{opacity:1!important;transform:none!important}
 @media(max-width:600px){.hero-story{margin-bottom:8px}.hero h1{font-size:clamp(37px,9.4vw,52px);gap:0 12px;line-height:1.22;margin:16px 0}.hero h1 .ampersand{font-size:.75em}.script-title{font-size:clamp(31px,8.4vw,43px)}.footer-names{font-size:29px}.paper-inside .dialog-names{font-size:28px}.hero-story-caption{font-size:14px;min-height:54px;margin-inline:16px}.welcome-countdown>div>span:first-child{font-size:34px}.hero .eyebrow,.welcome-eyebrow{font-size:13px;letter-spacing:.12em}}
-@media(prefers-reduced-motion:reduce){.hero-story *{animation:none!important;transform:none!important}.hero-story .story-layer,.hero-story .story-light,.hero-story .story-line-one,.hero-story .story-line-two{display:none!important}.hero-story .story-master,.hero-story .story-line-three{opacity:1!important}}
+@media(prefers-reduced-motion:reduce){.hero-story *{animation:none!important;transform:none!important}.story-camera,.story-line-two{opacity:1!important}}
 
 /* Airy mesh gradient: only soft fields move; text and monogram remain stable. */
 .welcome{background:#fff}.welcome:before{content:none}
@@ -144,10 +117,6 @@
 @media(max-width:600px){.hero h1{flex-direction:column;align-items:center;gap:5px;font-size:clamp(47px,13vw,64px);line-height:1.2}.hero h1 .ampersand{font-size:.44em;line-height:1.1;margin:3px 0}.wish-export-row{flex-direction:column}.wish-export-row select{flex:auto;width:100%}.timeline-time{font-size:16px}}
 @media(prefers-reduced-motion:reduce){.welcome-mesh i{animation:none;will-change:auto}}
 
-.motion-enabled .story-started .story-line-two{animation:story-caption-final 1500ms 2700ms ease both}
-.motion-paused .hero-story .story-line-two{display:block!important;opacity:1!important;transform:none!important}
-@media(prefers-reduced-motion:reduce){.hero-story .story-line-two{display:block!important;opacity:1!important}}
-
 /* Landscape phones (short viewport height, e.g. rotated to browse): the splash
    screen otherwise needs more vertical space than the screen offers. Tightened
    independently of width, since these devices are wide, not narrow. */
@@ -166,7 +135,7 @@
 }
 
 /* A continuous loop with matching endpoints; no replay of the story entrance. */
-@keyframes story-breathes{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(0,-3px,0) scale(1.006)}}
+@keyframes story-breathes{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-2px,0)}}
 /* The original Orange Avenue has only a regular face. Allow gentle synthetic weight. */
 [lang="en"],.eyebrow,.script-title,.hero h1,.footer-names,.dialog-names,.ampersand,.countdown>div>span:first-child,.dresscode-name{font-weight:600;font-synthesis:weight}
 .hero h1 .ampersand{font-family:var(--font-serif);font-weight:600}
@@ -206,12 +175,30 @@
 @media(max-width:600px){.welcome-primary-button,.welcome-main-button{min-height:58px;font-size:17px}.welcome-shortcuts{gap:10px}.welcome-shortcuts .welcome-secondary{min-height:52px;font-size:15px}}
 @media(max-width:380px){.welcome-primary-button,.welcome-main-button{font-size:16px;padding-inline:18px}.welcome-shortcuts{grid-template-columns:1fr 1fr;gap:8px}.welcome-shortcuts .welcome-secondary{padding-inline:10px;font-size:14px}}
 
-/* v13: align welcome monogram position closer to the new approved logo composition */
-@media(max-width:600px){.welcome{padding:56px 22px 36px}.welcome-eyebrow{margin-bottom:16px}.welcome-logo{width:min(72vw,285px);margin:0 auto 20px}.botanical-logo svg{transform:none;transform-origin:center center}}
 
-/* v14 — welcome composition refinement: keep title, monogram and signature separated and centered. */
-@media(max-width:420px){
-  .welcome-content{width:min(100%,360px)}
-  .welcome-eyebrow{font-size:11px;letter-spacing:.24em;margin-bottom:14px}
-  .welcome-logo{width:min(70vw,270px);margin-bottom:18px}
+
+/* Balanced landing composition: stable viewport units keep browser chrome from
+   resizing the logo. Small / landscape screens scroll normally, never overlap. */
+.welcome{padding:32px 24px}
+.welcome-content{display:flex;flex-direction:column;align-items:center}
+.welcome-content>*{flex-shrink:0;max-width:100%}
+.welcome-eyebrow{margin:0 0 16px}
+.welcome-logo{width:clamp(190px,29svh,290px);max-width:74vw;margin:0 auto 22px}
+.welcome-countdown{justify-content:center}
+.welcome-shortcuts{width:min(100%,420px)}
+.welcome-content>:not(.welcome-logo){animation:none}
+.motion-enabled .welcome-content>:not(.welcome-logo):not(.sr-only){animation:welcome-arrive 900ms 100ms cubic-bezier(.22,.61,.36,1) backwards}
+.enter-button:after{content:none}
+.welcome-mesh i{animation-duration:32s;will-change:auto}
+.welcome-mesh i:nth-child(2){animation-duration:38s}
+.welcome-mesh i:nth-child(3){animation-duration:34s}
+.welcome-mesh i:nth-child(4){display:none}
+@media(max-width:600px){
+ .welcome{padding:30px 24px}
+ .welcome-eyebrow{margin:0 0 14px}
+ .welcome-logo{width:clamp(180px,27svh,245px);margin:0 auto 18px}
+ .welcome-primary-button,.welcome-main-button{min-height:52px;padding-block:11px}
+ .welcome-shortcuts .welcome-secondary{min-height:48px;padding-block:10px}
+ .welcome-mesh i:nth-child(3){display:none}
 }
+@media(max-height:500px) and (orientation:landscape){.welcome-logo{width:150px}.welcome{padding:28px 24px}}
