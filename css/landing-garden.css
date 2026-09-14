@@ -1,0 +1,56 @@
+/* The garden is decorative and confined to the welcome screen.
+   Artwork retains its aspect ratio; no layout or hit targets depend on it. */
+#welcome .welcome-garden{position:absolute;inset:0;z-index:-1;pointer-events:none;user-select:none;overflow:hidden;contain:paint;mix-blend-mode:multiply}
+.welcome-garden .garden-side{position:absolute;top:-4px;bottom:-4px;width:clamp(100px,26vw,360px);overflow:hidden;opacity:.62}
+.welcome-garden .garden-left{left:-4px;mask-image:linear-gradient(90deg,#000 20%,#0009 62%,transparent);-webkit-mask-image:linear-gradient(90deg,#000 20%,#0009 62%,transparent)}
+.welcome-garden .garden-right{right:-4px;mask-image:linear-gradient(270deg,#000 20%,#0009 62%,transparent);-webkit-mask-image:linear-gradient(270deg,#000 20%,#0009 62%,transparent)}
+.welcome-garden .garden-painting{position:absolute;inset:0}
+.welcome-garden .garden-side img{position:absolute;top:0;height:100%;width:auto;max-width:none;pointer-events:none}
+.welcome-garden .garden-left img{left:0;transform-origin:0 60%}
+.welcome-garden .garden-right img{right:0;transform-origin:100% 60%}
+.welcome-garden .garden-lake{position:absolute;bottom:-5px;left:50%;width:min(800px,100%);height:clamp(65px,13svh,115px);transform:translateX(-50%);overflow:hidden;opacity:.18;mask-image:linear-gradient(transparent,#000 70%);-webkit-mask-image:linear-gradient(transparent,#000 70%)}
+.welcome-garden .garden-lake img{position:absolute;bottom:0;width:100%;height:auto;max-width:none}
+.welcome-garden .garden-birds{position:absolute;inset:0;overflow:hidden}
+.welcome-garden .bird-flight{position:absolute;left:var(--bird-x);top:var(--bird-y);width:var(--bird-size,64px);opacity:0}
+.welcome-garden .bird-flight img{display:block;width:100%;height:auto;transform-origin:55% 55%}
+.welcome-garden .bird-one{--bird-x:-50px;--bird-y:43%;--bird-size:66px;--flight-x:25vw;--flight-y:-26svh;--flight-time:26s;--flight-delay:1.3s}
+.welcome-garden .bird-two{--bird-x:calc(100% + 20px);--bird-y:29%;--bird-size:52px;--flight-x:-24vw;--flight-y:-21svh;--flight-time:33s;--flight-delay:6.5s}
+.welcome-garden .bird-two img{scale:-1 1}
+.welcome-garden .bird-three{--bird-x:-45px;--bird-y:68%;--bird-size:45px;--flight-x:23vw;--flight-y:-24svh;--flight-time:37s;--flight-delay:13s}
+/* Fade-in and sway live on separate wrappers, so their transforms never compete. */
+.motion-enabled .garden-ready .garden-painting{animation:garden-arrive 1800ms cubic-bezier(.22,.61,.36,1) both}
+.motion-enabled .garden-ready .garden-side img{animation:garden-sway 18s ease-in-out infinite}
+.motion-enabled .garden-ready .garden-right img{animation-name:garden-sway-right;animation-duration:23s}
+.motion-enabled .garden-ready .garden-lake img{animation:lake-drift 29s ease-in-out infinite}
+.motion-enabled .garden-ready .bird-flight{animation:bird-journey var(--flight-time) var(--flight-delay) linear infinite}
+.motion-enabled .garden-ready .bird-flight img{animation:bird-glide 2400ms ease-in-out infinite}
+@keyframes garden-arrive{from{opacity:0;transform:translate3d(0,5px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes garden-sway{0%,100%{transform:translate3d(0,0,0) rotate(0deg)}50%{transform:translate3d(2px,-2px,0) rotate(.18deg)}}
+@keyframes garden-sway-right{0%,100%{transform:translate3d(0,0,0) rotate(0deg)}50%{transform:translate3d(-2px,-3px,0) rotate(-.18deg)}}
+@keyframes lake-drift{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(3px,-1px,0)}}
+/* The bird crosses only the margins, dissolves into the distance, then rests.
+   Invisible reset and matching loop endpoints avoid a jump across the screen. */
+@keyframes bird-journey{
+ 0%{opacity:0;transform:translate3d(0,0,0) scale(.9)}
+ 5%{opacity:.72}
+ 29%{opacity:.65}
+ 40%{opacity:0;transform:translate3d(var(--flight-x),var(--flight-y),0) scale(.62)}
+ 100%{opacity:0;transform:translate3d(var(--flight-x),var(--flight-y),0) scale(.62)}
+}
+@keyframes bird-glide{0%,100%{transform:translate3d(0,0,0) rotate(-3deg)}50%{transform:translate3d(0,-3px,0) rotate(3deg)}}
+#welcome .welcome-content{position:relative;z-index:1}
+.motion-enabled .welcome-garden:not(.garden-visible) *,.motion-background .welcome-garden *,.welcome.exiting .welcome-garden *{animation-play-state:paused!important}
+/* Mobile gets just two small birds and lighter flowers behind the edge of the UI. */
+@media(max-width:600px){
+ .welcome-garden .garden-side{width:24vw;opacity:.42}
+ .welcome-garden .garden-left{mask-image:linear-gradient(90deg,#000,transparent);-webkit-mask-image:linear-gradient(90deg,#000,transparent)}
+ .welcome-garden .garden-right{mask-image:linear-gradient(270deg,#000,transparent);-webkit-mask-image:linear-gradient(270deg,#000,transparent)}
+ .welcome-garden .garden-lake{opacity:.12;height:66px}
+ .welcome-garden .bird-one{--bird-size:54px;--flight-x:28vw;--flight-y:-25svh}
+ .welcome-garden .bird-two{--bird-size:44px;--flight-x:-27vw;--flight-y:-19svh}
+ .welcome-garden .bird-three{display:none}
+}
+.motion-paused .welcome-garden *{animation:none!important}
+.motion-paused .welcome-garden .bird-flight{display:none}
+@media(prefers-reduced-motion:reduce){.welcome-garden *{animation:none!important}.welcome-garden .bird-flight{display:none}}
+@media print{.welcome-garden{display:none}}
