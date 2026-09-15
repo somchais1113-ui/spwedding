@@ -1,4 +1,4 @@
-/* The garden is decorative and confined to the welcome screen.
+/* The garden is decorative on welcome and main screens.
    Artwork retains its aspect ratio; no layout or hit targets depend on it. */
 #welcome .welcome-garden{position:absolute;inset:0;z-index:-1;pointer-events:none;user-select:none;overflow:hidden;contain:paint;mix-blend-mode:multiply}
 .welcome-garden .garden-side{position:absolute;top:-4px;bottom:-4px;width:clamp(100px,26vw,360px);overflow:hidden;opacity:.62}
@@ -13,17 +13,30 @@
 .welcome-garden .garden-birds{position:absolute;inset:0;overflow:hidden}
 .welcome-garden .bird-flight{position:absolute;left:var(--bird-x);top:var(--bird-y);width:var(--bird-size,64px);opacity:0}
 .welcome-garden .bird-flight img{display:block;width:100%;height:auto;transform-origin:55% 55%}
-.welcome-garden .bird-one{--bird-x:-50px;--bird-y:43%;--bird-size:66px;--flight-x:25vw;--flight-y:-26svh;--flight-time:26s;--flight-delay:1.3s}
-.welcome-garden .bird-two{--bird-x:calc(100% + 20px);--bird-y:29%;--bird-size:52px;--flight-x:-24vw;--flight-y:-21svh;--flight-time:33s;--flight-delay:6.5s}
-.welcome-garden .bird-two img{scale:-1 1}
-.welcome-garden .bird-three{--bird-x:-45px;--bird-y:68%;--bird-size:45px;--flight-x:23vw;--flight-y:-24svh;--flight-time:37s;--flight-delay:13s}
+.welcome-garden .bird-one{--bird-x:-50px;--bird-y:43%;--bird-size:94px;--flight-x:25vw;--flight-y:-26svh;--flight-time:26s;--flight-delay:1.3s}
+.welcome-garden .bird-two{--bird-x:calc(100% + 20px);--bird-y:29%;--bird-size:80px;--flight-x:-24vw;--flight-y:-21svh;--flight-time:33s;--flight-delay:6.5s}
+.welcome-garden .bird-two .bird-rig{scale:-1 1}
 /* Fade-in and sway live on separate wrappers, so their transforms never compete. */
 .motion-enabled .garden-ready .garden-painting{animation:garden-arrive 1800ms cubic-bezier(.22,.61,.36,1) both}
 .motion-enabled .garden-ready .garden-side img{animation:garden-sway 18s ease-in-out infinite}
 .motion-enabled .garden-ready .garden-right img{animation-name:garden-sway-right;animation-duration:23s}
 .motion-enabled .garden-ready .garden-lake img{animation:lake-drift 29s ease-in-out infinite}
 .motion-enabled .garden-ready .bird-flight{animation:bird-journey var(--flight-time) var(--flight-delay) linear infinite}
-.motion-enabled .garden-ready .bird-flight img{animation:bird-glide 2400ms ease-in-out infinite}
+.welcome-garden .bird-rig{display:block;width:100%;height:auto;overflow:visible}
+.welcome-garden .bird-wing{transform-box:view-box;transform-origin:150px 105px}
+.motion-enabled .garden-ready .bird-wing{animation:bird-wingbeat var(--wing-period,3.8s) cubic-bezier(.45,0,.55,1) infinite}
+.motion-enabled .garden-ready .bird-wing-far{animation-name:bird-wingbeat-far;animation-delay:-.07s}
+.welcome-garden .bird-two{--wing-period:4.3s}
+@keyframes bird-wingbeat{
+ 0%,24%,48%,100%{transform:rotate(-3deg) scaleY(.94)}
+ 12%,36%{transform:rotate(12deg) scaleY(-.38)}
+ 62%,84%{transform:rotate(3deg) scaleY(.72)}
+}
+@keyframes bird-wingbeat-far{
+ 0%,24%,48%,100%{transform:rotate(1deg) scaleY(.96)}
+ 12%,36%{transform:rotate(-8deg) scaleY(-.28)}
+ 62%,84%{transform:rotate(-2deg) scaleY(.78)}
+}
 @keyframes garden-arrive{from{opacity:0;transform:translate3d(0,5px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
 @keyframes garden-sway{0%,100%{transform:translate3d(0,0,0) rotate(0deg)}50%{transform:translate3d(2px,-2px,0) rotate(.18deg)}}
 @keyframes garden-sway-right{0%,100%{transform:translate3d(0,0,0) rotate(0deg)}50%{transform:translate3d(-2px,-3px,0) rotate(-.18deg)}}
@@ -46,11 +59,31 @@
  .welcome-garden .garden-left{mask-image:linear-gradient(90deg,#000,transparent);-webkit-mask-image:linear-gradient(90deg,#000,transparent)}
  .welcome-garden .garden-right{mask-image:linear-gradient(270deg,#000,transparent);-webkit-mask-image:linear-gradient(270deg,#000,transparent)}
  .welcome-garden .garden-lake{opacity:.12;height:66px}
- .welcome-garden .bird-one{--bird-size:54px;--flight-x:28vw;--flight-y:-25svh}
- .welcome-garden .bird-two{--bird-size:44px;--flight-x:-27vw;--flight-y:-19svh}
- .welcome-garden .bird-three{display:none}
-}
+ .welcome-garden .bird-one{--bird-size:80px;--flight-x:28vw;--flight-y:-25svh}
+ .welcome-garden .bird-two{--bird-size:72px;--flight-x:-27vw;--flight-y:-19svh}
+ }
 .motion-paused .welcome-garden *{animation:none!important}
 .motion-paused .welcome-garden .bird-flight{display:none}
 @media(prefers-reduced-motion:reduce){.welcome-garden *{animation:none!important}.welcome-garden .bird-flight{display:none}}
 @media print{.welcome-garden{display:none}}
+
+/* A fixed decorative frame never changes document width or participates in modal sizing. */
+#wedding-page .main-garden{position:fixed;inset:0;z-index:8;pointer-events:none;user-select:none;overflow:hidden;contain:paint;mix-blend-mode:multiply}
+.main-garden .garden-scroll-layer{position:absolute;inset:-12px 0;transform:translate3d(0,var(--garden-scroll,0px),0)}
+.main-garden .garden-side{width:clamp(38px,9vw,150px);opacity:.35}
+.main-garden .garden-left{mask-image:linear-gradient(90deg,#000,transparent 95%);-webkit-mask-image:linear-gradient(90deg,#000,transparent 95%)}
+.main-garden .garden-right{mask-image:linear-gradient(270deg,#000,transparent 95%);-webkit-mask-image:linear-gradient(270deg,#000,transparent 95%)}
+.main-garden-line{position:absolute;inset:10px;border:1px solid #b2c9e03b;pointer-events:none}
+/* No flattening filter: petals retain the pale blue shading of the new artwork. */
+.invitation-card,.book-cover-front{background:#173a66;isolation:isolate}
+.invitation-card .ps-cover-logo,.book-cover-front .ps-cover-logo{filter:none;mix-blend-mode:lighten;object-fit:contain;aspect-ratio:1}
+.invitation-card .ps-cover-logo{width:clamp(190px,40vw,250px);height:auto}
+.book-cover-front .ps-cover-logo{width:min(68%,270px);height:auto}
+.travel-guide .travel-venue .venue-pin-icon{width:30px;height:38px;flex:none;filter:drop-shadow(0 2px 2px #8d202025)}
+@media(max-width:600px){
+ .main-garden .garden-side{width:38px;opacity:.22}
+ .main-garden-line{inset:5px;border-color:#b2c9e02b}
+}
+@media(prefers-reduced-motion:reduce){.main-garden .garden-scroll-layer{transform:none}}
+.motion-enabled .garden-ready .bird-rig{animation:bird-glide 2800ms ease-in-out infinite}
+@media(prefers-reduced-motion:reduce){.motion-enabled .garden-ready .bird-rig{animation:none}}

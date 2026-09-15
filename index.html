@@ -59,9 +59,28 @@
       <div class="garden-side garden-right"><div class="garden-painting"><img src="assets/landing/watercolor-garden.webp" width="941" height="1672" alt="" decoding="async" fetchpriority="low"></div></div>
       <div class="garden-lake"><img src="assets/landing/watercolor-garden.webp" width="941" height="1672" alt="" decoding="async" fetchpriority="low"></div>
       <div class="garden-birds">
-        <span class="bird-flight bird-one"><img src="assets/landing/watercolor-bird.webp" width="240" height="160" alt="" decoding="async" fetchpriority="low"></span>
-        <span class="bird-flight bird-two"><img src="assets/landing/watercolor-bird.webp" width="240" height="160" alt="" decoding="async" fetchpriority="low"></span>
-        <span class="bird-flight bird-three"><img src="assets/landing/watercolor-bird.webp" width="240" height="160" alt="" decoding="async" fetchpriority="low"></span>
+        <span class="bird-flight bird-one"><svg class="bird-rig" viewBox="0 0 240 160" width="240" height="160" aria-hidden="true" focusable="false">
+ <defs>
+  <image id="bird-art-one" href="assets/landing/watercolor-bird.webp" width="240" height="160"/>
+  <clipPath id="bird-near-one"><path d="M 0 0 H 144 L 143 79 L 153 103 L 140 113 L 111 113 L 0 112 Z"/></clipPath>
+  <clipPath id="bird-far-one"><path d="M 144 0 H 240 V 89 L 166 91 L 153 103 L 143 79 Z"/></clipPath>
+  <clipPath id="bird-body-one"><path d="M 0 112 L 111 113 L 140 113 L 153 103 L 166 91 L 240 89 V 160 H 0 Z"/></clipPath>
+ </defs>
+ <g class="bird-wing bird-wing-far"><g clip-path="url(#bird-far-one)"><use href="#bird-art-one"/></g></g>
+ <g clip-path="url(#bird-body-one)"><use href="#bird-art-one"/></g>
+ <g class="bird-wing bird-wing-near"><g clip-path="url(#bird-near-one)"><use href="#bird-art-one"/></g></g>
+ </svg></span>
+        <span class="bird-flight bird-two"><svg class="bird-rig" viewBox="0 0 240 160" width="240" height="160" aria-hidden="true" focusable="false">
+ <defs>
+  <image id="bird-art-two" href="assets/landing/watercolor-bird.webp" width="240" height="160"/>
+  <clipPath id="bird-near-two"><path d="M 0 0 H 144 L 143 79 L 153 103 L 140 113 L 111 113 L 0 112 Z"/></clipPath>
+  <clipPath id="bird-far-two"><path d="M 144 0 H 240 V 89 L 166 91 L 153 103 L 143 79 Z"/></clipPath>
+  <clipPath id="bird-body-two"><path d="M 0 112 L 111 113 L 140 113 L 153 103 L 166 91 L 240 89 V 160 H 0 Z"/></clipPath>
+ </defs>
+ <g class="bird-wing bird-wing-far"><g clip-path="url(#bird-far-two)"><use href="#bird-art-two"/></g></g>
+ <g clip-path="url(#bird-body-two)"><use href="#bird-art-two"/></g>
+ <g class="bird-wing bird-wing-near"><g clip-path="url(#bird-near-two)"><use href="#bird-art-two"/></g></g>
+ </svg></span>
       </div>
     </div>
     <div class="welcome-frame" aria-hidden="true"></div>
@@ -94,6 +113,13 @@
     </div>
   </section>
   <div id="wedding-page">
+  <div class="welcome-garden main-garden" aria-hidden="true">
+    <div class="garden-scroll-layer">
+      <div class="garden-side garden-left"><div class="garden-painting"><img src="assets/landing/watercolor-garden.webp" width="941" height="1672" alt="" decoding="async" loading="lazy"></div></div>
+      <div class="garden-side garden-right"><div class="garden-painting"><img src="assets/landing/watercolor-garden.webp" width="941" height="1672" alt="" decoding="async" loading="lazy"></div></div>
+    </div>
+    <div class="main-garden-line"></div>
+  </div>
   <header class="site-header">
     <a class="monogram" href="#home" aria-label="Somchai &amp; Phantira"><img src="assets/images/sp-wedding-logo.png" width="1254" height="1254" alt="SP"></a>
     <nav aria-label="เมนูหลัก">
@@ -178,7 +204,7 @@
       <h2 class="script-title" id="invitation-title" lang="en">You are invited</h2>
       <p class="section-intro">วันของเราจะพิเศษยิ่งขึ้น เมื่อมีคุณอยู่ด้วย</p>
       <button class="invitation-card" data-open-invite aria-label="เปิดอ่านการ์ดเชิญงานแต่งงาน">
-        <span class="card-small">ด้วยรัก และคำเชิญจากเรา</span><img class="card-logo" src="assets/images/sp-wedding-logo.png" width="1254" height="1254" alt="SP — Somchai &amp; Phantira"><span class="card-guest" data-guest>ถึงคุณ คนสำคัญของเรา</span><span class="card-open">แตะเพื่อเปิดการ์ด </span>
+        <span class="card-small">ด้วยรัก และคำเชิญจากเรา</span><img class="card-logo ps-cover-logo" src="assets/images/ps-invitation-white.webp" width="960" height="960" alt="PS — Phantira &amp; Somchai" loading="lazy" decoding="async"><span class="card-guest" data-guest>ถึงคุณ คนสำคัญของเรา</span><span class="card-open">แตะเพื่อเปิดการ์ด </span>
       </button>
       <a class="button" id="rsvp-link" hidden target="_blank" rel="noopener noreferrer">ตอบรับคำเชิญ</a>
     </section>
@@ -225,7 +251,7 @@
                 <img class="travel-map-art" width="1536" height="1024" alt="แผนที่จำลองสังคม มีแม่น้ำโขง ภูเขา วัด คาเฟ่ และน้ำตก" loading="lazy" decoding="async">
                 <svg class="travel-route-svg" viewBox="0 0 1000 667" aria-hidden="true"><path class="travel-route-shadow"></path><path class="travel-route-line"></path></svg>
                 <div class="travel-pins"></div>
-                <a class="travel-venue" target="_blank" rel="noopener noreferrer" aria-label="เปิดสถานที่จัดงานใน Google Maps"><span lang="en">SP</span><small>งานของเรา</small></a>
+                <a class="travel-venue" target="_blank" rel="noopener noreferrer" aria-label="เปิดสถานที่จัดงานใน Google Maps"><svg class="venue-pin-icon" viewBox="0 0 32 40" width="32" height="40" aria-hidden="true" focusable="false"><path fill="#c6414b" d="M16 1C7.7 1 1 7.7 1 16c0 10 15 23 15 23s15-13 15-23C31 7.7 24.3 1 16 1Z"/><circle cx="16" cy="16" r="6" fill="#fff"/></svg><small>งานของเรา</small></a>
               </div>
             </div>
             <p class="travel-map-caption">แผนที่ภาพประกอบ · ไม่ใช่มาตราส่วนจริง</p>
@@ -250,7 +276,7 @@
   <dialog id="invite-dialog" aria-labelledby="dialog-title">
     <button class="dialog-close" id="close-dialog" aria-label="ปิดการ์ดเชิญ">×</button>
     <div class="book-shell" data-dialog-scroll><div class="dialog-body paper-inside"><img class="dialog-logo" src="assets/images/sp-wedding-logo.png" width="1254" height="1254" alt="SP — Somchai &amp; Phantira"><p class="eyebrow" lang="en">WITH LOVE</p><h2 id="dialog-title" data-guest>ถึงคุณ คนสำคัญของเรา</h2><p class="invitation-message" id="invitation-message">ด้วยความยินดีของเราทั้งสองและครอบครัว<br>ขอเชิญคุณมาเป็นส่วนหนึ่งในวันสำคัญของเรา</p><p class="script-title dialog-names"><span data-groom lang="en">Somchai</span> &amp; <span data-bride lang="en">Phantira</span></p><p data-date-label>25 ตุลาคม 2569</p><p data-venue-address>ตำบลนางิ้ว อำเภอสังคม จังหวัดหนองคาย</p><section class="invitation-schedule" aria-labelledby="invitation-schedule-title"><h3 id="invitation-schedule-title">กำหนดการ</h3><ol id="invitation-schedule"><li><span class="invitation-schedule-time">06:00–06:30</span><span>ทำบุญเช้าเพื่อความเป็นสิริมงคล</span></li><li><span class="invitation-schedule-time">08:30–09:00</span><span>แห่ขันหมากรับตัวเจ้าสาว</span></li><li><span class="invitation-schedule-time">09:09–10:00</span><span>พิธีบายศรีสู่ขวัญคู่บ่าวสาว</span></li><li><span class="invitation-schedule-time">10:00–10:30</span><span>ผูกแขนและสมมาผู้ใหญ่</span></li><li><span class="invitation-schedule-time">10:30–11:00</span><span>ถ่ายภาพและรับคำอวยพร</span></li><li><span class="invitation-schedule-time">11:00–12:00</span><span>ร่วมรับประทานอาหารและส่งแขก</span></li></ol></section><a class="button" id="dialog-location" data-map-link href="https://maps.app.goo.gl/DUhbhavXCWh5exkH7" target="_blank" rel="noopener noreferrer">แผนที่สถานที่จัดงาน</a></div>
-      <div class="book-cover" aria-hidden="true"><div class="book-cover-front"><p>ด้วยรัก และคำเชิญจากเรา</p><img src="assets/images/sp-wedding-logo.png" width="1254" height="1254" alt=""><p data-guest>ถึงคุณ คนสำคัญของเรา</p><span>วันสำคัญที่อยากมีคุณอยู่ด้วย</span></div></div>
+      <div class="book-cover" aria-hidden="true"><div class="book-cover-front"><p>ด้วยรัก และคำเชิญจากเรา</p><img class="ps-cover-logo" src="assets/images/ps-invitation-white.webp" width="960" height="960" alt="" decoding="async"><p data-guest>ถึงคุณ คนสำคัญของเรา</p><span>วันสำคัญที่อยากมีคุณอยู่ด้วย</span></div></div>
     </div>
   </dialog>
   <dialog id="wish-photo-dialog" aria-labelledby="wish-photo-title"><div class="wish-photo-heading"><h2 id="wish-photo-title">การ์ดคำอวยพรของคุณ</h2><button type="button" id="close-wish-photo" aria-label="ปิดตัวอย่างการ์ด">×</button></div><img id="wish-photo-preview" alt="ภาพการ์ดคำอวยพรที่จัดทำจากข้อความหรือลายมือของคุณ"><div class="wish-photo-actions"><div class="wish-photo-buttonrow"><button type="button" class="button" id="share-wish-photo" hidden>แชร์ภาพการ์ด</button><a class="button button-outline" id="download-wish-photo" download="SP-Wedding-Wish.png">ดาวน์โหลด PNG</a></div><p class="subtle" id="wish-photo-share-status" aria-live="polite"></p><p class="subtle">PNG · 300 DPI — บันทึกหรือแชร์ภาพได้จากปุ่มด้านบน</p></div></dialog>

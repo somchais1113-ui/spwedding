@@ -43,7 +43,7 @@
     animation.onfinish = () => animations.delete(animation);
     animation.oncancel = () => animations.delete(animation);
   }
-  const sections = [...document.querySelectorAll('.hero-copy,.day-content,.location-heading,.venue-card,.invitation-section,.site-footer')];
+  const sections = [...document.querySelectorAll('.hero-copy,.day-content,.location-heading,.venue-card,.invitation-section,.dresscode-section,.wishes-heading,.travel-header,.travel-closing,.site-footer')];
   function revealSection(element) {
     if (element.matches('.venue-card,.site-footer')) { reveal(element); return; }
     const children = [...element.children].filter(child => !child.hidden && child.id !== 'schedule');
