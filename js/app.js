@@ -25,7 +25,7 @@
   fill('[data-venue-address]', config.venue.address);
   fill('[data-venue-note]', config.venue.note);
   fill('[data-parking]', config.venue.parking);
-  fill('#invitation-message', config.invitation);
+  fill('#invitation-message', config.invitationCard?.message || config.invitation);
   document.title = config.couple.groom + ' & ' + config.couple.bride + ' — Wedding Invitation';
   $('meta[name="description"]').content = 'คำเชิญงานแต่งงานของ ' + config.couple.groom + ' และ ' + config.couple.bride + ' · ' + dateLabel + ' · ' + config.venue.province;
 
@@ -52,7 +52,7 @@
   });
   const invitationSchedule=$('#invitation-schedule');
   invitationSchedule.replaceChildren();
-  config.schedule.forEach(item=>{const row=document.createElement('li'),time=document.createElement('span'),title=document.createElement('span');time.className='invitation-schedule-time';time.textContent=item.time;title.textContent=item.title;row.append(time,title);invitationSchedule.append(row);});
+  config.schedule.forEach(item=>{const row=document.createElement('li'),time=document.createElement('span'),title=document.createElement('span');time.className='invitation-schedule-time';time.textContent=item.time;title.textContent=config.invitationCard?.scheduleLabels?.[item.time]||item.title;row.append(time,title);invitationSchedule.append(row);});
   $('#schedule-note').textContent = config.scheduleNote || (config.scheduleConfirmed ? 'กำหนดการในวันงาน' : 'กำหนดการเบื้องต้น · เวลาอาจมีการเปลี่ยนแปลง');
   if (!config.schedule.length) $('#schedule-note').textContent = 'กำหนดการจะแจ้งให้ทราบอีกครั้ง';
 
@@ -86,7 +86,8 @@
 
   const dialog = $('#invite-dialog');
   all('[data-open-invite]').forEach(button => button.addEventListener('click', () => {
-    window.WeddingDialogs.open(dialog, button, $('#close-dialog'));
+    if(window.WeddingInvitation) window.WeddingInvitation.open(button);
+    else window.WeddingDialogs.open(dialog, button, $('#close-dialog'));
   }));
   $('#close-dialog').addEventListener('click', () => dialog.close());
   dialog.addEventListener('click', event => {

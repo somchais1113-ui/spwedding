@@ -1,0 +1,43 @@
+/* Only the invitation changes. Native dialog keeps the existing scroll-lock lifecycle. */
+#invite-dialog.reference-invitation{width:620px;max-width:calc(100% - 24px);padding:10px 12px 12px;border:1px solid #d6e3ef;border-radius:14px;background:#fff;overflow:auto;max-height:calc(100svh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom))}
+#invite-dialog .invitation-reader{max-height:none;overflow:visible}
+#invite-dialog .invite-toolbar{display:flex;align-items:center;gap:6px;min-height:44px;margin-bottom:6px}
+#invite-dialog .invite-toolbar h2{flex:1;min-width:0;font:500 15px/1.5 var(--font-body);text-align:left;margin:0;overflow-wrap:anywhere}
+#invite-dialog #close-dialog,#invite-dialog #invite-sound{position:relative;inset:auto;flex:none;width:44px;height:44px;padding:0;border:0;border-radius:50%;background:#f3f7fc;color:var(--navy);box-shadow:none;display:grid;place-items:center;outline-offset:-3px}
+#invite-dialog #close-dialog{font:30px/1 Georgia,serif;z-index:5}
+#invite-sound .sound-off-mark{display:none;position:absolute;font:28px/1 sans-serif;transform:rotate(15deg)}
+#invite-sound[aria-pressed=false] .sound-off-mark{display:block}
+#invite-dialog .invite-status{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+#invite-dialog .invitation-art-stage{position:relative;isolation:isolate;perspective:1700px;width:min(100%,calc((100vh - 204px) * .72265625));width:min(100%,calc((100svh - 204px - env(safe-area-inset-top) - env(safe-area-inset-bottom)) * .72265625));min-width:140px;aspect-ratio:1480/2048;height:auto;max-height:none;margin:0 auto;overflow:hidden;background:#fff;box-shadow:0 8px 30px #18375710}
+#invite-dialog .invitation-art-stage img{display:block;width:100%;height:100%;object-fit:contain;filter:none;max-width:100%}
+#invite-dialog .invitation-back-art{position:absolute;inset:0;opacity:1}
+#invite-dialog.reference-invitation[open] .book-cover{display:block;position:absolute;inset:0;background:#fff;transform-origin:0 50%;transform-style:preserve-3d;backface-visibility:hidden;visibility:hidden;opacity:0;transform:none;animation:none;will-change:auto;z-index:2;pointer-events:none}
+#invite-dialog .invitation-paper-shade{position:absolute;inset:0;pointer-events:none;opacity:0;z-index:1;background:linear-gradient(90deg,#18375724,transparent 45%)}
+#invite-dialog[data-invite-state=loading] .invitation-art-stage:after{content:'กำลังเตรียมการ์ด…';position:absolute;inset:0;display:grid;place-items:center;font:14px var(--font-body);color:var(--muted);background:#fff;z-index:3}
+#invite-dialog.reference-invitation[data-invite-state=opening] .book-cover{visibility:visible;opacity:1;animation:invitation-unfold var(--invitation-duration,2400ms) cubic-bezier(.38,.04,.18,1) both;will-change:transform}
+#invite-dialog[data-invite-state=opening] .invitation-back-art{animation:invitation-focus var(--invitation-duration,2400ms) ease both}
+#invite-dialog[data-invite-state=opening] .invitation-paper-shade{animation:invitation-shade var(--invitation-duration,2400ms) ease both}
+#invite-dialog.reference-invitation[data-invite-state=front] .book-cover{visibility:visible;opacity:1;transform:none}
+#invite-dialog[data-invite-state=front] .invitation-back-art{visibility:hidden}
+#invite-dialog .invitation-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+#invite-dialog .invitation-actions .button{display:flex;align-items:center;justify-content:center;width:100%;min-height:46px;margin:0;padding:9px 10px;font:500 14px/1.5 var(--font-body);white-space:normal;text-align:center}
+#invite-dialog .invitation-readable{margin-top:6px;text-align:left;border-top:1px solid var(--line)}
+#invite-dialog .invitation-readable summary{min-height:44px;padding:10px 4px;color:var(--accent);cursor:pointer;font:400 14px/1.7 var(--font-body)}
+#invite-dialog .invitation-readable-body{padding:8px 4px 12px;font:400 16px/1.8 var(--font-body);color:var(--ink)}
+#invite-dialog .invitation-readable-body>p{margin:0 0 16px}
+#invite-dialog .invitation-readable-body .invitation-message{font:400 16px/1.8 var(--font-body)}
+#invite-dialog .invitation-couple-th{font-weight:500}
+#invite-dialog .invitation-couple-en{font-family:var(--font-serif);font-size:24px}
+#invite-dialog .invitation-readable-body h3{font-size:16px;font-weight:500}
+#invite-dialog .invitation-dress ul{display:flex;flex-wrap:wrap;gap:10px 16px;list-style:none;padding:0;margin:8px 0 18px}
+#invite-dialog .invitation-dress li{display:flex;align-items:center;gap:7px;font-size:14px}
+#invite-dialog .invitation-dress i{width:16px;height:16px;border-radius:50%;background:var(--swatch);border:1px solid #102e591a;flex:none}
+#invite-dialog #invitation-schedule{list-style:none;padding:0;margin:8px 0}
+#invite-dialog #invitation-schedule li{display:grid;grid-template-columns:110px minmax(0,1fr);gap:10px;padding:9px 0;font:400 15px/1.7 var(--font-body);border-bottom:1px solid #e8eff7}
+#invite-dialog .invitation-schedule-time{font-weight:600;white-space:nowrap}
+@keyframes invitation-unfold{0%,12%{transform:rotateY(0deg);opacity:1}78%{opacity:1}100%{transform:rotateY(-110deg);opacity:0;visibility:hidden}}
+@keyframes invitation-focus{0%,16%{opacity:.75;filter:blur(1.6px)}70%,100%{opacity:1;filter:blur(0)}}
+@keyframes invitation-shade{0%,12%{opacity:0}35%{opacity:.9}100%{opacity:0}}
+@media(max-width:380px){#invite-dialog.reference-invitation{padding:8px}#invite-dialog .invite-toolbar h2{font-size:14px}#invite-dialog #invitation-schedule li{grid-template-columns:104px minmax(0,1fr);gap:6px}}
+@media(prefers-reduced-motion:reduce){#invite-dialog.reference-invitation[data-invite-state=opening] .book-cover{animation:none;display:none}#invite-dialog[data-invite-state=opening] .invitation-back-art,#invite-dialog[data-invite-state=opening] .invitation-paper-shade{animation:none;filter:none}}
+@media print{#invite-dialog.reference-invitation{display:none!important}}

@@ -35,9 +35,11 @@
   <link rel="stylesheet" href="css/dialogs.css">
   <link rel="stylesheet" href="css/rsvp.css">
   <link rel="stylesheet" href="css/landing-garden.css">
+  <link rel="stylesheet" href="css/invitation-card.css">
   <script src="js/config.js" defer></script>
   <script src="js/helpers.js" defer></script>
   <script src="js/dialogs.js" defer></script>
+  <script src="js/invitation-card.js" defer></script>
   <script src="js/rsvp.js" defer></script>
   <script src="js/app.js" defer></script>
   <script src="js/qr-share.js" defer></script>
@@ -273,10 +275,37 @@
     <footer class="site-footer"><div class="footer-mesh" aria-hidden="true"><i></i><i></i></div><p class="script-title footer-names"><span data-groom lang="en">Somchai</span> &amp; <span data-bride lang="en">Phantira</span></p><p>ขอบคุณที่เป็นส่วนหนึ่งในเรื่องราวของเรา</p><p class="footer-meta" data-province>จังหวัดหนองคาย</p><button class="button share-invitation-cta" id="share-button">แชร์คำเชิญ </button></footer>
   </main>
   </div>
-  <dialog id="invite-dialog" aria-labelledby="dialog-title">
-    <button class="dialog-close" id="close-dialog" aria-label="ปิดการ์ดเชิญ">×</button>
-    <div class="book-shell" data-dialog-scroll><div class="dialog-body paper-inside"><img class="dialog-logo" src="assets/images/sp-wedding-logo.png" width="1254" height="1254" alt="SP — Somchai &amp; Phantira"><p class="eyebrow" lang="en">WITH LOVE</p><h2 id="dialog-title" data-guest>ถึงคุณ คนสำคัญของเรา</h2><p class="invitation-message" id="invitation-message">ด้วยความยินดีของเราทั้งสองและครอบครัว<br>ขอเชิญคุณมาเป็นส่วนหนึ่งในวันสำคัญของเรา</p><p class="script-title dialog-names"><span data-groom lang="en">Somchai</span> &amp; <span data-bride lang="en">Phantira</span></p><p data-date-label>25 ตุลาคม 2569</p><p data-venue-address>ตำบลนางิ้ว อำเภอสังคม จังหวัดหนองคาย</p><section class="invitation-schedule" aria-labelledby="invitation-schedule-title"><h3 id="invitation-schedule-title">กำหนดการ</h3><ol id="invitation-schedule"><li><span class="invitation-schedule-time">06:00–06:30</span><span>ทำบุญเช้าเพื่อความเป็นสิริมงคล</span></li><li><span class="invitation-schedule-time">08:30–09:00</span><span>แห่ขันหมากรับตัวเจ้าสาว</span></li><li><span class="invitation-schedule-time">09:09–10:00</span><span>พิธีบายศรีสู่ขวัญคู่บ่าวสาว</span></li><li><span class="invitation-schedule-time">10:00–10:30</span><span>ผูกแขนและสมมาผู้ใหญ่</span></li><li><span class="invitation-schedule-time">10:30–11:00</span><span>ถ่ายภาพและรับคำอวยพร</span></li><li><span class="invitation-schedule-time">11:00–12:00</span><span>ร่วมรับประทานอาหารและส่งแขก</span></li></ol></section><a class="button" id="dialog-location" data-map-link href="https://maps.app.goo.gl/DUhbhavXCWh5exkH7" target="_blank" rel="noopener noreferrer">แผนที่สถานที่จัดงาน</a></div>
-      <div class="book-cover" aria-hidden="true"><div class="book-cover-front"><p>ด้วยรัก และคำเชิญจากเรา</p><img class="ps-cover-logo" src="assets/images/ps-invitation-white.webp" width="960" height="960" alt="" decoding="async"><p data-guest>ถึงคุณ คนสำคัญของเรา</p><span>วันสำคัญที่อยากมีคุณอยู่ด้วย</span></div></div>
+  <dialog id="invite-dialog" class="reference-invitation" aria-labelledby="dialog-title">
+    <div class="invitation-reader" data-dialog-scroll>
+      <header class="invite-toolbar">
+        <h2 id="dialog-title" data-guest>คำเชิญถึงคุณ คนสำคัญของเรา</h2>
+        <button id="invite-sound" type="button" aria-label="เสียงกระดาษ" aria-pressed="true" title="เปิดหรือปิดเสียงกระดาษ"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M3 9h4l5-4v14l-5-4H3Z M16 8c2 2 2 6 0 8 M19 5c4 4 4 10 0 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg><span class="sound-off-mark" aria-hidden="true">/</span></button>
+        <button class="dialog-close" id="close-dialog" type="button" aria-label="ปิดการ์ดเชิญ">×</button>
+      </header>
+      <p id="invite-status" class="invite-status" role="status" aria-live="polite"></p>
+      <div class="book-shell invitation-art-stage" id="invitation-art-stage" aria-busy="false">
+        <div class="invitation-back-art"><img id="invite-back-image" data-card-src="assets/invitation/card-back.webp" width="1480" height="2048" decoding="async" alt="ด้านในคำเชิญ มีชื่อครอบครัว บ่าวสาว สถานที่ Dress Code และกำหนดการ อ่านข้อความขนาดใหญ่ได้ด้านล่าง"></div>
+        <div class="invitation-paper-shade" aria-hidden="true"></div>
+        <div class="book-cover" aria-hidden="true"><img id="invite-front-image" data-card-src="assets/invitation/card-front.webp" width="1480" height="2048" decoding="async" alt="หน้าการ์ด PS Phantira และ Somchai วันที่ 25 ตุลาคม 2026 ล้อมด้วยนกและดอกไม้สีน้ำเงิน"></div>
+      </div>
+      <div class="invitation-actions">
+        <button type="button" class="button button-outline" id="invite-show-front" aria-pressed="false" aria-controls="invitation-art-stage" disabled>ดูด้านหน้า</button>
+        <a class="button" id="dialog-location" data-map-link href="https://maps.app.goo.gl/DUhbhavXCWh5exkH7" target="_blank" rel="noopener noreferrer">สถานที่จัดงาน</a>
+      </div>
+      <details class="invitation-readable" id="invitation-readable">
+        <summary>อ่านข้อความและกำหนดการ</summary>
+        <div class="invitation-readable-body">
+          <p class="invitation-hosts">นางสำเนียง นิลนามะ<br>นายเฉลิม สมผิว และ นางวันทอง สมผิว</p>
+          <p class="invitation-message" id="invitation-message">มีความยินดีขอเรียนเชิญท่านเพื่อเป็นเกียรติ และร่วมรับประทานอาหาร เนื่องในงานพิธีมงคลสมรส</p>
+          <p class="invitation-couple-th">นางสาวภัณฑิรา นิลนามะ<br>และ นายสมชาย สมผิว</p>
+          <p class="invitation-couple-en" lang="en">Phantira &amp; Somchai</p>
+          <p>วันอาทิตย์ที่ <span data-date-label>25 ตุลาคม 2569</span></p>
+          <p>281 บ้านเทพประทับ<br><span data-venue-address>ตำบลนางิ้ว อำเภอสังคม จังหวัดหนองคาย</span></p>
+          <div class="invitation-dress"><h3 lang="en">Dress Code</h3><ul id="invitation-dress-colors"></ul></div>
+          <section class="invitation-schedule" aria-labelledby="invitation-schedule-title"><h3 id="invitation-schedule-title">กำหนดการ</h3><ol id="invitation-schedule"></ol></section>
+          <p class="invitation-apology">ขออภัยหากมิได้มาเรียนเชิญด้วยตัวเอง</p>
+        </div>
+      </details>
     </div>
   </dialog>
   <dialog id="wish-photo-dialog" aria-labelledby="wish-photo-title"><div class="wish-photo-heading"><h2 id="wish-photo-title">การ์ดคำอวยพรของคุณ</h2><button type="button" id="close-wish-photo" aria-label="ปิดตัวอย่างการ์ด">×</button></div><img id="wish-photo-preview" alt="ภาพการ์ดคำอวยพรที่จัดทำจากข้อความหรือลายมือของคุณ"><div class="wish-photo-actions"><div class="wish-photo-buttonrow"><button type="button" class="button" id="share-wish-photo" hidden>แชร์ภาพการ์ด</button><a class="button button-outline" id="download-wish-photo" download="SP-Wedding-Wish.png">ดาวน์โหลด PNG</a></div><p class="subtle" id="wish-photo-share-status" aria-live="polite"></p><p class="subtle">PNG · 300 DPI — บันทึกหรือแชร์ภาพได้จากปุ่มด้านบน</p></div></dialog>

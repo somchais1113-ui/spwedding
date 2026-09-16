@@ -9,6 +9,14 @@ window.WEDDING_CONFIG = {
     pointer: false, // ทำงานกับเมาส์เท่านั้น ไม่จับการลากนิ้วบนมือถือ
     revealDuration: 1500 // milliseconds
   },
+  invitationCard: {
+    // Motion is restricted to the invitation; the landing/main-page design stays unchanged.
+    durationMs: 2400,
+    paperSound: true,
+    paperVolume: 0.10,
+    scheduleLabels: { '11:00–12:00': 'ร่วมรับประทานอาหาร' },
+    message: 'มีความยินดีขอเรียนเชิญท่านเพื่อเป็นเกียรติ\nและร่วมรับประทานอาหาร เนื่องในงานพิธีมงคลสมรสระหว่าง'
+  },
   couple: { groom: 'Somchai', bride: 'Phantira', monogram: 'SP' },
   invitation: 'ด้วยความยินดีของเราทั้งสองและครอบครัว\nขอเชิญคุณมาเป็นส่วนหนึ่งในวันสำคัญของเรา',
   date: {
