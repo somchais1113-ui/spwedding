@@ -45,6 +45,7 @@
   <script src="js/qr-share.js" defer></script>
   <script src="js/motion.js" defer></script>
   <script src="js/wish-export.js" defer></script>
+  <script src="js/wishes-delivery.js" defer></script>
   <script src="js/celebration.js" defer></script>
   <script src="js/landing-garden.js" defer></script>
   <script src="js/travel/locations.js" defer></script>
@@ -214,8 +215,8 @@
     <section class="wishes-section section-shell" id="wishes" aria-labelledby="wishes-title">
       <div class="wishes-heading"><p class="eyebrow" lang="en">WORDS WE WILL KEEP FOREVER</p><h2 class="script-title" id="wishes-title" lang="en">With love, from you</h2><p class="section-intro">ฝากคำอวยพรให้เราสองคน</p></div>
       <form id="wish-form" class="wish-form">
-        <label for="wish-name">ชื่อของคุณ <span class="subtle">(ไม่บังคับ)</span></label>
-        <input id="wish-name" name="name" maxlength="80" autocomplete="name" placeholder="จากใครเอ่ย…">
+        <label for="wish-name">ชื่อของคุณ <span class="subtle">(สำหรับบันทึกคำอวยพร)</span></label>
+        <input id="wish-name" name="name" required maxlength="80" autocomplete="name" placeholder="จากใครเอ่ย…">
         <div class="wish-tabs" role="tablist" aria-label="วิธีเขียนคำอวยพร">
           <button type="button" role="tab" id="tab-type" aria-controls="panel-type" aria-selected="true" tabindex="0" data-mode="type">พิมพ์คำอวยพร</button>
           <button type="button" role="tab" id="tab-draw" aria-controls="panel-draw" aria-selected="false" tabindex="-1" data-mode="draw">เขียนด้วยลายมือ</button>
@@ -284,9 +285,9 @@
       </header>
       <p id="invite-status" class="invite-status" role="status" aria-live="polite"></p>
       <div class="book-shell invitation-art-stage" id="invitation-art-stage" aria-busy="false">
-        <div class="invitation-back-art"><img id="invite-back-image" data-card-src="assets/invitation/card-back.webp" width="1480" height="2048" decoding="async" alt="ด้านในคำเชิญ มีชื่อครอบครัว บ่าวสาว สถานที่ Dress Code และกำหนดการ อ่านข้อความขนาดใหญ่ได้ด้านล่าง"></div>
+        <div class="invitation-back-art"><img id="invite-back-image" data-card-src="assets/invitation/card-back-v19.webp" width="1480" height="2048" decoding="async" alt="ด้านในคำเชิญ มีชื่อครอบครัว บ่าวสาว สถานที่ Dress Code และกำหนดการ อ่านข้อความขนาดใหญ่ได้ด้านล่าง"></div>
         <div class="invitation-paper-shade" aria-hidden="true"></div>
-        <div class="book-cover" aria-hidden="true"><img id="invite-front-image" data-card-src="assets/invitation/card-front.webp" width="1480" height="2048" decoding="async" alt="หน้าการ์ด PS Phantira และ Somchai วันที่ 25 ตุลาคม 2026 ล้อมด้วยนกและดอกไม้สีน้ำเงิน"></div>
+        <div class="book-cover" aria-hidden="true"><img id="invite-front-image" data-card-src="assets/invitation/card-front-v19.webp" width="1480" height="2048" decoding="async" alt="หน้าการ์ด PS Phantira และ Somchai วันที่ 25 ตุลาคม 2026 ล้อมด้วยนกและดอกไม้สีน้ำเงิน"></div>
       </div>
       <div class="invitation-actions">
         <button type="button" class="button button-outline" id="invite-show-front" aria-pressed="false" aria-controls="invitation-art-stage" disabled>ดูด้านหน้า</button>

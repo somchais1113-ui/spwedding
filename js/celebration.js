@@ -123,6 +123,7 @@
   $('wish-text').addEventListener('input',counter); $('wish-name').addEventListener('input',draft);
   window.addEventListener('pagehide',saveDraft);
   function validate() {
+    if (!$('wish-name').value.trim()) { $('wish-status').textContent='ใส่ชื่อผู้ส่งก่อนนะครับ เพื่อให้เรารู้ว่าคำอวยพรนี้มาจากใคร'; $('wish-name').focus(); return false; }
     if (mode==='type' ? !$('wish-text').value.trim() : !strokes.length) { $('wish-status').textContent=mode==='type'?'พิมพ์คำอวยพรสักนิดก่อนนะครับ':'เขียนคำอวยพรบนการ์ดก่อนนะครับ'; if(mode==='type') $('wish-text').focus(); return false; }
     return true;
   }
@@ -145,7 +146,7 @@
   let exporting=false, photoURL=null, photoFile=null, sharingPhoto=false;
   const photoShare=$('share-wish-photo'),photoShareStatus=$('wish-photo-share-status');
   exportButton.addEventListener('click',async()=>{
-    if(exporting||!validate())return;
+    if(exporting||sending||!validate())return;
     exporting=true;exportButton.disabled=true;exportButton.setAttribute('aria-busy','true');exportStatus.textContent='กำลังจัดคำอวยพรลงบนการ์ด…';
     const format=$('wish-export-format').value;
     // Snapshot the active handwriting before asynchronous image/font decoding.
@@ -177,7 +178,10 @@
   photoDialog.addEventListener('click',event=>{if(event.target!==photoDialog)return;const rect=photoDialog.getBoundingClientRect();if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)photoDialog.close();});
   window.addEventListener('pagehide',()=>{if(photoURL)URL.revokeObjectURL(photoURL);});
   const sendButton = $('save-wish'), sendLabel = $('send-wish-label');
-  let sending = false, lastSent = '';
+  let sending = false;
+  let pendingWish = null;
+  const deliveryKey = 'ps-wedding-wish-delivery-v20';
+  try { pendingWish = JSON.parse(localStorage.getItem(deliveryKey) || 'null'); } catch (_) {}
   function sendState(state, label) {
     sendButton.dataset.state = state;
     sendButton.setAttribute('aria-busy', String(state === 'sending'));
@@ -186,34 +190,55 @@
   $('wish-form').addEventListener('input', () => { if (!sending) sendState('idle', 'ส่งคำอวยพร'); });
   $('wish-form').addEventListener('submit', async event => {
     event.preventDefault(); if (sending || exporting || !validate()) return;
-    const payload = {name:$('wish-name').value.trim(), mode, text:mode==='type'?$('wish-text').value.trim():'', image:mode==='draw'?canvas.toDataURL('image/png'):''};
-    const body = JSON.stringify(payload);
-    if (body === lastSent) { $('wish-status').textContent = 'คำอวยพรนี้ส่งถึงบ่าวสาวแล้ว ขอบคุณมากนะ'; return; }
-    if (!/^https?:$/.test(location.protocol)) {
-      sendState('idle', 'ส่งคำอวยพร');
-      $('wish-status').textContent = 'หน้านี้เป็นไฟล์ตัวอย่าง ยังส่งคำอวยพรไม่ได้ กรุณาเปิดลิงก์เว็บไซต์งานแต่งเพื่อส่ง';
-      return;
+    if (!/^https?:$/.test(location.protocol) || !window.isSecureContext || !window.WeddingWishesDelivery) {
+      $('wish-status').textContent = 'กรุณาเปิดลิงก์เว็บไซต์งานแต่งผ่าน HTTPS เพื่อส่งคำอวยพร'; return;
     }
-    sending = true;
+    sending = true; saveDraft();
+    const name=$('wish-name').value.trim(), text=mode==='type'?$('wish-text').value.trim():'', format=$('wish-export-format').value;
+    const frozenStrokes=strokes.map(({width,points})=>({width,points:points.map(({x,y})=>({x,y}))}));
+    const snapshot=mode==='draw'?document.createElement('canvas'):null;
+    if(snapshot){snapshot.width=2400;snapshot.height=Math.round(2400*canvas.height/canvas.width);const ink=snapshot.getContext('2d');frozenStrokes.forEach(stroke=>paintStroke(ink,stroke,snapshot.width,snapshot.height));}
     const controls = [...$('wish-form').querySelectorAll('input,textarea,select,button')].map(element => ({element,disabled:element.disabled}));
-    controls.forEach(({element}) => {element.disabled = true;});
-    canvas.style.pointerEvents = 'none';
-    sendState('sending', 'กำลังส่งคำอวยพร…');
-    $('wish-status').textContent = 'กำลังส่งความรู้สึกดี ๆ ไปให้บ่าวสาว';
+    controls.forEach(({element}) => {element.disabled = true;}); canvas.style.pointerEvents = 'none';
+    sendState('sending','กำลังบันทึกคำอวยพร…');
+    const status=$('wish-status'), delivery=window.WeddingWishesDelivery;
+    let textSaved=false;
     try {
-      const response = await fetch('/api/wishes', {method:'POST',headers:{'Content-Type':'application/json'},body,signal:AbortSignal.timeout(15000)});
-      const result = await response.json();
-      if (!response.ok || result.saved !== true) throw new Error('send-failed');
-      lastSent = body;
-      sendState('success', 'ส่งคำอวยพรแล้ว');
-      $('wish-status').textContent = 'คำอวยพรถึงบ่าวสาวแล้ว ขอบคุณที่เติมความหมายให้วันของเรา';
-    } catch (_) {
-      sendState('error', 'ลองส่งคำอวยพรอีกครั้ง');
-      $('wish-status').textContent = 'ยังส่งไม่สำเร็จ ข้อความและลายมือยังอยู่ กรุณาลองอีกครั้งเมื่อเชื่อมต่อได้';
+      const fingerprint=await delivery.hash(JSON.stringify({name,text,mode,format,strokes:mode==='draw'?frozenStrokes:[]}));
+      if(!pendingWish || pendingWish.fingerprint!==fingerprint || !/^[a-f0-9-]{36}$/.test(pendingWish.id||'')) {
+        pendingWish={id:crypto.randomUUID(),fingerprint};
+        try {localStorage.setItem(deliveryKey,JSON.stringify(pendingWish));} catch (_) {}
+      }
+      status.textContent='กำลังบันทึกชื่อและคำอวยพรให้บ่าวสาว';
+      const start=await delivery.post({action:'begin',...pendingWish,name,text,mode,format});
+      textSaved=true;
+      const session={...pendingWish,token:start.token};
+      const progress=(kind,index,total)=>{
+        status.textContent='บันทึกข้อมูลแล้ว · กำลังส่ง'+(kind==='ink'?'ภาพลายมือ':'ภาพการ์ด')+' '+(index+1)+' / '+total+' กรุณาเปิดหน้านี้ไว้จนเสร็จ';
+      };
+      if(snapshot&&!start.ink){
+        const raw=await new Promise((resolve,reject)=>snapshot.toBlob(blob=>blob?resolve(blob):reject(new Error('export-failed')),'image/png'));
+        await delivery.upload(session,'ink',await window.WeddingWishExport.withDPI(raw,300),progress);
+      }
+      if(!start.card){
+        status.textContent='บันทึกข้อมูลแล้ว · กำลังจัดภาพการ์ดความละเอียดสูง';
+        const result=await window.WeddingWishExport.render({format,mode,text,name,drawing:snapshot});
+        await delivery.upload(session,'card',result.blob,progress);
+      }
+      const final=await delivery.post({...session,action:'status'});
+      if(!final.saved)throw new Error('incomplete');
+      sendState('success','ส่งคำอวยพรแล้ว');
+      status.textContent='บันทึกคำอวยพรและภาพให้บ่าวสาวครบแล้ว ขอบคุณที่เติมความหมายให้วันของเรา';
+    } catch(error) {
+      sendState('error','ลองส่งคำอวยพรอีกครั้ง');
+      if(error.message==='not_configured') status.textContent='ระบบรับคำอวยพรยังไม่ได้เปิดใช้งาน ข้อความและลายมือยังอยู่';
+      else if(error.message==='text-too-long') status.textContent='บันทึกข้อความแล้ว แต่ข้อความยาวเกินพื้นที่ภาพการ์ด กรุณาย่อข้อความก่อนส่งเป็นรายการใหม่';
+      else if(error.message==='image_size') status.textContent='บันทึกข้อมูลแล้ว แต่ภาพเกินขนาดที่รองรับ 12 MB กรุณาแจ้งบ่าวสาว ข้อความและลายมือยังอยู่';
+      else if(['limit','rate_limit'].includes(error.message)) status.textContent='มีการส่งคำอวยพรจำนวนมาก กรุณารอสักครู่แล้วลองอีกครั้ง ข้อความและลายมือยังอยู่';
+      else status.textContent=(textSaved?'บันทึกข้อมูลแล้ว แต่ยังยืนยันว่าภาพครบไม่ได้':'ยังยืนยันการบันทึกไม่ได้')+' กรุณากดส่งอีกครั้ง ระบบจะใช้รหัสรายการเดิม';
     } finally {
-      sending = false;
-      controls.forEach(({element,disabled}) => {element.disabled = disabled;});
-      canvas.style.pointerEvents = '';
+      if(snapshot)snapshot.width=snapshot.height=1;
+      sending=false;controls.forEach(({element,disabled})=>{element.disabled=disabled;});canvas.style.pointerEvents='';
     }
   });
 })();

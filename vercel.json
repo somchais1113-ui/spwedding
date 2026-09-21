@@ -5,6 +5,9 @@
   "functions": {
     "api/rsvp.js": {
       "maxDuration": 30
+    },
+    "api/wishes.js": {
+      "maxDuration": 60
     }
   },
   "rewrites": [
