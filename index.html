@@ -116,16 +116,19 @@
       <p class="sr-only" id="welcome-countdown-note">นับถอยหลังถึงเวลาเริ่มงาน · เวลาไทย</p>
       <div class="bird-assistant" id="bird-assistant">
         <button class="bird-trigger is-entering" type="button" id="bird-trigger" aria-label="ถามเบิร์ดนะ" aria-expanded="false" aria-controls="bird-bubble">
-          <img class="bird-img" src="assets/assistant/bird-peeking.png" width="1280" height="1280" alt="" decoding="async">
+          <span class="bird-img" aria-hidden="true">
+            <img class="bird-art" src="assets/assistant/bird-peeking.png" width="1280" height="1280" alt="" decoding="async">
+            <svg class="bird-eyelids" viewBox="0 0 1280 1280" focusable="false"><defs><linearGradient id="lid-blue" x2="1" y2="1"><stop stop-color="#79c5fb"/><stop offset="1" stop-color="#70baf5"/></linearGradient></defs><g fill="url(#lid-blue)"><ellipse cx="445" cy="714" rx="65" ry="85" transform="rotate(19 445 714)"/><ellipse cx="837" cy="830" rx="65" ry="84" transform="rotate(19 837 830)"/></g><g fill="none" stroke="#244a73" stroke-width="12" stroke-linecap="round"><path d="M407 710 Q444 749 483 724"/><path d="M801 827 Q839 866 876 840"/></g></svg>
+          </span>
           <span class="bird-greeting">ถามเบิร์ดนะ</span>
         </button>
         <section class="bird-bubble" id="bird-bubble" aria-labelledby="bird-heading" hidden>
           <div class="bird-panel-heading"><p id="bird-heading">มีอะไรให้ช่วยไหม?</p><button type="button" class="bird-close" aria-label="ปิดเมนูช่วยเหลือ">×</button></div>
           <div class="bird-actions">
-            <a data-assist-link="venue" href="https://maps.app.goo.gl/GmbjmEJ2sR3kry6RA" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">🧭</span> นำทางไปงาน <span aria-hidden="true">›</span></a>
-            <a data-assist-link="stay" href="https://maps.app.goo.gl/oUeK93FsyzDybe6X7" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">🏨</span> ห้องพัก <span aria-hidden="true">›</span></a>
-            <details class="bird-line"><summary><span aria-hidden="true">💬</span> ติดต่อผ่าน LINE</summary><a data-assist-link="bird" href="https://line.me/ti/p/s2AX8U__4j" target="_blank" rel="noopener noreferrer">👤 ติดต่อพี่เบิร์ด <span lang="en">LINE ›</span></a><a data-assist-link="cap" href="https://line.me/ti/p/s2AX8U__4j" target="_blank" rel="noopener noreferrer">👤 ติดต่อน้องแค้ป <span lang="en">LINE ›</span></a></details>
-            <button type="button" id="bird-schedule"><span aria-hidden="true">📅</span><span>กำหนดการ<small>25 ตุลาคม 2569</small></span><span aria-hidden="true">›</span></button>
+            <a data-assist-link="venue" href="https://maps.app.goo.gl/GmbjmEJ2sR3kry6RA" target="_blank" rel="noopener noreferrer"><img class="bird-action-icon" src="assets/assistant/compass.png" width="36" height="36" alt=""> นำทางไปงาน <span aria-hidden="true">›</span></a>
+            <a data-assist-link="stay" href="https://maps.app.goo.gl/PYRXakkQrMNoQcBu9?g_st=ic" target="_blank" rel="noopener noreferrer"><img class="bird-action-icon" src="assets/assistant/google-maps.png" width="36" height="36" alt=""> ห้องพัก <span aria-hidden="true">›</span></a>
+            <details class="bird-line"><summary><img class="bird-action-icon" src="assets/assistant/line.png" width="36" height="36" alt=""> ติดต่อผ่าน LINE</summary><a data-assist-link="bird" href="https://line.me/ti/p/s2AX8U__4j" target="_blank" rel="noopener noreferrer">👤 ติดต่อพี่เบิร์ด <span lang="en">LINE ›</span></a><a data-assist-link="cap" href="https://line.me/ti/p/8zgWeew9tP" target="_blank" rel="noopener noreferrer">👤 ติดต่อน้องแค้ป <span lang="en">LINE ›</span></a></details>
+            <button type="button" id="bird-schedule"><img class="bird-action-icon" src="assets/assistant/calendar-25.png" width="36" height="36" alt=""><span>กำหนดการ<small>25 ตุลาคม 2569</small></span><span aria-hidden="true">›</span></button>
           </div>
           <footer lang="en">Bird &amp; Cap Wedding</footer>
         </section>
@@ -133,6 +136,7 @@
       <button class="button rsvp-trigger welcome-primary-button" type="button" data-open-rsvp aria-haspopup="dialog" aria-controls="rsvp-dialog">ยืนยันการเข้าร่วมงาน</button>
       <button class="button enter-button welcome-main-button" id="enter-wedding" type="button">เข้าสู่รายละเอียดงาน</button>
       <div class="welcome-shortcuts"><button class="button welcome-secondary" type="button" data-open-invite>ดูการ์ดเชิญ</button><button class="button welcome-secondary welcome-wish-button" type="button" id="welcome-wishes">ส่งคำอวยพร</button></div>
+      <footer class="welcome-credit" lang="en"><span>Create By</span><span>P H A N T I R A .S O M C H A I</span></footer>
     </div>
   </section>
   <div id="wedding-page">

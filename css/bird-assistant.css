@@ -1,13 +1,13 @@
 /* Zero-height anchor restores the original countdown-to-CTA spacing. */
 #welcome .bird-assistant{position:relative;width:min(100%,420px);height:0;min-height:0;margin:0;padding:0;z-index:20;isolation:isolate;animation:none;pointer-events:none}
 .bird-trigger{position:absolute;right:-18px;bottom:-24px;width:72px;height:72px;pointer-events:auto;border:0;background:transparent;padding:0;cursor:pointer;color:#20427d;touch-action:manipulation}
-.bird-img{width:100%;height:auto;display:block;transform-origin:bottom center;animation:birdIdle 2.8s ease-in-out infinite}
+.bird-img{width:100%;height:auto;display:block;transform-origin:bottom center;animation:birdIdle 2.2s ease-in-out infinite}
 .bird-greeting{position:absolute;right:calc(100% + 2px);top:calc(100% - 24px);width:max-content;box-sizing:border-box;padding:3px 10px;background:#fff;border:1px solid #dfeaf6;border-radius:18px;box-shadow:0 4px 14px rgba(28,54,107,.10);color:#20427d;font:600 12px/1.5 Prompt,Tahoma,sans-serif;text-align:center;white-space:nowrap;transition:opacity 180ms ease,visibility 180ms ease}
 .bird-greeting::after{content:"";position:absolute;right:-5px;top:8px;width:8px;height:8px;background:#fff;border-right:1px solid #dfeaf6;border-top:1px solid #dfeaf6;transform:rotate(45deg)}
 /* The greeting begins below the countdown; a compact 32px gap contains it. */
 #welcome .welcome-primary-button{margin-top:32px}
 .bird-trigger[aria-expanded="true"] .bird-greeting{opacity:0;visibility:hidden;pointer-events:none}
-.bird-trigger.is-entering .bird-img{animation:birdPeekIn 550ms cubic-bezier(.2,.8,.2,1) both,birdIdle 2.8s ease-in-out 650ms infinite}
+.bird-trigger.is-entering .bird-img{animation:birdPeekIn 550ms cubic-bezier(.2,.8,.2,1) both,birdIdle 2.2s ease-in-out 650ms infinite}
 .bird-trigger.is-tapped .bird-img{animation:birdTap 220ms ease-out}
 .bird-bubble{position:absolute;right:0;bottom:62px;width:290px;max-width:calc(100vw - 64px);max-height:70svh;overflow:auto;background:#fff;color:#20427d;border-radius:18px;padding:14px;box-shadow:0 10px 24px rgba(28,54,107,.14);border:1px solid rgba(32,66,125,.08);opacity:0;transform:translateY(8px) scale(.96);pointer-events:none;transition:opacity 260ms ease,transform 260ms ease;text-align:left;overscroll-behavior:contain}
 .bird-bubble[hidden]{display:none}.bird-bubble.show{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
@@ -18,10 +18,17 @@
 .bird-actions a>span:last-child,.bird-actions>button>span:last-child{margin-left:auto}.bird-actions small{display:block;font-size:12px;color:#526885}.bird-line a{margin-top:6px;background:white;font-size:13px}.bird-line summary::after{content:'⌄';margin-left:auto}.bird-line[open] summary::after{content:'⌃'}.bird-line summary::-webkit-details-marker{display:none}
 .bird-bubble footer{margin-top:14px;text-align:center;font:500 12px/1.5 Prompt,Tahoma,sans-serif;color:#526885}
 .bird-assistant :is(button,a,summary):focus-visible{outline:3px solid #426da4;outline-offset:3px}.bird-actions a:hover,.bird-actions>button:hover{background:#eaf1fa}
-@keyframes birdIdle{0%,100%{transform:translateY(0) rotate(0) scale(1)}20%{transform:translateY(-2px) rotate(-1.5deg) scale(1.01)}50%{transform:translateY(-3px) rotate(0) scale(1.02)}75%{transform:translateY(-1px) rotate(1deg) scale(1.01)}}
+@keyframes birdIdle{0%,100%{transform:translateY(0) rotate(0)}18%{transform:translateY(-5px) rotate(-5deg)}36%{transform:translateY(-2px) rotate(4deg) scale(1.025)}55%{transform:translateY(-6px) rotate(-3deg)}75%{transform:translateY(-1px) rotate(3deg)}88%{transform:translateY(-3px) rotate(-1deg)}}
 @keyframes birdPeekIn{0%{transform:translateY(22px) scale(.96);opacity:0}60%{transform:translateY(-4px) scale(1.03);opacity:1}100%{transform:translateY(0) scale(1);opacity:1}}
 @keyframes birdTap{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.06) rotate(3deg)}}
 @media(max-width:600px){.bird-trigger{right:-18px;width:64px;height:64px;bottom:-24px}.bird-bubble{right:0}}
 @media(max-width:380px){.bird-trigger{right:-16px;width:54px;height:54px;bottom:-25px}.bird-greeting{top:calc(100% - 25px)}}
 @media(prefers-reduced-motion:reduce){.bird-assistant .bird-img{animation:none!important}.bird-bubble,.bird-greeting{transition:none}.bird-bubble{transform:none}}
 html.motion-paused .bird-img{animation-play-state:paused!important}
+
+.bird-img{position:relative}.bird-art{display:block;width:100%;height:auto}.bird-eyelids{position:absolute;inset:0;width:100%;height:100%;opacity:0;pointer-events:none}.is-blinking .bird-eyelids{animation:birdBlink 420ms linear both}
+@keyframes birdBlink{0%,15%,60%,100%{opacity:0}22%,48%{opacity:1}}
+.bird-actions .bird-action-icon{width:36px;height:36px;flex:0 0 36px;object-fit:contain}
+#welcome .welcome-credit{display:flex;flex-direction:column;gap:4px;margin:18px 0 0;padding:0 0 4px;color:#526885;text-align:center;font-family:Arial,sans-serif;font-weight:400;line-height:1.5}
+#welcome .welcome-credit span:first-child{font-size:10px}
+#welcome .welcome-credit span:last-child{font-size:11px;white-space:nowrap}
