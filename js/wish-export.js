@@ -41,14 +41,17 @@
     }
     throw new Error('text-too-long');
   }
+  let serverAdapter=null;
   const cache=new Map();
   function loadImage(src){
+    if(serverAdapter)return serverAdapter.loadImage(src);
     if(!cache.has(src))cache.set(src,new Promise((resolve,reject)=>{const image=new Image(),timer=setTimeout(()=>reject(new Error('template-unavailable')),20000);image.onload=()=>{clearTimeout(timer);resolve(image);};image.onerror=()=>{clearTimeout(timer);reject(new Error('template-unavailable'));};image.src=src;}).catch(error=>{cache.delete(src);throw error;}));
     return cache.get(src);
   }
   let fontReady=null,lastResult=null;
   function prepare(format='portrait'){
     const spec=formats[format]||formats.portrait;
+    if(serverAdapter)return Promise.all([loadImage(spec.template),serverAdapter.fonts()]).then(([template])=>template);
     if(!fontReady)fontReady=Promise.all([document.fonts.load('400 40px "NotoSansTC"'),document.fonts.load('400 32px Prompt')]).then(faces=>{
       if(!faces[0].length||!faces[1].length)throw new Error('font-unavailable');
     }).catch(error=>{fontReady=null;throw error;});
@@ -84,7 +87,7 @@
     const key=mode==='type'?JSON.stringify([format,text,name]):null;
     if(key&&lastResult?.key===key)return lastResult.result;
     const template=await prepare(format);
-    const canvas=document.createElement('canvas');canvas.width=spec.width;canvas.height=spec.height;
+    const canvas=serverAdapter?serverAdapter.createCanvas(spec.width,spec.height):document.createElement('canvas');canvas.width=spec.width;canvas.height=spec.height;
     const ctx=canvas.getContext('2d');if(!ctx)throw new Error('canvas-unavailable');
     try{
       // Logical layout coordinates retain the composition; text is rasterized at export resolution.
@@ -113,12 +116,12 @@
         ctx.font=`400 ${signature.size}px "NotoSansTC", Prompt, sans-serif`;ctx.fillStyle='#163e72';
         signature.lines.forEach((line,i)=>ctx.fillText(line,box.x,signatureY+34+i*signature.lineHeight));
       }
-      const raw=await new Promise((resolve,reject)=>canvas.toBlob(blob=>blob?resolve(blob):reject(new Error('export-failed')),'image/png'));
+      const raw=serverAdapter?await serverAdapter.encode(canvas):await new Promise((resolve,reject)=>canvas.toBlob(blob=>blob?resolve(blob):reject(new Error('export-failed')),'image/png'));
       const result={blob:await withDPI(raw,300),width:spec.width,height:spec.height,dpi:300};
       // Keep at most one completed typed card; never reuse a changed drawing.
       lastResult=key?{key,result}:null;
       return result;
     }finally{canvas.width=canvas.height=1;}
   }
-  const api={formats,wrapLines,fitText,withDPI,prepare,render};if(typeof module==='object'&&module.exports)module.exports=api;else root.WeddingWishExport=api;
+  const api={formats,wrapLines,fitText,withDPI,prepare,render};if(typeof module==='object'&&module.exports)module.exports={...api,configureServer(adapter){serverAdapter=adapter;lastResult=null;}};else root.WeddingWishExport=api;
 })(typeof window==='undefined'?globalThis:window);

@@ -1,0 +1,19 @@
+{
+  "name": "ps-wedding",
+  "version": "21.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node tools/build-web.cjs",
+    "test": "node tools/test-wishes.cjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "1.0.9",
+    "@vercel/analytics": "2.0.1"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  }
+}

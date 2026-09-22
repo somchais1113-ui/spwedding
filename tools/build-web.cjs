@@ -6,4 +6,6 @@ const source=fs.existsSync(path.join(root,'dist/index.html'))?path.join(root,'di
 const output=path.join(root,'public');
 fs.rmSync(output,{recursive:true,force:true});fs.mkdirSync(output,{recursive:true});
 for(const name of ['index.html','share.html','share','css','js','assets'])fs.cpSync(path.join(source,name),path.join(output,name),{recursive:true});
+require('esbuild').buildSync({entryPoints:[path.join(root,'src/analytics.js')],outfile:path.join(root,'js/analytics.js'),bundle:true,minify:true,platform:'browser',format:'iife'});
+fs.copyFileSync(path.join(root,'js/analytics.js'),path.join(output,'js/analytics.js'));
 console.log('Public wedding files prepared.');

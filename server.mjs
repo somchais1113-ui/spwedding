@@ -2,11 +2,12 @@
 import http from 'node:http';
 import rsvp from './lib/rsvp.cjs';
 import wishes from './lib/wishes.cjs';
+import wishRenderer from './lib/wish-render.cjs';
 import { readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 const here=path.dirname(fileURLToPath(import.meta.url));
-const defaultWeb=path.join(here,'dist');
+const defaultWeb=path.join(here,'public');
 const types={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.png':'image/png','.webp':'image/webp','.avif':'image/avif','.jpeg':'image/jpeg','.jpg':'image/jpeg','.woff2':'font/woff2','.ttf':'font/ttf','.otf':'font/otf','.txt':'text/plain; charset=utf-8'};
 export function createWeddingServer({webRoot=defaultWeb,dataDir=process.env.WISHES_DATA_DIR||path.join(here,'private-wishes')}={}) {
   return http.createServer(async(req,res)=>{
@@ -16,7 +17,8 @@ export function createWeddingServer({webRoot=defaultWeb,dataDir=process.env.WISH
     try {
       const url=new URL(req.url,'http://localhost');
       if(url.pathname==='/api/rsvp')return await rsvp.handler(req,res);
-      if(url.pathname==='/api/guestbook-status'&&req.method==='GET')return json(200,{service:'ps-wedding-wishes-v20'});
+      if(url.pathname==='/api/guestbook-status'&&req.method==='GET')return json(200,{service:'ps-wedding-wishes-v21'});
+      if(url.pathname==='/api/wish-render')return await wishRenderer.handler(req,res);
       if(url.pathname==='/api/wishes')return await wishes.handler(req,res);
       if(!['GET','HEAD'].includes(req.method))return json(405,{error:'method'});
       const pathname=decodeURIComponent(url.pathname);

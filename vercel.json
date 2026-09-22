@@ -8,6 +8,15 @@
     },
     "api/wishes.js": {
       "maxDuration": 60
+    },
+    "api/wish-render.js": {
+      "maxDuration": 300,
+      "includeFiles": [
+        "assets/templates/**",
+        "assets/fonts/**",
+        "js/wish-export.js",
+        "js/wish-source.js"
+      ]
     }
   },
   "rewrites": [

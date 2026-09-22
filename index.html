@@ -45,12 +45,16 @@
   <script src="js/qr-share.js" defer></script>
   <script src="js/motion.js" defer></script>
   <script src="js/wish-export.js" defer></script>
+  <script src="js/wish-source.js" defer></script>
   <script src="js/wishes-delivery.js" defer></script>
   <script src="js/celebration.js" defer></script>
   <script src="js/landing-garden.js" defer></script>
   <script src="js/travel/locations.js" defer></script>
   <script src="js/travel/travel-helpers.js" defer></script>
   <script src="js/travel/travel.js" defer></script>
+  <link rel="stylesheet" href="css/bird-assistant.css">
+  <script src="js/bird-assistant.js" defer></script>
+  <script src="js/analytics.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">ข้ามไปเนื้อหา</a>
@@ -110,6 +114,22 @@
         <div><span data-count="days">00</span><span>วัน</span></div><div><span data-count="hours">00</span><span>ชั่วโมง</span></div><div><span data-count="minutes">00</span><span>นาที</span></div><div><span data-count="seconds">00</span><span>วินาที</span></div>
       </div>
       <p class="sr-only" id="welcome-countdown-note">นับถอยหลังถึงเวลาเริ่มงาน · เวลาไทย</p>
+      <div class="bird-assistant" id="bird-assistant">
+        <button class="bird-trigger is-entering" type="button" id="bird-trigger" aria-label="ให้เราช่วยอะไรมั้ยครับ?" aria-expanded="false" aria-controls="bird-bubble">
+          <img class="bird-img" src="assets/assistant/bird-peeking.png" width="1280" height="1280" alt="" decoding="async">
+          <span class="bird-greeting">ให้เราช่วย<br>อะไรมั้ยครับ?</span>
+        </button>
+        <section class="bird-bubble" id="bird-bubble" aria-labelledby="bird-heading" hidden>
+          <div class="bird-panel-heading"><p id="bird-heading">มีอะไรให้ช่วยไหม?</p><button type="button" class="bird-close" aria-label="ปิดเมนูช่วยเหลือ">×</button></div>
+          <div class="bird-actions">
+            <a data-assist-link="venue" href="https://maps.app.goo.gl/GmbjmEJ2sR3kry6RA" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">🧭</span> นำทางไปงาน <span aria-hidden="true">›</span></a>
+            <a data-assist-link="stay" href="https://maps.app.goo.gl/oUeK93FsyzDybe6X7" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">🏨</span> ห้องพัก <span aria-hidden="true">›</span></a>
+            <details class="bird-line"><summary><span aria-hidden="true">💬</span> ติดต่อผ่าน LINE</summary><a data-assist-link="bird" href="https://line.me/ti/p/s2AX8U__4j" target="_blank" rel="noopener noreferrer">👤 ติดต่อพี่เบิร์ด <span lang="en">LINE ›</span></a><a data-assist-link="cap" href="https://line.me/ti/p/s2AX8U__4j" target="_blank" rel="noopener noreferrer">👤 ติดต่อน้องแค้ป <span lang="en">LINE ›</span></a></details>
+            <button type="button" id="bird-schedule"><span aria-hidden="true">📅</span><span>กำหนดการ<small>25 ตุลาคม 2569</small></span><span aria-hidden="true">›</span></button>
+          </div>
+          <footer lang="en">Bird &amp; Cap Wedding</footer>
+        </section>
+      </div>
       <button class="button rsvp-trigger welcome-primary-button" type="button" data-open-rsvp aria-haspopup="dialog" aria-controls="rsvp-dialog">ยืนยันการเข้าร่วมงาน</button>
       <button class="button enter-button welcome-main-button" id="enter-wedding" type="button">เข้าสู่รายละเอียดงาน</button>
       <div class="welcome-shortcuts"><button class="button welcome-secondary" type="button" data-open-invite>ดูการ์ดเชิญ</button><button class="button welcome-secondary welcome-wish-button" type="button" id="welcome-wishes">ส่งคำอวยพร</button></div>
