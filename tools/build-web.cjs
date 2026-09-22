@@ -2,6 +2,13 @@
 const fs=require('node:fs');
 const path=require('node:path');
 const root=path.resolve(__dirname,'..');
+// Catch the deployment-blocking type mismatch before publishing browser assets.
+const config=JSON.parse(fs.readFileSync(path.join(root,'vercel.json'),'utf8'));
+for(const [name,options] of Object.entries(config.functions||{})){
+  for(const key of ['includeFiles','excludeFiles']){
+    if(options[key]!==undefined&&typeof options[key]!=='string')throw new Error(`${name}.${key} must be one glob string (Vercel schema).`);
+  }
+}
 const source=fs.existsSync(path.join(root,'dist/index.html'))?path.join(root,'dist'):root;
 const output=path.join(root,'public');
 fs.rmSync(output,{recursive:true,force:true});fs.mkdirSync(output,{recursive:true});

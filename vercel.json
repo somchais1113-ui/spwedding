@@ -1,4 +1,5 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
   "buildCommand": "node tools/build-web.cjs",
   "outputDirectory": "public",
@@ -11,12 +12,7 @@
     },
     "api/wish-render.js": {
       "maxDuration": 300,
-      "includeFiles": [
-        "assets/templates/**",
-        "assets/fonts/**",
-        "js/wish-export.js",
-        "js/wish-source.js"
-      ]
+      "includeFiles": "{assets/templates/**,assets/fonts/**,js/wish-export.js,js/wish-source.js}"
     }
   },
   "rewrites": [

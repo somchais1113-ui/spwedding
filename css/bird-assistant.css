@@ -2,8 +2,10 @@
 #welcome .bird-assistant{position:relative;width:min(100%,420px);height:0;min-height:0;margin:0;padding:0;z-index:20;isolation:isolate;animation:none;pointer-events:none}
 .bird-trigger{position:absolute;right:-18px;bottom:-24px;width:72px;height:72px;pointer-events:auto;border:0;background:transparent;padding:0;cursor:pointer;color:#20427d;touch-action:manipulation}
 .bird-img{width:100%;height:auto;display:block;transform-origin:bottom center;animation:birdIdle 2.8s ease-in-out infinite}
-.bird-greeting{position:absolute;right:0;bottom:calc(100% + 8px);width:126px;box-sizing:border-box;padding:12px 14px;background:#fff;border:1px solid #dfeaf6;border-radius:24px;box-shadow:0 6px 20px rgba(28,54,107,.12);color:#20427d;font:600 13px/1.55 Prompt,Tahoma,sans-serif;text-align:left;white-space:nowrap;transition:opacity 180ms ease,visibility 180ms ease}
-.bird-greeting::after{content:"";position:absolute;right:21px;bottom:-7px;width:13px;height:13px;background:#fff;border-right:1px solid #dfeaf6;border-bottom:1px solid #dfeaf6;transform:rotate(45deg)}
+.bird-greeting{position:absolute;right:calc(100% + 2px);top:calc(100% - 24px);width:max-content;box-sizing:border-box;padding:3px 10px;background:#fff;border:1px solid #dfeaf6;border-radius:18px;box-shadow:0 4px 14px rgba(28,54,107,.10);color:#20427d;font:600 12px/1.5 Prompt,Tahoma,sans-serif;text-align:center;white-space:nowrap;transition:opacity 180ms ease,visibility 180ms ease}
+.bird-greeting::after{content:"";position:absolute;right:-5px;top:8px;width:8px;height:8px;background:#fff;border-right:1px solid #dfeaf6;border-top:1px solid #dfeaf6;transform:rotate(45deg)}
+/* The greeting begins below the countdown; a compact 32px gap contains it. */
+#welcome .welcome-primary-button{margin-top:32px}
 .bird-trigger[aria-expanded="true"] .bird-greeting{opacity:0;visibility:hidden;pointer-events:none}
 .bird-trigger.is-entering .bird-img{animation:birdPeekIn 550ms cubic-bezier(.2,.8,.2,1) both,birdIdle 2.8s ease-in-out 650ms infinite}
 .bird-trigger.is-tapped .bird-img{animation:birdTap 220ms ease-out}
@@ -19,7 +21,7 @@
 @keyframes birdIdle{0%,100%{transform:translateY(0) rotate(0) scale(1)}20%{transform:translateY(-2px) rotate(-1.5deg) scale(1.01)}50%{transform:translateY(-3px) rotate(0) scale(1.02)}75%{transform:translateY(-1px) rotate(1deg) scale(1.01)}}
 @keyframes birdPeekIn{0%{transform:translateY(22px) scale(.96);opacity:0}60%{transform:translateY(-4px) scale(1.03);opacity:1}100%{transform:translateY(0) scale(1);opacity:1}}
 @keyframes birdTap{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.06) rotate(3deg)}}
-@media(max-width:600px){.bird-trigger{right:-18px;width:64px;height:64px;bottom:-24px}.bird-greeting{right:0;width:118px;font-size:12px;padding:11px 12px}.bird-bubble{right:0}}
-@media(max-width:380px){.bird-trigger{right:-16px;width:54px;height:54px;bottom:-25px}.bird-greeting{width:112px;font-size:11px;bottom:calc(100% + 12px)}}
+@media(max-width:600px){.bird-trigger{right:-18px;width:64px;height:64px;bottom:-24px}.bird-bubble{right:0}}
+@media(max-width:380px){.bird-trigger{right:-16px;width:54px;height:54px;bottom:-25px}.bird-greeting{top:calc(100% - 25px)}}
 @media(prefers-reduced-motion:reduce){.bird-assistant .bird-img{animation:none!important}.bird-bubble,.bird-greeting{transition:none}.bird-bubble{transform:none}}
 html.motion-paused .bird-img{animation-play-state:paused!important}
