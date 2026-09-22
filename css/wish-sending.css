@@ -1,0 +1,20 @@
+#wish-sending-dialog{width:min(380px,calc(100vw - 40px));max-height:calc(100svh - 40px);overflow:auto;margin:auto;padding:30px 24px 24px;border:1px solid #d9e6f4;border-radius:26px;background:#fff;color:#183e6c;text-align:center;box-shadow:0 24px 90px #102e5933}
+#wish-sending-dialog::backdrop{background:rgba(13,30,52,.48);backdrop-filter:blur(3px)}
+#wish-sending-dialog h2{font:500 19px/1.65 Prompt,Tahoma,sans-serif;margin:8px 0}
+#wish-sending-dialog .wish-sending-note{font:400 13px/1.8 Prompt,Tahoma,sans-serif;color:#526885;margin:0 0 20px;overflow-wrap:anywhere}
+#wish-sending-dialog .wish-sending-dismiss{font:400 13px/1.5 Prompt,Tahoma,sans-serif;min-height:44px;background:#eef4fb;color:#244a73;border-color:#dbe7f3}
+.wish-send-scene{height:155px;display:grid;place-items:center;overflow:hidden}
+.wish-envelope{position:relative;width:136px;height:88px;margin-top:28px;animation:wish-envelope-bob 1.8s ease-in-out infinite}
+.wish-envelope-back{position:absolute;inset:0;background:#b6d4ef;border-radius:7px;z-index:0}
+.wish-letter{position:absolute;left:15px;top:-38px;width:106px;height:90px;border:1px solid #d5e2ef;border-radius:5px;background:repeating-linear-gradient(#fff 0 19px,#e8eff7 20px 21px);color:#315f92;font:32px/1.5 Georgia,serif;z-index:1;animation:wish-letter-fold 2.6s ease-in-out infinite;transform-origin:center bottom}
+.wish-envelope-front{position:absolute;inset:0;z-index:3;background:#deecfa;clip-path:polygon(0 0,50% 48%,100% 0,100% 100%,0 100%);border-radius:6px}
+.wish-envelope-flap{position:absolute;inset:0;z-index:2;background:#abcbe9;clip-path:polygon(0 0,100% 0,50% 58%);transform:rotateX(180deg);transform-origin:top;transition:transform 180ms ease}
+.wish-envelope-heart{position:absolute;z-index:4;left:0;right:0;top:37px;color:#315f92;font-size:22px}
+#wish-sending-dialog[data-state="success"] .wish-letter{animation:none;transform:translateY(30px) scaleY(.55)}
+#wish-sending-dialog[data-state="success"] .wish-envelope-flap{z-index:4;transform:rotateX(0)}
+#wish-sending-dialog[data-state="success"] .wish-envelope{animation:wish-envelope-fly 650ms 180ms ease-in both}
+#wish-sending-dialog[data-state="error"] .wish-envelope,#wish-sending-dialog[data-state="error"] .wish-letter{animation:none}
+@keyframes wish-envelope-bob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-6px) rotate(3deg)}}
+@keyframes wish-letter-fold{0%,100%{transform:translateY(-5px) rotate(-3deg)}40%,70%{transform:translateY(24px) scaleY(.65) rotate(0)}}
+@keyframes wish-envelope-fly{0%{transform:translate(0,0) rotate(0);opacity:1}35%{transform:translate(-12px,4px) rotate(-8deg);opacity:1}100%{transform:translate(260px,-100px) rotate(20deg);opacity:0}}
+@media(prefers-reduced-motion:reduce){#wish-sending-dialog *{animation:none!important;transition:none!important}}

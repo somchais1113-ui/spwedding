@@ -194,6 +194,7 @@
       $('wish-status').textContent = 'กรุณาเปิดลิงก์เว็บไซต์งานแต่งผ่าน HTTPS เพื่อส่งคำอวยพร'; return;
     }
     sending = true; saveDraft();
+    window.WeddingWishSending?.start(sendButton);
     const name=$('wish-name').value.trim(), text=mode==='type'?$('wish-text').value.trim():'', format=$('wish-export-format').value;
     const frozenStrokes=strokes.map(({width,points})=>({width,points:points.map(({x,y})=>({x,y}))}));
     const controls = [...$('wish-form').querySelectorAll('input,textarea,select,button')].map(element => ({element,disabled:element.disabled}));
@@ -213,6 +214,7 @@
       if(receipt.accepted!==true)throw new Error('queue_not_ready');
       status.dataset.elapsedMs=String(Math.round(performance.now()-started));
       sendState('success','ส่งคำอวยพรแล้ว');
+      window.WeddingWishSending?.success();
       status.textContent='ได้รับคำอวยพรแล้ว ขอบคุณที่เป็นส่วนหนึ่งในวันของเรา · ปิดหน้านี้ได้เลย เราจะจัดเก็บภาพต่อให้ครับ';
     } catch(error) {
       sendState('error','ลองส่งคำอวยพรอีกครั้ง');
@@ -221,6 +223,7 @@
       else if(error.message==='drawing_size') status.textContent='ลายมือมีรายละเอียดเกินขนาดที่ส่งได้ กรุณาลดบางส่วนแล้วลองอีกครั้ง';
       else if(['limit','rate_limit'].includes(error.message)) status.textContent='มีผู้ส่งคำอวยพรจำนวนมาก กรุณารอสักครู่แล้วลองอีกครั้ง';
       else status.textContent='ยังยืนยันการรับคำอวยพรไม่ได้ กรุณากดส่งอีกครั้ง ระบบจะใช้รหัสรายการเดิม';
+      window.WeddingWishSending?.error(status.textContent);
     } finally {
       sending=false;controls.forEach(({element,disabled})=>{element.disabled=disabled;});canvas.style.pointerEvents='';
     }
