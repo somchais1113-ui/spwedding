@@ -1,0 +1,57 @@
+/* v25: additive desktop presentation. No mobile DOM or shared rules change.
+   Both this stylesheet and every rule are gated at 1024 CSS pixels. */
+@media screen and (min-width:1024px){
+ #welcome{--desktop-width:1240px;grid-template-columns:1.15fr 1fr;gap:60px;padding:48px max(64px,calc((100vw - var(--desktop-width))/2)) 70px;background:#fff;min-height:100svh}
+ #welcome::after{content:"";position:absolute;pointer-events:none;left:max(64px,calc((100vw - var(--desktop-width))/2));top:50%;transform:translateY(-50%);width:calc((min(1240px,100vw - 128px) - 60px)*.535);aspect-ratio:1448/1086;background:url('../assets/images/hero-couple.jpeg') center/contain no-repeat;z-index:0;
+  /* White paper merges with the garden; feather only the outer margins. */
+  mix-blend-mode:multiply;
+  -webkit-mask-image:linear-gradient(to right,transparent 0%,#000 9%,#000 91%,transparent 100%),linear-gradient(to bottom,transparent 0%,#000 13%,#000 83%,transparent 100%);
+  -webkit-mask-composite:source-in;
+  mask-image:linear-gradient(to right,transparent 0%,#000 9%,#000 91%,transparent 100%),linear-gradient(to bottom,transparent 0%,#000 13%,#000 83%,transparent 100%);
+  mask-composite:intersect;
+ }
+ #welcome .welcome-content{grid-column:2;width:min(100%,420px);justify-self:center;position:static;z-index:1;padding:8px 0}
+ #welcome .welcome-eyebrow{font-size:11px;letter-spacing:.32em;margin:0 0 12px}
+ #welcome .welcome-logo{width:clamp(180px,24svh,240px);max-width:65%;margin:0 auto 16px}
+ #welcome .welcome-date{font-size:28px;line-height:1.5}
+ #welcome .welcome-time,#welcome .welcome-place{font-size:13px}
+ #welcome .welcome-countdown{width:100%;gap:22px;margin:20px 0 6px;padding-top:16px;border-top:1px solid #dce7f2}
+ #welcome .welcome-countdown>div{min-width:52px}
+ #welcome .welcome-countdown>div>span:first-child{font-size:36px}
+ #welcome .welcome-countdown>div>span:last-child{font-size:12px}
+ #welcome .welcome-primary-button{width:100%;min-height:50px;margin-top:32px;font-size:15px;box-shadow:0 7px 22px #12365e12}
+ #welcome .welcome-main-button{width:100%;min-height:46px;margin-top:10px;background:#fff;border:1px solid #b7cbe2;color:#183e6c;font-size:14px;box-shadow:none}
+ #welcome .welcome-main-button:hover{background:#edf4fb}
+ #welcome .welcome-shortcuts{gap:12px;margin-top:10px}
+ #welcome .welcome-shortcuts .welcome-secondary{min-height:44px;padding:9px 12px;font-size:13px;background:#f2f6fb;border-color:#e0e9f3}
+ #welcome .welcome-credit{position:absolute;left:0;right:0;bottom:22px;margin:0;padding:0;pointer-events:none}
+ #welcome .welcome-frame{inset:20px;border-color:#ceddea}
+ #welcome .welcome-frame::after{inset:7px;border-color:#eaf0f7}
+ #welcome .welcome-garden .garden-side{width:14vw;opacity:.26}
+ #welcome .welcome-garden .garden-lake{opacity:.08}
+ #welcome .bird-trigger{right:-20px;width:72px;height:72px}
+ #welcome .bird-bubble{width:320px;max-height:min(540px,75svh)}
+ .site-header{max-width:1200px;width:calc(100% - 128px)}
+ #home.hero{max-width:1240px;display:grid;grid-template-columns:1.15fr 1fr;gap:56px;align-items:center;min-height:650px;padding:64px 40px 72px}
+ #home .hero-art{width:100%;max-width:none;margin:0}
+ #home .hero-copy{padding:0}
+ #home h1{font-size:clamp(60px,5.2vw,78px);gap:0 12px}
+ #home .hero-details{gap:10px;font-size:14px}
+ #home .hero-actions{gap:10px}
+ #home .hero-actions .button{font-size:13px;padding-inline:20px}
+ .section-shell{width:calc(100% - 160px);max-width:1120px}
+ #our-day{grid-template-columns:.9fr 1.1fr;gap:90px;padding-block:90px}
+ #our-day .chair-art{max-width:400px;justify-self:center}
+ #our-day .timeline{max-width:500px}
+ .location-inner{gap:80px;grid-template-columns:1fr 1fr}
+ .location-section{padding-block:80px}
+ .venue-card{box-shadow:0 14px 46px #183e6c08}
+ .invitation-section{padding-block:80px}
+ .wishes-section{padding-block:80px}
+}
+@media screen and (min-width:1024px) and (max-height:760px){
+ #welcome{padding-top:36px;padding-bottom:66px}
+ #welcome .welcome-logo{width:168px;margin-bottom:10px}
+ #welcome .welcome-eyebrow{margin-bottom:8px}
+ #welcome .welcome-countdown{margin-top:12px;padding-top:10px}
+}
